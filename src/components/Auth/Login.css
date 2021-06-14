@@ -1,0 +1,19 @@
+
+
+.Logo {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} 
+
+.containerLogin {
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 55%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+} 
