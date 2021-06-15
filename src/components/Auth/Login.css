@@ -1,19 +1,24 @@
 
 
-.Logo {
+
+
+.LoginForm {
     display: flex;
+    flex-direction: column;
     justify-content: center;
     position: fixed;
-    top: 45%;
+    text-align: center;
+    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    
 } 
 
-.containerLogin {
-    display: flex;
-    justify-content: center;
-    position: fixed;
-    top: 55%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-} 
+#exampleEmail {
+    text-align: center;
+}
+
+#exampleUsername {
+    text-align: center;
+}
+

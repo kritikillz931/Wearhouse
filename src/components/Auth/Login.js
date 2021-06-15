@@ -1,11 +1,12 @@
 import React, { useRef } from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
-import { Button } from 'reactstrap';
 import backgroundImg from '../Images/SNEAKERS.jpg'
-import WEARHOUSELOGO from "../Images/WEARHOUSELOGO.png"
+import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+
 
 export const Login = props => {
+    const userName = useRef()
     const email = useRef()
     const existDialog = useRef()
     const history = useHistory()
@@ -23,27 +24,34 @@ export const Login = props => {
             .then(exists => {
                 if (exists) {
                     localStorage.setItem("wearhouse_user", exists.id)
-                    history.push("/")
+                    history.push("/home")
                 } else {
                     existDialog.current.showModal()
                 }
             })
-    }
-
-    // style for background image on login page
-    var sectionStyle = {
-        width: "100%",
-        height: "937px",
-        backgroundImage: `url(${backgroundImg})`
-    };
-
-    return (
-        <main>
-            
-            <section style={sectionStyle}>
-                ``
-            </section>
-        </main>
-    )
-}
-
+        }
+        var sectionStyle = {
+            width: "100%",
+            height: "937px",
+            backgroundImage: `url(${backgroundImg})`
+        };
+        return (
+            <section style={sectionStyle} className="loginContainer">
+                            <dialog className="dialog dialog--auth" ref={existDialog}>
+                <div>User does not exist</div>
+                <button className="button--close" onClick={e => existDialog.current.close()}>Close</button>
+            </dialog>
+            <Form className="LoginForm" onSubmit={handleLogin} inline>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Label className="text-white" for="exampleEmail" className="mr-sm-2"><p className="text-white">Email</p></Label>
+              <Input type="email" name="email" id="exampleEmail" placeholder="YourEmail@here.com" />
+            </FormGroup>
+            <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
+              <Label  for="examplePassword" className="mr-sm-2"><p className="text-white">Username</p></Label>
+              <Input type="text" name="password" id="exampleUsername" placeholder="Your Username" />
+            </FormGroup>
+            <Button color="info">Login</Button>
+          </Form>
+        </section>
+        );
+      }

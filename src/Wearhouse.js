@@ -14,11 +14,7 @@ import {Landing} from "./components/Auth/Landing"
 export const Wearhouse = () => {
 const history = useHistory()
   // style for background image on login page
-  var sectionStyle = {
-    width: "100%",
-    height: "937px",
-    backgroundImage: `url(${backgroundImg})`
-};
+
 return (
   <>
     <Route
@@ -26,7 +22,7 @@ return (
         if (localStorage.getItem("wearhouse_user")) {
           return (
             <>
-              <NavBar />
+              
               
               <ApplicationViews />
               <>
