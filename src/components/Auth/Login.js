@@ -1,4 +1,4 @@
-import React, { useRef } from "react"
+import React, { useEffect, useRef, useState } from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
 import backgroundImg from '../Images/SNEAKERS.jpg'
@@ -6,13 +6,18 @@ import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
 export const Login = props => {
-    const userName = useRef()
-    const email = useRef()
+    const [userName, setUsername] = useState('')
+    const [email, setEmail] = useState('')
     const existDialog = useRef()
     const history = useHistory()
 
+    useEffect(() => {
+        setUsername('')
+        setEmail('')
+    },[] )
+
     const existingUserCheck = () => {
-        return fetch(`http://localhost:8088/users?email=${email.current.value}`)
+        return fetch(`http://localhost:8088/users?email=${email}`)
             .then(res => res.json())
             .then(user => user.length ? user[0] : false)
     }
@@ -37,18 +42,19 @@ export const Login = props => {
         };
         return (
             <section style={sectionStyle} className="loginContainer">
-                            <dialog className="dialog dialog--auth" ref={existDialog}>
-                <div>User does not exist</div>
+                <dialog className="dialog dialog--password" ref={existDialog}>
+                <div>Incorrect Login Information</div>
                 <button className="button--close" onClick={e => existDialog.current.close()}>Close</button>
             </dialog>
+                            
             <Form className="LoginForm" onSubmit={handleLogin} inline>
             <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
               <Label className="text-white" for="exampleEmail" className="mr-sm-2"><p className="text-white">Email</p></Label>
-              <Input type="email" name="email" id="exampleEmail" placeholder="YourEmail@here.com" />
+              <Input type="email" name="email" id="exampleEmail" placeholder="YourEmail@here.com" onChange={e=> setEmail(e.target.value)} />
             </FormGroup>
             <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
               <Label  for="examplePassword" className="mr-sm-2"><p className="text-white">Username</p></Label>
-              <Input type="text" name="password" id="exampleUsername" placeholder="Your Username" />
+              <Input type="text" name="password" id="exampleUsername" placeholder="Your Username" onChange={e=> setUsername(e.target.value)} />
             </FormGroup>
             <Button color="info">Login</Button>
           </Form>
