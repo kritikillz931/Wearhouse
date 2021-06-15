@@ -1,18 +1,25 @@
-/* body {
-    background-image:url("https://i.pinimg.com/originals/0b/25/2c/0b252ce02adfb06744cc7747d10c3e67.jpg");
 
+
+
+
+.RegisterForm {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: fixed;
+    text-align: center;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
     
-    
+} 
+
+
+#exampleEmail {
+    text-align: center;
 }
 
+#exampleUsername {
+    text-align: center;
+}
 
-.registerHeader {
-
-    display: flex;
-    justify-content: center;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-        position: fixed;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-      } */
