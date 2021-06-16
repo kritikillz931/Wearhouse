@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import { Wearhouse } from './Wearhouse';
 
 
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>

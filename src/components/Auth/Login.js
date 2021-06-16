@@ -29,7 +29,7 @@ export const Login = props => {
             .then(exists => {
                 if (exists) {
                     localStorage.setItem("wearhouse_user", exists.id)
-                    history.push("/home")
+                    history.push("/Reminders")
                 } else {
                     existDialog.current.showModal()
                 }

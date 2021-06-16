@@ -1,18 +1,29 @@
 import React from "react"
 import { Route } from "react-router"
-import { SneakerProvider } from "./Sneakers/SneakerProvider";
+import { ReminderForm } from "./Homepage/ReminderForm"
+import { ReminderDetail } from "./Homepage/RemindersDetail"
+import { ReminderList } from "./Homepage/RemindersList"
+import { RemindersProvider } from "./Homepage/RemindersProvider"
+
 
 
 export const ApplicationViews = () => {
     return (
         <>
-        <SneakerProvider>
-            <Route exact path="/home">
-                <div className="headerText">
-                    <h2>hello</h2>
-                </div>
+        <RemindersProvider>
+            <Route path="/Reminders/:reminderId(\d+)">
+                <ReminderDetail/>
             </Route>
-        </SneakerProvider>
+            <Route  path="/Reminders">
+                <ReminderList />
+            </Route>
+            <Route  path="/Reminders/Details/Edit/:reminderId(\d+)">
+                <ReminderForm />
+            </Route>
+            <Route  path="/Reminders/Create">
+            <ReminderForm/>
+            </Route>
+        </RemindersProvider>
         </>
     )
 }
