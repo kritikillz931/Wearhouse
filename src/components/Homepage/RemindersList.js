@@ -7,16 +7,16 @@ import backgroundImg from '../Images/SNEAKERS.jpg'
 import "./ReminderList.css"
 
 export const ReminderList = () => {
-  const { reminders, getReminders, searchTerms, releaseReminders } = useContext(ReminderContext)
+  const { reminders, getReminders, searchTerms, releaseReminder } = useContext(ReminderContext)
 
   // Since you are no longer ALWAYS displaying all of the reminders
-  const [ filteredReminders, setFiltered ] = useState([])
-  const [ reminder, setReminder ] = useState('')
+  const [filteredReminders, setFiltered] = useState([])
+ 
   const history = useHistory()
 
   // Empty dependency array - useEffect only runs after first render
   useEffect(() => {
-      getReminders()
+    getReminders()
   }, [])
 
   // useEffect dependency array with dependencies - will run if dependency changes (state)
@@ -36,44 +36,45 @@ export const ReminderList = () => {
     width: "100%",
     height: "937px",
     backgroundImage: `url(${backgroundImg})`
-};
+  };
 
-const handleRelease = () => {
-  releaseReminders(reminder.id)
-  .then(() => {
-    history.push("/Reminders")
-  })
-}
-
-return (
-  <>
-  
-  <div style={sectionStyle}>
-    <section class="ReminderContainer">
-    <h1>Reminders</h1>
-
-    <div className="reminders">
-    {
-      filteredReminders.map(reminder => {
-        return (
-          <section className="reminderList">
-            <h3 className="reminder__message">{reminder.date} {reminder.message}</h3><Button onClick={() => {
-                history.push(`/Reminders/${reminder.id}`)}}>edit</Button><Button onClick={handleRelease}>Delete</Button>
-
-          </section>
-        )
+  const handleRelease = (reminderId) => {
+    releaseReminder(reminderId)
+      .then(() => {
+        history.push("/Reminders")
       })
-    }
-    <Button size="sm" style={{height: '30px', width : '125px'}} color="info" onClick={() => history.push("/Reminders/Create")}>
-        New Reminder
-    </Button>
-    
-    </div>
-    </section>
-    </div>
+  }
 
-  </>
-)
+  return (
+    <>
+
+      <div style={sectionStyle}>
+        <section class="ReminderContainer">
+
+          <div className="reminders"><Table dark><thead><tr><th>Date</th><th>Reminder</th><th>actions</th></tr></thead><tbody>
+            {
+              filteredReminders.map(reminder => {
+                return (
+                  <tr>
+                   <td>{reminder.date}</td><td>{reminder.message}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={() => {
+                      history.push(`/Reminders/${reminder.id}`)
+                    }}>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(reminder.id)}>Delete</Button></td>
+</tr>
+                  
+                )
+              })
+            }
+            </tbody></Table>
+            <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={() => history.push("/Reminders/Create")}>
+              New Reminder
+            </Button>
+
+          </div>
+        </section>
+      </div>
+
+    </>
+  )
 }
 
 

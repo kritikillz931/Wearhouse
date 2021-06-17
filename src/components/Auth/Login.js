@@ -5,6 +5,7 @@ import backgroundImg from '../Images/SNEAKERS.jpg'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
+
 export const Login = props => {
     const [userName, setUsername] = useState('')
     const [email, setEmail] = useState('')
@@ -35,12 +36,16 @@ export const Login = props => {
                 }
             })
         }
+        
         var sectionStyle = {
+            
             width: "100%",
             height: "937px",
+            
             backgroundImage: `url(${backgroundImg})`
-        };
+            };
         return (
+            <>
             <section style={sectionStyle} className="loginContainer">
                 <dialog className="dialog dialog--password" ref={existDialog}>
                 <div>Incorrect Login Information</div>
@@ -59,5 +64,6 @@ export const Login = props => {
             <Button color="info">Login</Button>
           </Form>
         </section>
+        </>
         );
       }

@@ -1,89 +1,3 @@
-// import React, { useRef } from "react"
-// import { useHistory } from "react-router-dom"
-// import "./Register.css"
-// import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-// import backgroundImg from '../Images/SNEAKERS.jpg'
-
-// export const Register = (props) => {
-//     const userName = useRef()
-
-//     const email = useRef()
-//     const conflictDialog = useRef()
-//     const history = useHistory()
-
-//     const existingUserCheck = () => {
-//         return fetch(`http://localhost:8088/users?email=${email.current.value}`)
-//             .then(res => res.json())
-//             .then(user => !!user.length)
-//     }
-
-//     const handleRegister = (e) => {
-//         e.preventDefault()
-
-
-//         existingUserCheck()
-//             .then((userExists) => {
-//                 if (!userExists) {
-//                     fetch("http://localhost:8088/users", {
-//                         method: "POST",
-//                         headers: {
-//                             "Content-Type": "application/json"
-//                         },
-//                         body: JSON.stringify({
-//                             email: email.current.value,
-//                             userName: userName.current.value
-//                         })
-//                     })
-//                         .then(res => res.json())
-//                         .then(createdUser => {
-//                             if (createdUser.hasOwnProperty("id")) {
-//                                 localStorage.setItem("wearhouse_user", createdUser.id)
-//                                 history.push("/")
-//                             }
-//                         })
-//                 }
-//                 else {
-//                     conflictDialog.current.showModal()
-//                 }
-//             })
-
-//     }
-//     var sectionStyle = {
-//         width: "100%",
-//         height: "937px",
-//         backgroundImage: `url(${backgroundImg})`
-//     };
-
-//     return (
-//         <main style={sectionStyle}>
-
-//             <dialog className="dialog dialog--password" ref={conflictDialog}>
-//                 <div>Account with that email address already exists</div>
-//                 <button className="button--close" onClick={e => conflictDialog.current.close()}>Close</button>
-//             </dialog>
-
-//             <Form className="RegisterForm" >
-//                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-//                     <Label className="text-white" for="exampleEmail" className="mr-sm-2"><p className="text-white">Email</p></Label>
-//                     <Input ref={email} type="email" name="email" id="exampleEmail" placeholder="YourEmail@here.com" />
-//                 </FormGroup>
-//                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-//                     <Label for="examplePassword" className="mr-sm-2"><p className="text-white">Username</p></Label>
-//                     <Input ref={userName} type="text" name="userName" id="exampleUsername" placeholder="Pick Something Cool" />
-//                 </FormGroup>
-//                 <Button 
-//                     type="submit" 
-//                     color="info"
-//                     onClick={(e) => handleRegister(e)}
-//                     >Register</Button>
-//             </Form>
-//         </main>
-//     )
-// }
-
-
-
-
 import React, { useEffect, useRef, useState } from "react"
 import { useHistory } from "react-router-dom"
 import "./Register.css"
@@ -108,8 +22,6 @@ export const Register = (props) => {
     }
 
     const handleRegister = (e) => {
-
-
         existingUserCheck()
             .then((userExists) => {
                 if (!userExists) {

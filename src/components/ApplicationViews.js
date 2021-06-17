@@ -14,14 +14,14 @@ export const ApplicationViews = () => {
             <Route path="/Reminders/:reminderId(\d+)">
                 <ReminderDetail/>
             </Route>
-            <Route  path="/Reminders">
+            <Route exact path="/Reminders">
                 <ReminderList />
             </Route>
             <Route  path="/Reminders/Details/Edit/:reminderId(\d+)">
                 <ReminderForm />
             </Route>
-            <Route  path="/Reminders/Create">
-            <ReminderForm/>
+            <Route exact path="/Reminders/Create">
+                <ReminderForm/>
             </Route>
         </RemindersProvider>
         </>

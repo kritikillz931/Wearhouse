@@ -28,9 +28,6 @@
     margin-bottom: 10px;
     overflow-y:auto;
     -webkit-overflow-scrolling: touch;
-    ;
-    
-
 }
 
 .RemindersText {
@@ -43,4 +40,14 @@
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
+}
+
+.text {
+    color: white;
+
+}
+
+Table {
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.39);
+    box-shadow: -10px 5px 15px rgba(0, 0, 0, 0.39)
 }
