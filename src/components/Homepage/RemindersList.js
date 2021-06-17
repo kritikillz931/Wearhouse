@@ -1,16 +1,18 @@
 import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
 import { ReminderDetail } from "./RemindersDetail"
-import { useHistory, Link } from "react-router-dom"
+import { useHistory, Link, useParams } from "react-router-dom"
 import { Table, thead, Button } from 'reactstrap';
 import backgroundImg from '../Images/SNEAKERS.jpg'
 import "./ReminderList.css"
 
 export const ReminderList = () => {
-  const { reminders, getReminders, searchTerms, releaseReminder } = useContext(ReminderContext)
+  const { reminders, getReminders, searchTerms, releaseReminder, updateReminder, getReminderById } = useContext(ReminderContext)
 
   // Since you are no longer ALWAYS displaying all of the reminders
   const [filteredReminders, setFiltered] = useState([])
+  const [reminder, setReminder ] = useState({})
+ 
  
   const history = useHistory()
 
@@ -45,6 +47,18 @@ export const ReminderList = () => {
       })
   }
 
+  const handleInputChange = (reminderId) => {
+    console.log(reminder)
+    updateReminder({
+      id: reminderId,
+      message: reminder.message,
+      date: new Date().toLocaleTimeString() + " " + new Date().toLocaleDateString()
+  })
+    .then(() => {
+      history.push(`/Reminders/Details/Edit/${reminderId}`)
+    })
+  }
+
   return (
     <>
 
@@ -56,8 +70,10 @@ export const ReminderList = () => {
               filteredReminders.map(reminder => {
                 return (
                   <tr>
-                   <td>{reminder.date}</td><td>{reminder.message}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={() => {
-                      history.push(`/Reminders/${reminder.id}`)
+                   <td>{reminder.date}</td><td>{reminder.message}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
+                     event.preventDefault()
+                     handleInputChange(reminder.id)
+                      history.push(`/Reminders/Details/Edit/${reminder.id}`)
                     }}>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(reminder.id)}>Delete</Button></td>
 </tr>
                   

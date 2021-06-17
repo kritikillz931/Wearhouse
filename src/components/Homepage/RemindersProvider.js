@@ -14,7 +14,7 @@ export const RemindersProvider = (props) => {
         .then(setReminders)
     }
 
-    const addReminders = reminder => {
+    const addReminder = reminder => {
         return fetch("http://localhost:8088/reminders", {
             method: "POST",
             headers: {
@@ -38,16 +38,17 @@ export const RemindersProvider = (props) => {
             .then(getReminders)
     }
 
-    const updateReminder = reminder => {
-        return fetch(`http://localhost:8088/reminders/${reminder.id}`, {
+    const updateReminder = reminderObj => {
+        return fetch(`http://localhost:8088/reminders/${reminderObj.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
           },
-          body: JSON.stringify(reminder)
+          body: JSON.stringify(reminderObj)
         })
           .then(getReminders)
       }
+      
 
     /*
         You return a context provider which has the
@@ -60,7 +61,7 @@ export const RemindersProvider = (props) => {
         value={{
             reminders, 
             getReminders, 
-            addReminders,
+            addReminder,
             releaseReminder,
             updateReminder,
             getReminderById,

@@ -47,14 +47,14 @@ export const ReminderForm = () => {
               message: reminder.message,
               date: new Date().toLocaleTimeString() + " " + new Date().toLocaleDateString()
           })
-          .then(() => history.push(`/Reminders/Details/Edit/${reminder.id}`))
+          .then(() => history.push(`/Reminders`))
         }else {
           //POST - add
           addReminder({
               date: reminderDate,
               message: reminderMessage
           })
-          .then(() => history.push("/reminders"))
+          .then(() => history.push("/Reminders"))
         }
       }
       
@@ -71,9 +71,12 @@ export const ReminderForm = () => {
           <Label htmlFor="reminderMessage">Reminder: </Label>
           <Input type="text" id="reminderMessage" name="name" required autoFocus className="form-control"
           placeholder="Type Reminder Here"
+          onKeyUp={(event) => {
+            setReminderMessage(event.target.value)
+          }}
           defaultValue={reminder.message}
-          onChange={e=> setReminderMessage(e.target.value)}/>
-          <Input id="reminderDate" name="date" required autofocus className="form-control"type="date" onChange={e=> setReminderDate(e.target.value)} />
+          />
+          <Input  id="reminderDate" name="date" required autoFocus className="form-control"type="date" onChange={e=> setReminderDate(e.target.value)} />
        
       </FormGroup>
 
