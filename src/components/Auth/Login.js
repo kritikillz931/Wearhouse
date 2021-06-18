@@ -1,8 +1,9 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
-import backgroundImg from '../Images/SNEAKERS.jpg'
+import backgroundImg from '../Images/SNEAKERSBLURRED.jpg'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+
 
 
 export const Login = props => {
@@ -29,18 +30,22 @@ export const Login = props => {
             .then(exists => {
                 if (exists) {
                     localStorage.setItem("wearhouse_user", exists.id)
-                    history.push("/home")
+                    history.push("/Reminders")
                 } else {
                     existDialog.current.showModal()
                 }
             })
         }
+        
         var sectionStyle = {
+            
             width: "100%",
             height: "937px",
+            
             backgroundImage: `url(${backgroundImg})`
-        };
+            };
         return (
+            <>
             <section style={sectionStyle} className="loginContainer">
                 <dialog className="dialog dialog--password" ref={existDialog}>
                 <div>Incorrect Login Information</div>
@@ -59,5 +64,6 @@ export const Login = props => {
             <Button color="info">Login</Button>
           </Form>
         </section>
+        </>
         );
       }

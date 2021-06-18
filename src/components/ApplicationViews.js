@@ -1,18 +1,54 @@
 import React from "react"
 import { Route } from "react-router"
-import { SneakerProvider } from "./Sneakers/SneakerProvider";
+import { ReminderForm } from "./Homepage/ReminderForm"
+import { ReminderDetail } from "./Homepage/RemindersDetail"
+import { ReminderList } from "./Homepage/RemindersList"
+import { RemindersProvider } from "./Homepage/RemindersProvider"
+import { InventoryList } from "./Inventory/InventoryList"
+import { InventoryDetail } from "./Inventory/InventoryDetail"
+import { InventoryForm } from "./Inventory/InventoryForm"
+import { InventoryProvider } from "./Inventory/InventoryProvider"
+
+
 
 
 export const ApplicationViews = () => {
     return (
         <>
-        <SneakerProvider>
-            <Route exact path="/home">
-                <div className="headerText">
-                    <h2>hello</h2>
-                </div>
+        <RemindersProvider>
+            <Route path="/Reminders/:reminderId(\d+)">
+                <ReminderDetail/>
             </Route>
-        </SneakerProvider>
+            <Route exact path="/Reminders">
+                <ReminderList />
+            </Route>
+            <Route  path="/Reminders/Details/:reminderId(\d+)">
+                <ReminderForm />
+            </Route>
+            <Route exact path="/Reminders/Create">
+                <ReminderForm/>
+            </Route>
+        </RemindersProvider>
+
+{/* ----------------------------------------------------------------------------- */}
+
+        <InventoryProvider>
+            <Route path="/Inventory/:inventoryId=(\d+)">
+            <InventoryDetail />
+            </Route>
+            <Route exact path="/Inventory">
+                <InventoryList />
+            </Route>
+            <Route path="/Inventory/Details/:inventoryId(\d+)">
+            </Route>
+            <Route exact path="/Inventory/Create">
+            <InventoryForm />
+            </Route>
+        </InventoryProvider>
+
+
+
+
         </>
     )
 }
