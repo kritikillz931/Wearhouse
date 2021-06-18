@@ -12,13 +12,26 @@ export const ReminderList = () => {
   // Since you are no longer ALWAYS displaying all of the reminders
   const [filteredReminders, setFiltered] = useState([])
   const [reminder, setReminder ] = useState({})
- 
+
+  const [currentUser, setCurrentUser] = useState({})
+
+  // get today's date
+  const todaysDate = new Date().toLocaleDateString()
  
   const history = useHistory()
+
+  // get current user info
+  const userId = localStorage.getItem("wearhouse_user")
+  const getCurrentUser = () => {
+    fetch(`http://localhost:8088/users/${userId}`)
+    .then(res => res.json())  
+    .then(setCurrentUser)
+}
 
   // Empty dependency array - useEffect only runs after first render
   useEffect(() => {
     getReminders()
+    getCurrentUser()
   }, [])
 
   // useEffect dependency array with dependencies - will run if dependency changes (state)
@@ -64,8 +77,8 @@ export const ReminderList = () => {
 
       <div style={sectionStyle}>
         <section className="ReminderContainer">
-          <div>Welcome Back, USERNAME</div>
-          <div>Today Is DATE HERE</div>
+          <div className="welcome">WELCOME BACK, {currentUser.userName}</div>
+          <div className="todayIs">TODAY IS {todaysDate}</div>
 
           <div className="reminders"><Table dark><thead><tr><th>Date</th><th>Reminder</th><th>actions</th></tr></thead><tbody>
             {

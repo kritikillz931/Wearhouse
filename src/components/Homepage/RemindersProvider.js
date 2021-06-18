@@ -7,9 +7,11 @@ export const ReminderContext = createContext()
 export const RemindersProvider = (props) => {
     const [reminders, setReminders,] = useState([])
     const [searchTerms, setSearchTerms ] = useState("")
+    // get userId for currently logged in user
+    const userId = localStorage.getItem("wearhouse_user")
 
     const getReminders = () => {
-        return fetch("http://localhost:8088/reminders")
+        return fetch(`http://localhost:8088/reminders?userId=${userId}`)
         .then(res => res.json())
         .then(setReminders)
     }

@@ -16,7 +16,7 @@ export const ReminderDetail = () => {
 
     //Finds the reminder id that is equal to the reminder id in useParams
     useEffect(() => {
-        const thisreminder = reminders.find(a => a.id === parseInt(reminderId)) || { location: {}, customer: {} }
+        const thisreminder = reminders.find(a => a.id === parseInt(reminderId))
     // sets the reminder state with current reminder
         setreminder(thisreminder)
         // dependency array, will render page each time reminder id changes

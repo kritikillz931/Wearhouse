@@ -7,11 +7,18 @@ export const InventoryContext = createContext()
 export const InventoryProvider = (props) => {
     const [inventoryList, setInventoryList,] = useState([])
     const [searchTerms, setSearchTerms ] = useState("")
+    // get userId for currently logged in user
+    const userId = localStorage.getItem("wearhouse_user")
 
+    // get inventory list for currently logged in user
     const getInventoryList = () => {
-        return fetch("http://localhost:8088/Inventory")
-        .then(res => res.json())
+        fetch(`http://localhost:8088/inventory?userId=${userId}`)
+        .then(res => res.json())  
         .then(setInventoryList)
+    }
+
+    const searchSneakerDatabase = (searchSku) => {
+        fetch(``)
     }
 
     const addInventory = inventory => {

@@ -8,32 +8,39 @@ import "./Inventory.css"
 
 
 export const InventoryList = () => {
-    const { inventoryList, getInventoryList, searchTerms, releaseInventory, updateInventory, getInventoryById } = useContext(InventoryContext)
+    const { inventoryList, getInventoryList,  releaseInventory, updateInventory, getInventoryById } = useContext(InventoryContext)
   
     // Since you are no longer ALWAYS displaying all of the inventoryList
     const [filteredInventoryList, setInventoryList] = useState([])
-    const [inventory, setInventory ] = useState({})
+    // const [inventory, setInventory ] = useState({})
    
    
     const history = useHistory()
   
     // Empty dependency array - useEffect only runs after first render
     useEffect(() => {
-      getInventoryList()
+        getInventoryList()
+        
+        // getInventoryDetails()
+        // console.log(filteredInventoryList)
     }, [])
+
+    useEffect(() => {
+        setInventoryList(inventoryList)
+    }, [inventoryList])
+
   
     // useEffect dependency array with dependencies - will run if dependency changes (state)
     // searchTerms will cause a change
-    useEffect(() => {
-      if (searchTerms !== "") {
-        // If the search field is not blank, display matching inventoryList
-        const subset = inventoryList.filter(inventory => inventory.message.toLowerCase().includes(searchTerms))
-        setInventoryList(subset)
-      } else {
-        // If the search field is blank, display all inventoryList
-        setInventoryList(inventoryList)
-      }
-    }, [searchTerms, inventoryList])
+    // useEffect(() => {
+    //   if (searchTerms !== "") {
+       
+    //     const subset = inventoryList.filter(inventory => inventory.message.toLowerCase().includes(searchTerms))
+    //     setInventoryList(subset)
+    //   } else {
+    //     setInventoryList(inventoryList)
+    //   }
+    // }, [searchTerms, inventoryList])
   
     var sectionStyle = {
       width: "100%",
@@ -48,17 +55,6 @@ export const InventoryList = () => {
         })
     }
   
-    const handleInputChange = (inventoryId) => {
-      console.log(inventory)
-      updateInventory({
-        id: inventoryId,
-        brand: inventory.brand,
-        date: new Date().toLocaleTimeString() + " " + new Date().toLocaleDateString()
-    })
-      .then(() => {
-        history.push(`/Inventory`)
-      })
-    }
   
     return (
       <>
@@ -68,6 +64,7 @@ export const InventoryList = () => {
             <div className="inventoryList"><Table dark><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size</th><th>Price</th><th>Market Value</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
               {
                 filteredInventoryList.map(inventory => {
+                    
                   return (
                     <tr key={inventory.id}>
                      <td><img className="silhouetteImg"src={inventory.silhouette}></img></td><td>{inventory.brand}</td><td>{inventory.name}</td><td>{inventory.size}</td><td>{inventory.price}</td><td>{inventory.marketValue}</td><td>{inventory.quantity}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {

@@ -1,0 +1,10 @@
+.navBar {
+    position: absolute;
+    top: 15%;
+    left: 10%;
+    transform: translate(-50%, -50%);
+    width: 100px;
+    max-height: 500px;
+    margin-bottom: 10px;
+
+}

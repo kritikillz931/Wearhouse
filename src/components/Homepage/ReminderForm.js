@@ -10,7 +10,7 @@ export const ReminderForm = () => {
     const [isLoading, setIsLoading] = useState(true);
     const {reminderId} = useParams();
 	  const history = useHistory();
-
+    const userId = parseInt(localStorage.getItem("wearhouse_user"))
 
     useEffect(() => {
      if(reminderId) {
@@ -36,14 +36,16 @@ export const ReminderForm = () => {
           updateReminder({
               id: reminder.id,
               message: reminder.message,
-              date: reminder.date
+              date: reminder.date,
+              userId: userId
           })
           .then(() => history.push(`/Reminders`))
         }else {
           //POST - add
           addReminder({
               date: reminder.date,
-              message: reminder.message
+              message: reminder.message,
+              userId: userId
           })
           .then(() => history.push("/Reminders"))
         }
