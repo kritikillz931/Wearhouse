@@ -22,7 +22,7 @@ return (
         if (localStorage.getItem("wearhouse_user")) {
           return (
             <>
-              
+              <NavBar />
               
               <ApplicationViews />
               <>

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react"
 import { useHistory } from "react-router-dom"
 import "./Register.css"
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
-import backgroundImg from '../Images/SNEAKERS.jpg'
+import backgroundImg from '../Images/SNEAKERSBLURRED.jpg'
 
 export const Register = (props) => {
     const [userName, setUsername] = useState('')

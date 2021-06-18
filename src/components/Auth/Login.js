@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
-import backgroundImg from '../Images/SNEAKERS.jpg'
+import backgroundImg from '../Images/SNEAKERSBLURRED.jpg'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 

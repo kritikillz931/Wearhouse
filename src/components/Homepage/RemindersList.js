@@ -3,7 +3,7 @@ import { ReminderContext } from "./RemindersProvider"
 import { ReminderDetail } from "./RemindersDetail"
 import { useHistory, Link, useParams } from "react-router-dom"
 import { Table, thead, Button } from 'reactstrap';
-import backgroundImg from '../Images/SNEAKERS.jpg'
+import backgroundImg from '../Images/SNEAKERSBLURRED.jpg'
 import "./ReminderList.css"
 
 export const ReminderList = () => {
@@ -64,6 +64,8 @@ export const ReminderList = () => {
 
       <div style={sectionStyle}>
         <section className="ReminderContainer">
+          <div>Welcome Back, USERNAME</div>
+          <div>Today Is DATE HERE</div>
 
           <div className="reminders"><Table dark><thead><tr><th>Date</th><th>Reminder</th><th>actions</th></tr></thead><tbody>
             {
