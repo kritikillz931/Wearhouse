@@ -17,7 +17,7 @@ export const ApplicationViews = () => {
             <Route exact path="/Reminders">
                 <ReminderList />
             </Route>
-            <Route  path="/Reminders/Details/Edit/:reminderId(\d+)">
+            <Route  path="/Reminders/Details/:reminderId(\d+)">
                 <ReminderForm />
             </Route>
             <Route exact path="/Reminders/Create">

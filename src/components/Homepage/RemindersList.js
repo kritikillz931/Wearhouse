@@ -55,7 +55,7 @@ export const ReminderList = () => {
       date: new Date().toLocaleTimeString() + " " + new Date().toLocaleDateString()
   })
     .then(() => {
-      history.push(`/Reminders/Details/Edit/${reminderId}`)
+      history.push(`/Reminders/`)
     })
   }
 
@@ -63,17 +63,16 @@ export const ReminderList = () => {
     <>
 
       <div style={sectionStyle}>
-        <section class="ReminderContainer">
+        <section className="ReminderContainer">
 
           <div className="reminders"><Table dark><thead><tr><th>Date</th><th>Reminder</th><th>actions</th></tr></thead><tbody>
             {
               filteredReminders.map(reminder => {
                 return (
-                  <tr>
+                  <tr key={reminder.id}>
                    <td>{reminder.date}</td><td>{reminder.message}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
                      event.preventDefault()
-                     handleInputChange(reminder.id)
-                      history.push(`/Reminders/Details/Edit/${reminder.id}`)
+                      history.push(`/Reminders/Details/${reminder.id}`)
                     }}>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(reminder.id)}>Delete</Button></td>
 </tr>
                   
