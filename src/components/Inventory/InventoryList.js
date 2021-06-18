@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from "react"
-import { InventoryContext } from "./RemindersProvider"
-import { ReminderDetail } from "./RemindersDetail"
+import { InventoryContext } from "./InventoryProvider"
 import { useHistory, Link, useParams } from "react-router-dom"
 import { Table, thead, Button } from 'reactstrap';
 import backgroundImg from '../Images/SNEAKERSBLURRED.jpg'
-import "./InventoryList.css"
+import "./Inventory.css"
+
 
 
 export const InventoryList = () => {
@@ -65,14 +65,14 @@ export const InventoryList = () => {
   
         <div style={sectionStyle}>
           <section className="InventoryContainer">
-            <div className="inventoryList"><Table dark><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size</th><th>Price</th><th>Market Value</th><th>Quantity</th></tr></thead><tbody>
+            <div className="inventoryList"><Table dark><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size</th><th>Price</th><th>Market Value</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
               {
                 filteredInventoryList.map(inventory => {
                   return (
                     <tr key={inventory.id}>
-                     <td>{inventory.date}</td><td>{inventory.message}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
+                     <td><img className="silhouetteImg"src={inventory.silhouette}></img></td><td>{inventory.brand}</td><td>{inventory.name}</td><td>{inventory.size}</td><td>{inventory.price}</td><td>{inventory.marketValue}</td><td>{inventory.quantity}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
                        event.preventDefault()
-                        history.push(`/Reminders/Details/${inventory.id}`)
+                        history.push(`/Inventory/Details/${inventory.id}`)
                       }}>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(inventory.id)}>Delete</Button></td>
   </tr>
                     
@@ -80,7 +80,7 @@ export const InventoryList = () => {
                 })
               }
               </tbody></Table>
-              <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={() => history.push("/Reminders/Create")}>
+              <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={() => history.push("/Inventory/Create")}>
                 Add New
               </Button>
   

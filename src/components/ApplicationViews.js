@@ -4,6 +4,11 @@ import { ReminderForm } from "./Homepage/ReminderForm"
 import { ReminderDetail } from "./Homepage/RemindersDetail"
 import { ReminderList } from "./Homepage/RemindersList"
 import { RemindersProvider } from "./Homepage/RemindersProvider"
+import { InventoryList } from "./Inventory/InventoryList"
+import { InventoryDetail } from "./Inventory/InventoryDetail"
+import { InventoryForm } from "./Inventory/InventoryForm"
+import { InventoryProvider } from "./Inventory/InventoryProvider"
+
 
 
 
@@ -24,6 +29,26 @@ export const ApplicationViews = () => {
                 <ReminderForm/>
             </Route>
         </RemindersProvider>
+
+{/* ----------------------------------------------------------------------------- */}
+
+        <InventoryProvider>
+            <Route path="/Inventory/:inventoryId=(\d+)">
+            <InventoryDetail />
+            </Route>
+            <Route exact path="/Inventory">
+                <InventoryList />
+            </Route>
+            <Route path="/Inventory/Details/:inventoryId(\d+)">
+            </Route>
+            <Route exact path="/Inventory/Create">
+            <InventoryForm />
+            </Route>
+        </InventoryProvider>
+
+
+
+
         </>
     )
 }
