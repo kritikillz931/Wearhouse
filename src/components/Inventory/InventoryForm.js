@@ -1,72 +1,47 @@
 import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
-import { useHistory, useParams } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import "./Inventory.css"
 
 export const InventoryForm = () => {
   //getting fetch calls from providers
-    const { addInventory, getInventoryById, updateInventory } = useContext(InventoryContext)
-    const [inventory, setInventory ] = useState({})
-    const [isLoading, setIsLoading] = useState(true);
-    const {inventoryId} = useParams();
-	  const history = useHistory();
-
+    const { inventoryList, searchSneakerDatabase } = useContext(InventoryContext)
+    const [searchResults, setSearchResults] = useState([])
+  const [searchTerms, setSearchTerms] = useState("")
 
     useEffect(() => {
-     if(inventoryId) {
-       console.log('theres an id.... ')
-       getInventoryById(inventoryId)
-       .then(inventory => {
-         setInventory(inventory)
-       })
-     }
-    }, [])
+     
+     console.log(inventoryList)
+// setSearchResults(inventoryList)
+// console.log(searchResults)
+    }, [inventoryList])
    
 
     const handleControlledInputChange = (event) => {
-      const newInventory = { ...inventory }
-      newInventory[event.target.name] = event.target.value
-      setInventory(newInventory)
+      setSearchTerms(event.target.value)
     }
 
-    const handleSaveInventory = () => {
-        if (inventoryId){
-          console.log("UPDATING!")
-          //PUT - update
-          updateInventory({
-              id: inventory.id,
-              size: inventory.size,
-              price: inventory.price,
-              quantity: inventory.quantity
-          })
-          .then(() => history.push(`/Inventory`))
-        }else {
-          //POST - add
-          addInventory({
-              date: inventory.date,
-              message: inventory.message
-          })
-          .then(() => history.push("/Inventory"))
-        }
+    const search = (words) => {
+      searchSneakerDatabase(words)
       }
       
     
 
       return (
         <>
-          <form classname="inventoryForm">
-            <h2 className="inventory__title">{inventoryId ? "Edit" : "New inventory"}</h2>
+          <form className="inventoryForm">
+            
             <fieldset>
-              <input type="text" id="inventory__quantity" name="message" placeholder="inventory quantity" onChange={handleControlledInputChange} defaultValue={inventory.quantity} />
-              <input type="date" id="inventory__size" name="date" placeholder="inventory size" onChange={handleControlledInputChange} defaultValue={inventory.size} />
+              <input type="text" id="inventory__quantity" name="message" placeholder="Search By Sku..." onChange={handleControlledInputChange} />
             </fieldset>
             <button className="btn btn-primary"
             onClick={event => {
               event.preventDefault()
-              handleSaveInventory()
-            }}>Save</button>
+              search(searchTerms)
+            }}>Search By Sku</button>
           </form>
-
+            <h3>{inventoryList.results?.map(singleResult => {
+              return `${singleResult.brand} ${singleResult.name}`
+            })}</h3>
         </>
 
       )
@@ -96,7 +71,7 @@ export const InventoryForm = () => {
   //     <Button className="btn btn-primary"
   //       onClick={event => {
   //         event.preventDefault() 
-  //         handleSaveInventory()
+  //         search()
   //       }}>
   //     {inventoryId ? <>Update</> : <>Save </>}</Button>
   //   </Form>

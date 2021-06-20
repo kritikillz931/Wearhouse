@@ -8,7 +8,7 @@ import "./Inventory.css"
 
 
 export const InventoryList = () => {
-    const { inventoryList, getInventoryList,  releaseInventory, updateInventory, getInventoryById } = useContext(InventoryContext)
+    const { inventoryList, getInventoryList,  releaseInventory, searchTerms, updateInventory, getInventoryById } = useContext(InventoryContext)
   
     // Since you are no longer ALWAYS displaying all of the inventoryList
     const [filteredInventoryList, setInventoryList] = useState([])
@@ -32,15 +32,15 @@ export const InventoryList = () => {
   
     // useEffect dependency array with dependencies - will run if dependency changes (state)
     // searchTerms will cause a change
-    // useEffect(() => {
-    //   if (searchTerms !== "") {
+    useEffect(() => {
+      if (searchTerms !== "") {
        
-    //     const subset = inventoryList.filter(inventory => inventory.message.toLowerCase().includes(searchTerms))
-    //     setInventoryList(subset)
-    //   } else {
-    //     setInventoryList(inventoryList)
-    //   }
-    // }, [searchTerms, inventoryList])
+        const subset = inventoryList.filter(inventory => inventory.sku.toLowerCase().includes(searchTerms))
+        setInventoryList(subset)
+      } else {
+        setInventoryList(inventoryList)
+      }
+    }, [searchTerms, inventoryList])
   
     var sectionStyle = {
       width: "100%",

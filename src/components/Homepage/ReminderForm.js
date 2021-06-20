@@ -1,13 +1,18 @@
 import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
 import { useHistory, useParams } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import backgroundImg from "../Images/SNEAKERSBLURRED.jpg"
+import "./ReminderList.css"
 
-export const ReminderForm = () => {
+export const ReminderForm = (props) => {
   //getting fetch calls from providers
     const { addReminder, getReminderById, updateReminder } = useContext(ReminderContext)
     const [reminder, setReminder ] = useState({})
     const [isLoading, setIsLoading] = useState(true);
+    const [modal, setModal] = useState(false);
+
+    const toggle = () => setModal(!modal);
     const {reminderId} = useParams();
 	  const history = useHistory();
     const userId = parseInt(localStorage.getItem("wearhouse_user"))
@@ -22,6 +27,10 @@ export const ReminderForm = () => {
      }
     }, [])
    
+    const {
+      buttonLabel,
+      className
+    } = props;
 
     const handleControlledInputChange = (event) => {
       const newReminder = { ...reminder }
@@ -51,22 +60,30 @@ export const ReminderForm = () => {
         }
       }
       
-    
+      var sectionStyle = {
+        width: "100%",
+        height: "937px",
+        backgroundImage: `url(${backgroundImg})`
+      };
 
       return (
         <>
-          <form classname="reminderForm">
+            <fieldset style={sectionStyle}>
+        <section className="reminderForm">
+          <form >
             <h2 className="reminderForm__title">{reminderId ? "Edit" : "New Reminder"}</h2>
-            <fieldset>
               <input type="text" id="reminder__message" name="message" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.message} />
+              <br></br>
               <input type="date" id="reminder__date" name="date" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.date} />
-            </fieldset>
-            <button className="btn btn-primary"
+            <br></br>
+            <Button color="info" className="btn btn-primary"
             onClick={event => {
               event.preventDefault()
               handleSaveReminder()
-            }}>Save</button>
+            }}>Save</Button>
           </form>
+          </section>
+            </fieldset>
 
         </>
 

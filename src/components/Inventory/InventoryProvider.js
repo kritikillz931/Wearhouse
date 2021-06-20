@@ -18,7 +18,16 @@ export const InventoryProvider = (props) => {
     }
 
     const searchSneakerDatabase = (searchSku) => {
-        fetch(``)
+        fetch(`https://the-sneaker-database.p.rapidapi.com/sneakers?limit=100&sku=${searchSku}`, {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "aee995da77mshe4417f3c39641d3p1149adjsnd7546f27c093",
+                "x-rapidapi-host": "the-sneaker-database.p.rapidapi.com"
+            }
+        })
+        .then(res => res.json())  
+        .then(setInventoryList)
+        .then(console.log(searchSku))
     }
 
     const addInventory = inventory => {
@@ -72,9 +81,13 @@ export const InventoryProvider = (props) => {
             updateInventory,
             getInventoryById,
             searchTerms,
-            setSearchTerms
+            setSearchTerms,
+            searchSneakerDatabase
         }}>
             {props.children}
         </InventoryContext.Provider>
     )
 }
+
+// login with github - a9a32167c0msh7952c8897bffb8ap1bf7c8jsnf709d439260f
+// sneakerapi@emberparr.com - aee995da77mshe4417f3c39641d3p1149adjsnd7546f27c093
