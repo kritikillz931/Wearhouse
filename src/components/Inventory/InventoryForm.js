@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
 import "./Inventory.css"
+import { InventorySearch} from "./InventorySearch"
 
 export const InventoryForm = () => {
   //getting fetch calls from providers
@@ -39,9 +40,11 @@ export const InventoryForm = () => {
               search(searchTerms)
             }}>Search By Sku</button>
           </form>
-            <h3>{inventoryList.results?.map(singleResult => {
-              return `${singleResult.brand} ${singleResult.name}`
-            })}</h3>
+            <div>{inventoryList.results?.map(singleResult => {
+              return <InventorySearch key={singleResult.id} searchResult={singleResult} />
+
+              
+            })}</div>
         </>
 
       )
