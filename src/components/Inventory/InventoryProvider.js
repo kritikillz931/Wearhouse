@@ -33,7 +33,7 @@ export const InventoryProvider = (props) => {
     }
 
 
-    const searchName = (searchName, searchBrand) => {
+    const searchName = (searchBrand, searchName) => {
         setSkuSearchResults([])
         fetch(`https://the-sneaker-database.p.rapidapi.com/sneakers?limit=10&brand=${searchBrand}&name=${searchName}`, {
             "method": "GET",
