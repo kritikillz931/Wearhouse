@@ -62,17 +62,9 @@ export const InventoryForm = () => {
             }}>Search By Sku</button>
 
 
-<fieldset>
-              <input type="text" id="inventory__quantity" name="message" placeholder="Search By Brand..." value={brandSearchTerms} onChange={handleBrandInputChange} />
-              <input type="text" id="inventory__quantity" name="message" placeholder="Search By Name..." value={nameSearchTerms} onChange={handleNameInputChange} />
-            </fieldset>
-            <button className="btn btn-primary"
-            onClick={event => {
-              event.preventDefault()
-              search("nameSearch")
-            }}>Search By Name</button>
 
-          </form>
+            
+          </form> 
             <div >{skuSearchResults.results?.map(singleResult => {
               return <InventorySearch key={singleResult.id} searchResult={singleResult} />
             })}</div>
