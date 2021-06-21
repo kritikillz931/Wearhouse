@@ -4,11 +4,12 @@ import { useHistory, Link, useParams } from "react-router-dom"
 import { Table, thead, Button } from 'reactstrap';
 import backgroundImg from '../Images/SNEAKERSBLURRED.jpg'
 import "./Inventory.css"
+import {TotalPricePaid} from "./InventoryTotalPrice"
 
 
 
 export const InventoryList = () => {
-    const { inventoryList, getInventoryList,  releaseInventory, searchTerms, updateInventory, getInventoryById } = useContext(InventoryContext)
+    const { inventory, inventoryList, getInventoryList,  releaseInventory, searchTerms, updateInventory, getInventoryById } = useContext(InventoryContext)
   
     // Since you are no longer ALWAYS displaying all of the inventoryList
     const [filteredInventoryList, setInventoryList] = useState([])
@@ -54,14 +55,14 @@ export const InventoryList = () => {
           history.push("/Inventory")
         })
     }
-  
+
   
     return (
       <>
   
         <div style={sectionStyle}>
           <section className="InventoryContainer">
-            <div className="inventoryList"><Table dark><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size</th><th>Price</th><th>Market Value</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
+            <div className="inventoryList"><Table dark><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size(per)</th><th>Price(per)</th><th>Market Value(per)</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
               {
                 filteredInventoryList.map(inventory => {
                     
@@ -73,13 +74,16 @@ export const InventoryList = () => {
                       }}>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(inventory.id)}>Delete</Button></td>
   </tr>
                     
-                  )
-                })
-              }
+                    )
+                  })
+                }
               </tbody></Table>
               <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={() => history.push("/Inventory/Create")}>
                 Add New
               </Button>
+              <div className="text-white">
+              <TotalPricePaid  inventoryList={inventoryList}/>
+              </div>
   
             </div>
           </section>

@@ -4,6 +4,7 @@ import {Button } from "reactstrap"
 import {InventoryContext} from "./InventoryProvider"
 
 
+
 export const InventorySearch = ({searchResult}) => {
   const {addInventory, updateInventory} = useContext(InventoryContext)
   
@@ -17,32 +18,24 @@ const userId = parseInt(localStorage.getItem("wearhouse_user"))
   console.log(searchResult)
 
     const handleSaveInventory = () => {
-        if (inventoryId){
-          //PUT - update
-          updateInventory({
-            userId: userId,
-            silhouette: searchResult.image.thumbnail,
-            brand: searchResult.brand,
-           name: searchResult.name,
-            marketValue: searchResult.estimatedMarketValue,
 
-          })
-          .then(() => history.push(`/Inventory`))
-        } else {
           //POST - add
           addInventory({
             userId: userId,
-            silhouette: searchResult.image.thumbnail,
+            silhouette: searchResult.image.small,
             brand: searchResult.brand,
            name: searchResult.name,
             marketValue: searchResult.estimatedMarketValue
           })
-          .then(() => history.push("/Inventory"))
-        }
+          .then((res) => history.push(`/Inventory/Details/${res.id}`))
+        
       }
+      
+
 
   return (
     <>
+    <section >
 <p>Name: {searchResult.name}<br/>
 Brand: {searchResult.brand}<br/>
 sku: {searchResult.sku}<br/>
@@ -56,6 +49,7 @@ Colorway: {searchResult.colorway}</p>
   
 }}>Save</Button>
     <hr/>  
+    </section>
     </>
   )
 }

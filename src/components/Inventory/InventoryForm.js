@@ -3,6 +3,7 @@ import { InventoryContext } from "./InventoryProvider"
 import "./Inventory.css"
 import { InventorySearch} from "./InventorySearch"
 
+
 export const InventoryForm = () => {
   //getting fetch calls from providers
     const { nameSearchResults, skuSearchResults, searchSku, searchName } = useContext(InventoryContext)
@@ -45,11 +46,12 @@ export const InventoryForm = () => {
       }
     }
 
-  
+
     
 
       return (
         <>
+        <section >
           <form className="inventoryForm">
             
             <fieldset>
@@ -79,7 +81,7 @@ export const InventoryForm = () => {
             <div >{nameSearchResults.results?.map(singleResult => {
               return <InventorySearch key={singleResult.id} searchResult={singleResult} />
             })}</div>
-            
+            </section>
         </>
 
       )

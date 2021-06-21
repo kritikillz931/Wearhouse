@@ -1,53 +1,77 @@
 import React, { useContext, useEffect, useState } from "react"
-import { InventoryContext } from "./InventoryProvider"
-import { useParams, useHistory } from "react-router-dom"
-
+import { useHistory, useParams, } from 'react-router-dom';
+import {Button } from "reactstrap"
+import {InventoryContext} from "./InventoryProvider"
 
 
 export const InventoryDetail = () => {
-    // references the fetch calls in InventoryProvider(inventory data)
-    const { inventoryList, releaseInventory } = useContext(InventoryContext)
-    // initializeS the inventory state
-    const [inventory, setInventory] = useState({})
+  const {addInventory, updateInventory, getInventoryById } = useContext(InventoryContext)
+  const [inventoryItem, setInventoryItem] = useState({})
+ 
+  //gets searchResult id from url route
+  const {inventoryId} = useParams();
 
-    //lets you access the parameters of the current route (inventoryId)
-    const { inventoryId } = useParams();
+  //gives ability to control navigation
+  const history = useHistory();
+  const userId = parseInt(localStorage.getItem("wearhouse_user"))
 
-    //Finds the inventory id that is equal to the inventory id in useParams
-    useEffect(() => {
-        const thisInventory = inventoryList.find(i => i.id === parseInt(inventoryId))
-    // sets the inventory state with current inventory
-        setInventory(thisInventory)
-        // dependency array, will render page each time inventory id changes
-    }, [inventoryId])
+  useEffect(() => {
+    getInventoryById(inventoryId)
+    .then(setInventoryItem)
+  }, [])
+  
+  const handleInputChange = (event) => {
+    const newInventory = { ...inventoryItem }
+    newInventory[event.target.name] = event.target.value
+    setInventoryItem(newInventory)
+    console.log(inventoryItem)
+  }
 
-    //variable stores the ability to manipulate the url 
-    const history = useHistory()
 
-    
-    const handleRelease = () => {
-    // release inventory functions takes argument of inventory id, deletes the inventory, then history.push navigates user back to inventoryList list
-        releaseInventory(inventory.id)
-            .then(() => {
-                history.push("/Inventory")
-            })
-    }
 
-    // returns jsx for inventory details
-    return (
+    const handleSaveInventory = () => {
+        let mktVal ;
+        if (inventoryItem.marketValue === 0 ) {
+            mktVal = "N/A"
+        } else {
+            mktVal = inventoryItem.marketValue
+        }
+        console.log(inventoryItem)
+        //PUT - update
+        updateInventory(
+            {
+            id: inventoryId,
+            userId: userId,
+            silhouette: inventoryItem.silhouette,
+            brand: inventoryItem.brand,
+            name: inventoryItem.name,
+            sku: inventoryItem.sku,
+            marketValue: mktVal,
+            size: inventoryItem.size,
+            quantity: inventoryItem.quantity,
+            price: inventoryItem.price
+        })
+        .then(() => history.push(`/Inventory`))
+        
+      }
 
-        <section className="inventory">
-            <h3 className="inventory__brand">{inventory.brand}</h3>
-            <div className="inventory__name">{inventory.name}</div>
-            <div className="inventory__size">{inventory.size}</div>
-            <div className="inventory__price">{inventory.price}</div>
-            <div className="inventory__marketValue">{inventory.marketValue}</div>
-            <div className="inventory__quantity">{inventory.quantity}</div>
-            <button onClick={handleRelease}>Release inventory</button>
-            <button onClick={() => {
-                history.push(`/inventoryList/details/edit/${inventory.id}`)
-            }}>Edit</button>
-        </section>
-    )
-
+  return (
+    <>
+    <h3>Update Details</h3>
+    <form className="inventoryForm">
+            
+            <fieldset>
+              <input type="text" id="inventory__quantity" name="quantity" placeholder="Add Quantity" defaultValue={inventoryItem.quantity} onChange={handleInputChange} />
+              <input type="text" id="inventory__size" name="size" placeholder="Add Size" defaultValue={inventoryItem.size} onChange={handleInputChange} />
+              <input type="text" id="inventory__pricePaid" name="price" placeholder="Add Price Paid" defaultValue={inventoryItem.price} onChange={handleInputChange} />
+            </fieldset>
+            <button className="btn btn-primary"
+            onClick={event => {
+              event.preventDefault()
+              handleSaveInventory()
+            }}>Save</button>
+       
+          </form> 
+    </>
+  )
 }
