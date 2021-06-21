@@ -5,26 +5,47 @@ import { InventorySearch} from "./InventorySearch"
 
 export const InventoryForm = () => {
   //getting fetch calls from providers
-    const { inventoryList, searchSneakerDatabase } = useContext(InventoryContext)
+    const { nameSearchResults, skuSearchResults, searchSku, searchName } = useContext(InventoryContext)
     const [searchResults, setSearchResults] = useState([])
-  const [searchTerms, setSearchTerms] = useState("")
+  const [skuSearchTerms, setSkuSearchTerms] = useState("")
+  const [brandSearchTerms, setBrandSearchTerms] = useState("")
+  const [nameSearchTerms, setNameSearchTerms] = useState("")
 
     useEffect(() => {
      
-     console.log(inventoryList)
-// setSearchResults(inventoryList)
-// console.log(searchResults)
-    }, [inventoryList])
+    setSearchResults([])
+    }, [skuSearchResults, nameSearchResults])
    
 
-    const handleControlledInputChange = (event) => {
-      setSearchTerms(event.target.value)
+    const handleSkuInputChange = (event) => {
+      setSkuSearchTerms(event.target.value)
+    }
+    const handleBrandInputChange = (event) => {
+      setBrandSearchTerms(event.target.value)
+    }
+    const handleNameInputChange = (event) => {
+      setNameSearchTerms(event.target.value)
     }
 
-    const search = (words) => {
-      searchSneakerDatabase(words)
+
+    const search = (typeOfSearch) => {
+      const tos = typeOfSearch 
+      if (tos === "skuSearch") {
+        setBrandSearchTerms("")
+        setNameSearchTerms("")
+        searchSku(skuSearchTerms)
+        setSkuSearchTerms("")
+      } else if (tos === "nameSearch") {
+        setSkuSearchTerms("")
+        searchName(brandSearchTerms, nameSearchTerms)
+        setBrandSearchTerms("")
+        setNameSearchTerms("")
+      } else {
+        console.log("error on inventory form page")
       }
-      
+    }
+
+  
     
 
       return (
@@ -32,19 +53,33 @@ export const InventoryForm = () => {
           <form className="inventoryForm">
             
             <fieldset>
-              <input type="text" id="inventory__quantity" name="message" placeholder="Search By Sku..." onChange={handleControlledInputChange} />
+              <input type="text" id="inventory__quantity" name="sku" placeholder="Search By Sku..." value={skuSearchTerms} onChange={handleSkuInputChange} />
             </fieldset>
             <button className="btn btn-primary"
             onClick={event => {
               event.preventDefault()
-              search(searchTerms)
+              search("skuSearch")
             }}>Search By Sku</button>
-          </form>
-            <div>{inventoryList.results?.map(singleResult => {
-              return <InventorySearch key={singleResult.id} searchResult={singleResult} />
 
-              
+
+<fieldset>
+              <input type="text" id="inventory__quantity" name="message" placeholder="Search By Brand..." value={brandSearchTerms} onChange={handleBrandInputChange} />
+              <input type="text" id="inventory__quantity" name="message" placeholder="Search By Name..." value={nameSearchTerms} onChange={handleNameInputChange} />
+            </fieldset>
+            <button className="btn btn-primary"
+            onClick={event => {
+              event.preventDefault()
+              search("nameSearch")
+            }}>Search By Name</button>
+
+          </form>
+            <div >{skuSearchResults.results?.map(singleResult => {
+              return <InventorySearch key={singleResult.id} searchResult={singleResult} />
             })}</div>
+            <div >{nameSearchResults.results?.map(singleResult => {
+              return <InventorySearch key={singleResult.id} searchResult={singleResult} />
+            })}</div>
+            
         </>
 
       )

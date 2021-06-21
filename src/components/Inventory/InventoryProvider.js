@@ -6,6 +6,8 @@ export const InventoryContext = createContext()
 // This component establishes what data can be used.
 export const InventoryProvider = (props) => {
     const [inventoryList, setInventoryList,] = useState([])
+    const [skuSearchResults, setSkuSearchResults] = useState([])
+    const [nameSearchResults, setNameSearchResults] = useState([])
     const [searchTerms, setSearchTerms ] = useState("")
     // get userId for currently logged in user
     const userId = localStorage.getItem("wearhouse_user")
@@ -17,7 +19,8 @@ export const InventoryProvider = (props) => {
         .then(setInventoryList)
     }
 
-    const searchSneakerDatabase = (searchSku) => {
+    const searchSku = (searchSku) => {
+        setNameSearchResults([])
         fetch(`https://the-sneaker-database.p.rapidapi.com/sneakers?limit=100&sku=${searchSku}`, {
             "method": "GET",
             "headers": {
@@ -26,9 +29,23 @@ export const InventoryProvider = (props) => {
             }
         })
         .then(res => res.json())  
-        .then(setInventoryList)
-        .then(console.log(searchSku))
+        .then(setSkuSearchResults)
     }
+
+
+    const searchName = (searchName, searchBrand) => {
+        setSkuSearchResults([])
+        fetch(`https://the-sneaker-database.p.rapidapi.com/sneakers?limit=10&brand=${searchBrand}&name=${searchName}`, {
+            "method": "GET",
+            "headers": {
+                "x-rapidapi-key": "aee995da77mshe4417f3c39641d3p1149adjsnd7546f27c093",
+                "x-rapidapi-host": "the-sneaker-database.p.rapidapi.com"
+            }
+        })
+        .then(res => res.json())  
+        .then(setNameSearchResults)
+    }
+
 
     const addInventory = inventory => {
         return fetch("http://localhost:8088/Inventory", {
@@ -82,7 +99,10 @@ export const InventoryProvider = (props) => {
             getInventoryById,
             searchTerms,
             setSearchTerms,
-            searchSneakerDatabase
+            searchSku,
+            skuSearchResults,
+            nameSearchResults,
+            searchName
         }}>
             {props.children}
         </InventoryContext.Provider>
