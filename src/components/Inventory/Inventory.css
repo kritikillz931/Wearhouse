@@ -1,7 +1,7 @@
-.silhouetteImg {
+/* .silhouetteImg {
     height: 75px;
     width: 100px
-}
+} */
 
 .InventoryContainer {
     display: flex;
@@ -16,6 +16,10 @@
     width: 1000px;
     max-height: 500px;
     margin-bottom: 10px;
-    overflow-y:auto;
-    -webkit-overflow-scrolling: touch;
+}
+
+.totalsContainer {
+font-size: 25px;
+font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+text-transform: uppercase;
 }

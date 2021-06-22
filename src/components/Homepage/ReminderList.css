@@ -38,10 +38,11 @@
     max-height: 500px;
     margin-bottom: 10px;
     overflow-y:auto;
-    -webkit-overflow-scrolling: touch;
+    -webkit-overflow-scrolling: auto;
     color: rgb(255, 255, 255);
     
 }
+
 
 .RemindersText {
     display: flex;
@@ -63,4 +64,19 @@
 Table {
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.39);
     box-shadow: -10px 5px 15px rgba(0, 0, 0, 0.39)
+}
+
+.reminderForm {
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: fixed;
+        text-align: center;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        color: white;
+        
+    
 }

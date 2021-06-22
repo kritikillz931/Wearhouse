@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
 import "./ReminderList.css"
 import { useParams, useHistory } from "react-router-dom"
+import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 
 
@@ -36,14 +37,14 @@ export const ReminderDetail = () => {
 
     // returns jsx for reminder details
     return (
-
+        <div classname="newReminderForm">
         <section className="reminder">
             <h3 className="reminder__message">{reminder.message}</h3>
-            <button onClick={() => {
+            <Button onClick={() => {
                 history.push(`/Reminders`)
-            }}>Save</button>
-
+            }}>Save</Button>
         </section>
+        </div>
     )
 
 }

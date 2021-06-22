@@ -3,7 +3,7 @@ import { ReminderContext } from "./RemindersProvider"
 import { ReminderDetail } from "./RemindersDetail"
 import { useHistory, Link, useParams } from "react-router-dom"
 import { Table, thead, Button } from 'reactstrap';
-import backgroundImg from '../Images/SNEAKERSBLURRED.jpg'
+import backgroundImg from '../Images/newbg.jpg'
 import "./ReminderList.css"
 
 export const ReminderList = () => {

@@ -33,22 +33,16 @@ export const ApplicationViews = () => {
 {/* ----------------------------------------------------------------------------- */}
 
         <InventoryProvider>
-            <Route path="/Inventory/:inventoryId=(\d+)">
-            <InventoryDetail />
+            <Route path="/Inventory/Details/:inventoryId(\d+)">
+                <InventoryDetail />
             </Route>
             <Route exact path="/Inventory">
                 <InventoryList />
             </Route>
-            <Route path="/Inventory/Details/:inventoryId(\d+)">
-            </Route>
             <Route exact path="/Inventory/Create">
-            <InventoryForm />
+                <InventoryForm />
             </Route>
         </InventoryProvider>
-
-
-
-
         </>
     )
 }

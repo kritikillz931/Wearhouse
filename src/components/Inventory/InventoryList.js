@@ -2,13 +2,16 @@ import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
 import { useHistory, Link, useParams } from "react-router-dom"
 import { Table, thead, Button } from 'reactstrap';
-import backgroundImg from '../Images/SNEAKERSBLURRED.jpg'
+import backgroundImg from '../Images/newbg.jpg'
 import "./Inventory.css"
+import {TotalPricePaid} from "./InventoryTotalPrice"
+import {TotalMarketPrice} from "./InventoryMarketPrice"
+import { TotalQuantityAmount } from "./InventoryQuantityAmount";
 
 
 
 export const InventoryList = () => {
-    const { inventoryList, getInventoryList,  releaseInventory, updateInventory, getInventoryById } = useContext(InventoryContext)
+    const { inventory, inventoryList, getInventoryList,  releaseInventory, searchTerms, updateInventory, getInventoryById } = useContext(InventoryContext)
   
     // Since you are no longer ALWAYS displaying all of the inventoryList
     const [filteredInventoryList, setInventoryList] = useState([])
@@ -32,15 +35,15 @@ export const InventoryList = () => {
   
     // useEffect dependency array with dependencies - will run if dependency changes (state)
     // searchTerms will cause a change
-    // useEffect(() => {
-    //   if (searchTerms !== "") {
+    useEffect(() => {
+      if (searchTerms !== "") {
        
-    //     const subset = inventoryList.filter(inventory => inventory.message.toLowerCase().includes(searchTerms))
-    //     setInventoryList(subset)
-    //   } else {
-    //     setInventoryList(inventoryList)
-    //   }
-    // }, [searchTerms, inventoryList])
+        const subset = inventoryList.filter(inventory => inventory.sku.toLowerCase().includes(searchTerms))
+        setInventoryList(subset)
+      } else {
+        setInventoryList(inventoryList)
+      }
+    }, [searchTerms, inventoryList])
   
     var sectionStyle = {
       width: "100%",
@@ -54,33 +57,45 @@ export const InventoryList = () => {
           history.push("/Inventory")
         })
     }
-  
+
   
     return (
       <>
   
         <div style={sectionStyle}>
           <section className="InventoryContainer">
-            <div className="inventoryList"><Table dark><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size</th><th>Price</th><th>Market Value</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
+            <div className="inventoryList"><Table dark><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size(per)</th><th>Price(per)</th><th>Market Value(per)</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
               {
                 filteredInventoryList.map(inventory => {
                     
                   return (
                     <tr key={inventory.id}>
-                     <td><img className="silhouetteImg"src={inventory.silhouette}></img></td><td>{inventory.brand}</td><td>{inventory.name}</td><td>{inventory.size}</td><td>{inventory.price}</td><td>{inventory.marketValue}</td><td>{inventory.quantity}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
+                     <td><img style={{height: '100px', width: '100px'}}className="silhouetteImg"src={inventory.silhouette}></img></td><td className="prodInfo">{inventory.brand}</td><td className="prodInfo">{inventory.name}</td><td className="prodInfo">{inventory.size}</td><td className="prodInfo">{inventory.price}</td><td className="prodInfo">{inventory.marketValue}</td><td className="prodInfo">{inventory.quantity}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
                        event.preventDefault()
                         history.push(`/Inventory/Details/${inventory.id}`)
                       }}>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(inventory.id)}>Delete</Button></td>
   </tr>
                     
-                  )
-                })
-              }
+                    )
+                  })
+                }
               </tbody></Table>
+              <div className="totalsContainer">
+              <div className="text-white">
+                <div className="totalPrice">
+              <TotalPricePaid  inventoryList={inventoryList}/>
+                </div>
+                <div className="totalMarket">
+              <TotalMarketPrice inventoryList={inventoryList}/>
+                </div>
+                <div className="totalQuantity">
+              <TotalQuantityAmount inventoryList={inventoryList}/>
+                </div>
+              </div>
               <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={() => history.push("/Inventory/Create")}>
                 Add New
               </Button>
-  
+              </div>
             </div>
           </section>
         </div>
