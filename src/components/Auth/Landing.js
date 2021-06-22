@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState, useRef } from "react"
 import { Button } from 'reactstrap'
 import { useHistory } from "react-router-dom"
 import WEARHOUSELOGO from "../Images/WEARHOUSELOGO.png"
-import backgroundImg from "../Images/SNEAKERS.jpg"
+import backgroundImg from "../Images/newbg.jpg"
 import "../Auth/Landing.css"
 
 export const Landing = () => {

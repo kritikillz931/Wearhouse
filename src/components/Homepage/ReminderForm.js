@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
 import { useHistory, useParams } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
-import backgroundImg from "../Images/SNEAKERSBLURRED.jpg"
+import backgroundImg from "../Images/newbg.jpg"
 import "./ReminderList.css"
 
 export const ReminderForm = (props) => {

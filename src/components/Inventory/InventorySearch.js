@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { useHistory, useParams, } from 'react-router-dom';
 import {Button } from "reactstrap"
 import {InventoryContext} from "./InventoryProvider"
+import "./Inventory.css"
 
 
 

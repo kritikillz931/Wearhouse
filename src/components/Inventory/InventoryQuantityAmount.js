@@ -5,8 +5,8 @@ import {InventoryContext} from "./InventoryProvider"
 
 
 
-export const TotalPricePaid = () => {
-    const [price, setPrice] = useState(0)
+export const TotalQuantityAmount = () => {
+    const [quantity, setQuantity] = useState(0)
     const {getInventoryList, inventoryList} = useContext(InventoryContext)
     useEffect(() => {
         getInventoryList()
@@ -14,17 +14,16 @@ export const TotalPricePaid = () => {
     useEffect(() => {
         let total = 0
         inventoryList.forEach(inventory => {
-            const product = parseInt(inventory.quantity) * parseInt(inventory.price)
+            const product = parseInt(inventory.quantity)
             total += product 
         })
-        setPrice(total)
+        setQuantity(total)
     }, [inventoryList])
 
     return (
         <>
-        Total Price Spent: ${price}
+        Total Quantity: {quantity}
         </>
     )
 }
-
 
