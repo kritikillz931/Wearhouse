@@ -1,5 +1,5 @@
 import React from "react";
-import { Route,  useHistory } from "react-router-dom";
+import { Route,  useHistory, Redirect } from "react-router-dom";
 import { ApplicationViews } from "./components/ApplicationViews";
 import { NavBar } from "./components/NavBar/NavBar";
 import { Login } from "./components/Auth/Login";
@@ -12,8 +12,8 @@ import {Landing} from "./components/Auth/Landing"
 
 
 export const Wearhouse = () => {
-const history = useHistory()
-  // style for background image on login page
+
+
 
 return (
   <>
@@ -29,6 +29,8 @@ return (
     </>
             </>
           );
+        } else {
+          return <Redirect to="/Login" />;
         }
       }}
     />

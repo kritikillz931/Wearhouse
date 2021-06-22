@@ -37,12 +37,16 @@
     width: 700px;
     max-height: 500px;
     margin-bottom: 10px;
-    overflow-y:auto;
-    -webkit-overflow-scrolling: auto;
+
     color: rgb(255, 255, 255);
     
 }
 
+.reminders {
+    overflow-y:auto;
+    -webkit-overflow-scrolling: auto;
+    margin-bottom: 15px;
+}
 
 .RemindersText {
     display: flex;

@@ -40,7 +40,7 @@ export const ReminderDetail = () => {
         <div classname="newReminderForm">
         <section className="reminder">
             <h3 className="reminder__message">{reminder.message}</h3>
-            <Button onClick={() => {
+            <Button color="info" onClick={() => {
                 history.push(`/Reminders`)
             }}>Save</Button>
         </section>

@@ -2,13 +2,19 @@ import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
 import { ReminderDetail } from "./RemindersDetail"
 import { useHistory, Link, useParams } from "react-router-dom"
-import { Table, thead, Button } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
 import backgroundImg from '../Images/newbg.jpg'
 import "./ReminderList.css"
+import {ReminderForm} from "../Homepage/ReminderForm"
 
-export const ReminderList = () => {
-  const { reminders, getReminders, searchTerms, releaseReminder, updateReminder, getReminderById } = useContext(ReminderContext)
-
+export const ReminderList = (props) => {
+  const { reminderList, reminders, getReminders, searchTerms, releaseReminder, updateReminder, getReminderById } = useContext(ReminderContext)
+  const {
+    newReminder,
+    className
+  } = props;
+  const [modal, setModal] = useState(false);
+  const toggle = () => setModal(!modal);
   // Since you are no longer ALWAYS displaying all of the reminders
   const [filteredReminders, setFiltered] = useState([])
   const [reminder, setReminder ] = useState({})
@@ -74,7 +80,7 @@ export const ReminderList = () => {
 
   return (
     <>
-
+      
       <div style={sectionStyle}>
         <section className="ReminderContainer">
           <div className="welcome">WELCOME BACK, {currentUser.userName}</div>
@@ -95,13 +101,26 @@ export const ReminderList = () => {
               })
             }
             </tbody></Table>
-            <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={() => history.push("/Reminders/Create")}>
+            </div>
+              <div>
+            <Button  className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle} onClickl={() => history.push("/Reminders/Create")}>
               New Reminder
             </Button>
 
           </div>
         </section>
       </div>
+
+            <Modal isOpen={modal} toggle={toggle} className={className}>
+
+            <ModalBody>
+            <ReminderForm onClick={toggle} reminderList={reminderList}/>
+            </ModalBody>
+            <ModalFooter>
+              <Button color="info" onClick={toggle}>Cancel</Button>{''}
+            </ModalFooter>
+            </Modal>
+            
 
     </>
   )
