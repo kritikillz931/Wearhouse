@@ -6,7 +6,7 @@ export const NavBar = (props) => {
   const [collapsed, setCollapsed] = useState(true);
 
   const toggleNavbar = () => setCollapsed(!collapsed);
-
+  
   return (
     <div>
       <Navbar  className="navBar" color="transparent" dark>
@@ -20,6 +20,7 @@ export const NavBar = (props) => {
             <NavItem>
               <NavLink className="text-white" href="/Inventory">Inventory</NavLink>
             </NavItem>
+            
           </Nav>
         </Collapse>
       </Navbar>

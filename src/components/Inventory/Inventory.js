@@ -1,7 +1,6 @@
 
 
 
-// function stores the inventory name and breed
 
 export const Inventory = ({inventoryProp}) => (
     <section className="inventory">

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
 import { useHistory, useParams } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import "./ReminderList.css"
 
 export const ReminderForm = () => {
   //getting fetch calls from providers
@@ -56,11 +57,11 @@ export const ReminderForm = () => {
       
       return (
         <>
-          <form classname="reminderForm">
+          <Form classname="reminderForm">
             <h2 className="reminderForm__title">{reminderId ? "Edit" : "New Reminder"}</h2>
-            <fieldset>
-              <input type="text" id="reminder__message" name="message" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.message} />
-              <input type="date" id="reminder__date" name="date" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.date} />
+            <fieldset className="modalReminder">
+              <Input size="lg" type="textarea" id="reminder__message" name="message" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.message} />
+              <Input type="date" id="reminder__date" name="date" onChange={handleControlledInputChange} defaultValue={reminder.date} />
             </fieldset><br />
             <Button color="info" className="btn btn-primary"
             onClick={event => {
@@ -69,8 +70,8 @@ export const ReminderForm = () => {
               window.location.reload()
               
             }}
-            >Save</Button>
-          </form>
+            >SAVE</Button>
+          </Form>
           
         </>
 

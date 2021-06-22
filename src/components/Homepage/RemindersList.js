@@ -8,7 +8,7 @@ import "./ReminderList.css"
 import {ReminderForm} from "../Homepage/ReminderForm"
 
 export const ReminderList = (props) => {
-  const { reminderList, reminders, getReminders, searchTerms, releaseReminder, updateReminder, getReminderById } = useContext(ReminderContext)
+  const { reminderDetail, reminderList, reminders, getReminders, searchTerms, releaseReminder, updateReminder, getReminderById } = useContext(ReminderContext)
   const {
     newReminder,
     className
@@ -41,17 +41,12 @@ export const ReminderList = (props) => {
   }, [])
 
   // useEffect dependency array with dependencies - will run if dependency changes (state)
-  // searchTerms will cause a change
+ 
   useEffect(() => {
-    if (searchTerms !== "") {
-      // If the search field is not blank, display matching reminders
-      const subset = reminders.filter(reminder => reminder.message.toLowerCase().includes(searchTerms))
-      setFiltered(subset)
-    } else {
-      // If the search field is blank, display all reminders
+    //set filtered is called when reminders data is updated or changed giving filtered items a value of reminders
       setFiltered(reminders)
-    }
-  }, [searchTerms, reminders])
+    
+  }, [reminders])
 
   var sectionStyle = {
     width: "100%",
@@ -94,7 +89,11 @@ export const ReminderList = (props) => {
                    <td>{reminder.date}</td><td>{reminder.message}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
                      event.preventDefault()
                       history.push(`/Reminders/Details/${reminder.id}`)
-                    }}>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(reminder.id)}>Delete</Button></td>
+                    }} onClick={toggle}>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(reminder.id)}>Delete</Button></td>
+
+
+
+
 </tr>
                   
                 )
@@ -102,6 +101,13 @@ export const ReminderList = (props) => {
             }
             </tbody></Table>
             </div>
+
+            <Modal isOpen={modal} toggle={toggle} className={className}>
+            <ModalBody>
+            <ReminderForm onClick={toggle} reminderList={reminderList}/>
+            </ModalBody>
+            </Modal>
+
               <div>
             <Button  className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle} onClickl={() => history.push("/Reminders/Create")}>
               New Reminder

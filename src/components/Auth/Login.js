@@ -61,7 +61,7 @@ export const Login = props => {
               <Label  for="examplePassword" className="mr-sm-2"><p className="text-white">Username</p></Label>
               <Input type="text" name="password" id="exampleUsername" placeholder="Your Username" onChange={e=> setUsername(e.target.value)} />
             </FormGroup>
-            <Button color="info">Login</Button>
+            <Button type="submit" color="info">Login</Button>
           </Form>
         </section>
         </>

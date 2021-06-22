@@ -9,6 +9,7 @@ import "./components/Auth/Login.css"
 import { Button } from 'reactstrap';
 import backgroundImg from "./components/Images/SNEAKERS.jpg"
 import {Landing} from "./components/Auth/Landing"
+import {ReminderList} from "./components/Homepage/RemindersList"
 
 
 export const Wearhouse = () => {
@@ -30,14 +31,14 @@ return (
             </>
           );
         } else {
-          return <Redirect to="/Login" />;
+          return <Redirect to="/home" />;
         }
       }}
     />
 
-    <Route exact path="/">
+     <Route exact path="/home">
       <Landing />
-    </Route>
+    </Route> 
     <Route path="/Login">
       <Login />
     </Route>
