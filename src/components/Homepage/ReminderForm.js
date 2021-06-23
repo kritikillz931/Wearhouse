@@ -42,7 +42,8 @@ export const ReminderForm = () => {
               date: reminder.date,
               userId: userId
           })
-          .then(() => history.push(`/Reminders`))
+          .then(() => setModal(false))
+          history.push("/Reminders")
         }else {
           //POST - add
           addReminder({
@@ -68,6 +69,7 @@ export const ReminderForm = () => {
               event.preventDefault()
               handleSaveReminder()
               window.location.reload()
+              
               
             }}
             >SAVE</Button>

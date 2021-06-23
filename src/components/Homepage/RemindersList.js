@@ -17,7 +17,7 @@ export const ReminderList = (props) => {
   const toggle = () => setModal(!modal);
   // Since you are no longer ALWAYS displaying all of the reminders
   const [filteredReminders, setFiltered] = useState([])
-  const [reminder, setReminder] = useState({})
+  const [reminder, setReminder] = useState(0)
 
   const [currentUser, setCurrentUser] = useState({})
 
@@ -86,10 +86,19 @@ export const ReminderList = (props) => {
               filteredReminders.map(reminder => {
                 return (
                   <tr key={reminder.id}>
-                    <td>{reminder.date}</td><td>{reminder.message}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
-                      event.preventDefault()
-                      history.push(`/Reminders/Details/${reminder.id}`)
-                    }} onClick={toggle}>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(reminder.id)}>Delete</Button></td>
+                    <td>{reminder.date}</td><td>{reminder.message}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} 
+                    onClick={
+                      (event) => {
+                        event.preventDefault()
+                        setReminder(reminder.id)
+                        toggle()
+                        history.push(`/Reminders/Details/${reminder.id}`)
+                      }
+                      //when user clicks here
+                      //1 update state of reminder to equal reminder.id
+                      //2 pass reminder id to reminder form
+                      //3 use the reminder id in the reminder form component to render the edit modal
+                    }>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(reminder.id)}>Delete</Button></td>
 
 
 
@@ -113,7 +122,7 @@ export const ReminderList = (props) => {
 
       <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalBody>
-          <ReminderForm reminderList={reminderList} />
+          <ReminderForm reminder={reminder} />
         </ModalBody>
         <ModalFooter>
           <Button color="info" onClick={toggle}>Cancel</Button>{''}
