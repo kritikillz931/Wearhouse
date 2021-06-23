@@ -5,10 +5,10 @@ import { useHistory, Link, useParams } from "react-router-dom"
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter, Table } from 'reactstrap';
 import backgroundImg from '../Images/newbg.jpg'
 import "./ReminderList.css"
-import {ReminderForm} from "../Homepage/ReminderForm"
+import { ReminderForm } from "../Homepage/ReminderForm"
 
 export const ReminderList = (props) => {
-  const { reminderDetail, reminderList, reminders, getReminders, searchTerms, releaseReminder, updateReminder, getReminderById } = useContext(ReminderContext)
+  const { ReminderDetail, reminderList, reminders, getReminders, searchTerms, releaseReminder, updateReminder, getReminderById } = useContext(ReminderContext)
   const {
     newReminder,
     className
@@ -17,22 +17,22 @@ export const ReminderList = (props) => {
   const toggle = () => setModal(!modal);
   // Since you are no longer ALWAYS displaying all of the reminders
   const [filteredReminders, setFiltered] = useState([])
-  const [reminder, setReminder ] = useState({})
+  const [reminder, setReminder] = useState({})
 
   const [currentUser, setCurrentUser] = useState({})
 
   // get today's date
   const todaysDate = new Date().toLocaleDateString()
- 
+
   const history = useHistory()
 
   // get current user info
   const userId = localStorage.getItem("wearhouse_user")
   const getCurrentUser = () => {
     fetch(`http://localhost:8088/users/${userId}`)
-    .then(res => res.json())  
-    .then(setCurrentUser)
-}
+      .then(res => res.json())
+      .then(setCurrentUser)
+  }
 
   // Empty dependency array - useEffect only runs after first render
   useEffect(() => {
@@ -41,11 +41,11 @@ export const ReminderList = (props) => {
   }, [])
 
   // useEffect dependency array with dependencies - will run if dependency changes (state)
- 
+
   useEffect(() => {
     //set filtered is called when reminders data is updated or changed giving filtered items a value of reminders
-      setFiltered(reminders)
-    
+    setFiltered(reminders)
+
   }, [reminders])
 
   var sectionStyle = {
@@ -67,15 +67,15 @@ export const ReminderList = (props) => {
       id: reminderId,
       message: reminder.message,
       date: new Date().toLocaleTimeString() + " " + new Date().toLocaleDateString()
-  })
-    .then(() => {
-      history.push(`/Reminders/`)
     })
+      .then(() => {
+        history.push(`/Reminders/`)
+      })
   }
 
   return (
     <>
-      
+
       <div style={sectionStyle}>
         <section className="ReminderContainer">
           <div className="welcome">WELCOME BACK, {currentUser.userName}</div>
@@ -86,30 +86,24 @@ export const ReminderList = (props) => {
               filteredReminders.map(reminder => {
                 return (
                   <tr key={reminder.id}>
-                   <td>{reminder.date}</td><td>{reminder.message}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
-                     event.preventDefault()
+                    <td>{reminder.date}</td><td>{reminder.message}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
+                      event.preventDefault()
                       history.push(`/Reminders/Details/${reminder.id}`)
                     }} onClick={toggle}>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(reminder.id)}>Delete</Button></td>
 
 
 
 
-</tr>
-                  
+
+                  </tr>
+
                 )
               })
             }
-            </tbody></Table>
-            </div>
-
-            <Modal isOpen={modal} toggle={toggle} className={className}>
-            <ModalBody>
-            <ReminderForm onClick={toggle} reminderList={reminderList}/>
-            </ModalBody>
-            </Modal>
-
-              <div>
-            <Button  className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle} onClickl={() => history.push("/Reminders/Create")}>
+          </tbody></Table>
+          </div>
+          <div>
+            <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle} onClickl={() => history.push("/Reminders/Create")}>
               New Reminder
             </Button>
 
@@ -117,16 +111,15 @@ export const ReminderList = (props) => {
         </section>
       </div>
 
-            <Modal isOpen={modal} toggle={toggle} className={className}>
+      <Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalBody>
+          <ReminderForm onClick={toggle} reminderList={reminderList} />
+        </ModalBody>
+        <ModalFooter>
+          <Button color="info" onClick={toggle}>Cancel</Button>{''}
+        </ModalFooter>
+      </Modal>
 
-            <ModalBody>
-            <ReminderForm onClick={toggle} reminderList={reminderList}/>
-            </ModalBody>
-            <ModalFooter>
-              <Button color="info" onClick={toggle}>Cancel</Button>{''}
-            </ModalFooter>
-            </Modal>
-            
 
     </>
   )

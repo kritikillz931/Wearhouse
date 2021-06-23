@@ -61,7 +61,7 @@ export const ReminderForm = () => {
             <h2 className="reminderForm__title">{reminderId ? "Edit" : "New Reminder"}</h2>
             <fieldset className="modalReminder">
               <Input size="lg" type="textarea" id="reminder__message" name="message" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.message} />
-              <Input type="date" id="reminder__date" name="date" onChange={handleControlledInputChange} defaultValue={reminder.date} />
+              <Input type="date" id="reminder__date" name="date" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.date} />
             </fieldset><br />
             <Button color="info" className="btn btn-primary"
             onClick={event => {

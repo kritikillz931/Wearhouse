@@ -1,18 +1,24 @@
 import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
 import { useHistory, Link, useParams } from "react-router-dom"
-import { Table, thead, Button } from 'reactstrap';
+import { Table, thead, Button, Modal, ModalBody, ModalHeader, ModalFooter, } from 'reactstrap';
 import backgroundImg from '../Images/newbg.jpg'
 import "./Inventory.css"
 import {TotalPricePaid} from "./InventoryTotalPrice"
 import {TotalMarketPrice} from "./InventoryMarketPrice"
 import { TotalQuantityAmount } from "./InventoryQuantityAmount";
+import { InventoryForm } from "./InventoryForm";
 
 
 
-export const InventoryList = () => {
+export const InventoryList = (props) => {
     const { inventory, inventoryList, getInventoryList,  releaseInventory, searchTerms, updateInventory, getInventoryById } = useContext(InventoryContext)
-  
+    const {
+      newinventory,
+      className
+    } = props;
+    const [modal, setModal] = useState(false);
+    const toggle = () => setModal(!modal);
     // Since you are no longer ALWAYS displaying all of the inventoryList
     const [filteredInventoryList, setInventoryList] = useState([])
     // const [inventory, setInventory ] = useState({})
@@ -64,7 +70,7 @@ export const InventoryList = () => {
   
         <div style={sectionStyle}>
           <section className="InventoryContainer">
-            <div className="inventoryList"><Table dark><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size(per)</th><th>Price(per)</th><th>Market Value(per)</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
+            <div ><Table dark><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size(per)</th><th>Price(per)</th><th>Market Value(per)</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
               {
                 filteredInventoryList.map(inventory => {
                     
@@ -92,13 +98,22 @@ export const InventoryList = () => {
               <TotalQuantityAmount inventoryList={inventoryList}/>
                 </div>
               </div>
-              <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={() => history.push("/Inventory/Create")}>
+              <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle} onClickl={() => history.push("/Inventory/Create")}>
                 Add New
               </Button>
               </div>
             </div>
           </section>
         </div>
+
+        <Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalBody>
+          <InventoryForm onClick={toggle} inventoryList={inventoryList} />
+        </ModalBody>
+        <ModalFooter>
+          <Button color="info" onClick={toggle}>Cancel</Button>{''}
+        </ModalFooter>
+      </Modal>
   
       </>
     )
