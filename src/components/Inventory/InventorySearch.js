@@ -15,7 +15,7 @@ export const InventorySearch = (props) => {
   } = props;
   const [newInventory, setNewInventory] = useState({})
   const [modal, setModal] = useState(false);
-  const toggle = () => setModal(!modal);
+  const toggleDetails = () => setModal(!modal);
 
   //gets searchResult id from url route
   const { inventoryId } = useParams();
@@ -35,7 +35,7 @@ export const InventorySearch = (props) => {
       marketValue: searchResult.estimatedMarketValue
     })
     .then(res => localStorage.setItem("inventoryId", res.id))
-    .then(toggle)
+    .then(toggleDetails)
   }
 
 
@@ -62,12 +62,12 @@ export const InventorySearch = (props) => {
       </section>
 
 
-      <Modal isOpen={modal} toggle={toggle} className={className}>
+      <Modal isOpen={modal} toggle={toggleDetails} className={className}>
         <ModalBody>
           <InventoryDetail inventory={newInventory} />
         </ModalBody>
         <ModalFooter>
-          <Button color="info" onClick={toggle}>Cancel</Button>{''}
+          <Button color="info" onClick={toggleDetails}>Cancel</Button>{''}
         </ModalFooter>
       </Modal>
     </>

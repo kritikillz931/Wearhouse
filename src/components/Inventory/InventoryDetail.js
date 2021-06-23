@@ -21,7 +21,6 @@ export const InventoryDetail = ({inventory}) => {
   }, [])
   
   const handleInputChange = (event) => {
-    console.log(inventoryItem)
     const newInventory = { ...inventoryItem }
     newInventory[event.target.name] = event.target.value
     setInventoryItem(newInventory)
@@ -52,8 +51,7 @@ export const InventoryDetail = ({inventory}) => {
             quantity: inventoryItem.quantity,
             price: inventoryItem.price
         })
-        .then(() => setModal(false))
-        .then(() => history.push(`/Inventory`))
+        .then(window.location.reload())
         
       }
 
