@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
 import "./Inventory.css"
 import { InventorySearch} from "./InventorySearch"
+import { Button, Form, Input } from "reactstrap"
 
 
 export const InventoryForm = () => {
@@ -42,7 +43,7 @@ export const InventoryForm = () => {
         setBrandSearchTerms("")
         setNameSearchTerms("")
       } else {
-        console.log("error on inventory form page")
+        console.log("error on inventory Form page")
       }
     }
 
@@ -51,30 +52,30 @@ export const InventoryForm = () => {
 
       return (
         <>
-        <section >
-          <form className="inventoryForm">
-            
+        <section id="inventoryModal">
+          <Form className="inventoryForm">
+            <h2 id="inventoryHeader">Search The Market</h2>
             <fieldset>
-              <input type="text" id="inventory__quantity" name="sku" placeholder="Search By Sku..." value={skuSearchTerms} onChange={handleSkuInputChange} />
+              <Input type="text" id="inventory__sku" name="sku" placeholder="Search By Sku..." value={skuSearchTerms} onChange={handleSkuInputChange} />
             </fieldset>
-            <button className="btn btn-primary"
+            <Button id="sbs" color="info"
             onClick={event => {
               event.preventDefault()
               search("skuSearch")
-            }}>Search By Sku</button>
+            }}>Search By Sku</Button>
+<fieldset>
 
-
- <fieldset>
-       <input type="text" id="inventory__quantity" name="message" placeholder="Search By Brand..." value={brandSearchTerms} onChange={handleBrandInputChange} />
-              <input type="text" id="inventory__quantity" name="message" placeholder="Search By Name..." value={nameSearchTerms} onChange={handleNameInputChange} />
+       <Input type="text" id="inventory__brand" name="message" placeholder="Brand..." value={brandSearchTerms} onChange={handleBrandInputChange} />
+       <br />
+              <Input size="lg" type="text" id="inventory__name" name="message" placeholder="Name..." value={nameSearchTerms} onChange={handleNameInputChange} />
             </fieldset>
-            <button className="btn btn-primary"
+            <Button id="sbnb" color="info"
             onClick={event => {
               event.preventDefault()
               search("nameSearch")
-            }}>Search By Name</button> 
+            }}>Search By Brand & Name</Button> 
 
-          </form> 
+          </Form> 
             <div >{skuSearchResults.results?.map(singleResult => {
               return <InventorySearch key={singleResult.id} searchResult={singleResult} />
             })}</div>

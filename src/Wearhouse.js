@@ -1,5 +1,5 @@
 import React from "react";
-import { Route,  useHistory } from "react-router-dom";
+import { Route,  useHistory, Redirect } from "react-router-dom";
 import { ApplicationViews } from "./components/ApplicationViews";
 import { NavBar } from "./components/NavBar/NavBar";
 import { Login } from "./components/Auth/Login";
@@ -9,11 +9,12 @@ import "./components/Auth/Login.css"
 import { Button } from 'reactstrap';
 import backgroundImg from "./components/Images/SNEAKERS.jpg"
 import {Landing} from "./components/Auth/Landing"
+import {ReminderList} from "./components/Homepage/RemindersList"
 
 
 export const Wearhouse = () => {
-const history = useHistory()
-  // style for background image on login page
+
+
 
 return (
   <>
@@ -29,13 +30,15 @@ return (
     </>
             </>
           );
+        } else {
+          return <Redirect to="/home" />;
         }
       }}
     />
 
-    <Route exact path="/">
+     <Route exact path="/home">
       <Landing />
-    </Route>
+    </Route> 
     <Route path="/Login">
       <Login />
     </Route>

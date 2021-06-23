@@ -36,7 +36,7 @@ export const Landing = () => {
             })
         }
 
-    // style for background image on login page
+  
   var sectionStyle = {
     width: "100%",
     height: "937px",

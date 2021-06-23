@@ -2,7 +2,7 @@
 
 
 
-// function stores the reminder name and breed
+
 
 export const Reminder = ({reminderProp}) => (
     <section className="reminder">
