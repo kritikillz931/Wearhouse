@@ -113,7 +113,7 @@ export const ReminderList = (props) => {
 
       <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalBody>
-          <ReminderForm onClick={toggle} reminderList={reminderList} />
+          <ReminderForm reminderList={reminderList} />
         </ModalBody>
         <ModalFooter>
           <Button color="info" onClick={toggle}>Cancel</Button>{''}

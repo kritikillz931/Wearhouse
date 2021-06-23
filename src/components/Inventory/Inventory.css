@@ -16,6 +16,9 @@
     width: 1000px;
     max-height: 500px;
     margin-bottom: 10px;
+    overflow-y:auto;
+    -webkit-overflow-scrolling: auto;
+    margin-bottom: 15px;
 }
 
 .totalsContainer {
@@ -58,6 +61,7 @@ text-transform: uppercase;
     left: 50%;
     transform: translate(-50%, -50%);
     color: white;
+    
     
 }
 
