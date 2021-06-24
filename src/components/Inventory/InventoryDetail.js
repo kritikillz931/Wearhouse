@@ -4,13 +4,12 @@ import {Button } from "reactstrap"
 import {InventoryContext} from "./InventoryProvider"
 
 
-export const InventoryDetail = ({inventory}) => {
-  const {addInventory, updateInventory, getInventoryById } = useContext(InventoryContext)
+export const InventoryDetail = () => {
+  const { updateInventory, getInventoryById } = useContext(InventoryContext)
   const [inventoryItem, setInventoryItem] = useState({})
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
-  //gives ability to control navigation
   const history = useHistory();
   const userId = parseInt(localStorage.getItem("wearhouse_user"))
   
@@ -27,8 +26,6 @@ export const InventoryDetail = ({inventory}) => {
     console.log(inventoryItem)
   }
 
-
-
     const handleSaveInventory = () => {
         let mktVal ;
         if (inventoryItem.marketValue === 0 ) {
@@ -36,7 +33,6 @@ export const InventoryDetail = ({inventory}) => {
         } else {
             mktVal = inventoryItem.marketValue
         }
-        console.log(inventoryItem)
         //PUT - update
         updateInventory(
             {
@@ -59,7 +55,6 @@ export const InventoryDetail = ({inventory}) => {
     <>
     <h3>Update Details</h3>
     <form className="inventoryForm">
-            
             <fieldset>
               <input type="text" id="inventory__quantity" name="quantity" placeholder="Add Quantity" defaultValue={inventoryItem.quantity} onChange={handleInputChange} />
               <input type="text" id="inventory__size" name="size" placeholder="Add Size" defaultValue={inventoryItem.size} onChange={handleInputChange} />
@@ -72,7 +67,6 @@ export const InventoryDetail = ({inventory}) => {
               toggle()
               history.push(`/Inventory/`)
             }}>SAVE</Button>
-       
           </form> 
     </>
   )

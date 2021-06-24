@@ -1,27 +1,23 @@
 import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
-import { useHistory, useParams } from 'react-router-dom';
-import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
+import { useHistory } from 'react-router-dom';
+import { Button, Form, Input } from 'reactstrap';
 import "./ReminderList.css"
 
 export const ReminderForm = ({IncomingReminder}) => {
-  //getting fetch calls from providers
-    const { addReminder, getReminderById, updateReminder } = useContext(ReminderContext)
-    const [reminder, setReminder ] = useState({})
-    const [isLoading, setIsLoading] = useState(true);
-    
-	  const history = useHistory();
-    const userId = parseInt(localStorage.getItem("wearhouse_user"))
-    const [modal, setModal] = useState(false);
-    const toggle = () => setModal(!modal);
+    const { addReminder, getReminderById, updateReminder } = useContext(ReminderContext) // gets data from provider
+    const [reminder, setReminder ] = useState({}) // initiallizes reminder state to an empty object
+	  const history = useHistory(); // allows for rerouting
+    const userId = parseInt(localStorage.getItem("wearhouse_user")) // retrieves userId from local storage
 
     useEffect(() => {
-       console.log('theres an id.... ')
-       getReminderById(IncomingReminder.id)
-       .then(remind => {
-         setReminder(remind)
-       })
-    }, [])
+      if(IncomingReminder !== {}) {
+        getReminderById(IncomingReminder.id)
+        .then(remind => {
+          setReminder(remind)
+        })
+      }
+    }, [IncomingReminder])
    
 
     const handleControlledInputChange = (event) => {
@@ -40,7 +36,6 @@ export const ReminderForm = ({IncomingReminder}) => {
               date: reminder.date,
               userId: userId
           })
-          .then(() => setModal(false))
           history.push("/Reminders")
         }else {
           //POST - add
@@ -49,7 +44,6 @@ export const ReminderForm = ({IncomingReminder}) => {
               message: reminder.message,
               userId: userId
           })
-          .then(() => setModal(false))
           .then(() => history.push("/Reminders"))
         }
       }
@@ -63,48 +57,14 @@ export const ReminderForm = ({IncomingReminder}) => {
               <Input type="date" id="reminder__date" name="date" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.date} />
             </fieldset><br />
             <Button color="info" className="btn btn-primary"
-            onClick={event => {
-              event.preventDefault()
-              handleSaveReminder()
-              window.location.reload()
-              
-              
-            }}
+              onClick={event => {
+                event.preventDefault()
+                handleSaveReminder()
+                window.location.reload()
+              }}
             >SAVE</Button>
-          </Form>
-          
+            
+          </Form>          
         </>
-
-)
-    
-
-
-
-
-
-  // return (
-  //   <Form className="reminderForm">
-  //     <h2 className="reminderForm__title">{reminderId ? <> Edit Reminder</> : <> New Reminder</>}</h2>
-  //     <FormGroup>
-        
-  //         <Label htmlFor="reminderMessage">Reminder: </Label>
-  //         <Input type="text" id="reminderMessage" name="name" required autoFocus className="form-control"
-  //         placeholder="Type Reminder Here"
-  //         onChange={(event) => {
-  //           setReminderMessage(event.target.value)
-  //         }}
-  //         defaultValue={reminder.message}
-  //         />
-  //         <Input  id="reminderDate" name="date" required autoFocus className="form-control"type="date" onChange={e=> setReminderDate(e.target.value)} />
-       
-  //     </FormGroup>
-
-  //     <Button className="btn btn-primary"
-  //       onClick={event => {
-  //         event.preventDefault() 
-  //         handleSaveReminder()
-  //       }}>
-  //     {reminderId ? <>Update</> : <>Save </>}</Button>
-  //   </Form>
-  // )
+  )   
 }
