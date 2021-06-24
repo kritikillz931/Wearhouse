@@ -35,7 +35,7 @@ export const InventorySearch = (props) => {
 
   return (
     <>
-      <section >
+      <section id="apiResults" >
         <p>
           Name: {searchResult.name}<br />
           Brand: {searchResult.brand}<br />
@@ -45,12 +45,12 @@ export const InventorySearch = (props) => {
           Colorway: {searchResult.colorway}
         </p>
         <img src={searchResult.image.thumbnail}></img>
-        <Button color="info" className="btn btn-primary" onClick={event => {
+        </section>
+        <Button id="apiSave" color="info" className="btn btn-primary" onClick={event => {
           event.preventDefault()
           handleSaveInventory()
         }}>SAVE</Button>
-        <hr />
-      </section>
+        
 
 
       <Modal isOpen={modal} toggle={toggleDetails} className={className}>

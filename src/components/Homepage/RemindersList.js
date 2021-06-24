@@ -94,7 +94,14 @@ export const ReminderList = (props) => {
             </Table>
           </div>
           <div>
-            <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle}>
+            <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" 
+             onClick={
+              (event) => {
+                event.preventDefault()
+                setReminder({})
+                toggle()
+              }                      
+            }>
               New Reminder
             </Button>
           </div>

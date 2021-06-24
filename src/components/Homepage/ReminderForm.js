@@ -27,7 +27,7 @@ export const ReminderForm = ({IncomingReminder}) => {
     }
 
     const handleSaveReminder = () => {
-        if (IncomingReminder){
+        if (IncomingReminder.id){
           console.log("UPDATING!")
           //PUT - update
           updateReminder({
@@ -51,7 +51,7 @@ export const ReminderForm = ({IncomingReminder}) => {
       return (
         <>
           <Form classname="reminderForm">
-            <h2 className="reminderForm__title">{IncomingReminder ? "Edit" : "New Reminder"}</h2>
+            <h2 className="reminderForm__title">{IncomingReminder.id ? "Edit" : "New Reminder"}</h2>
             <fieldset className="modalReminder">
               <Input size="lg" type="textarea" id="reminder__message" name="message" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.message} />
               <Input type="date" id="reminder__date" name="date" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.date} />

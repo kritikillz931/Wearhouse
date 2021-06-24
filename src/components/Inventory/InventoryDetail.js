@@ -1,7 +1,8 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory, useParams, } from 'react-router-dom';
-import {Button } from "reactstrap"
+import {Button, Input } from "reactstrap"
 import {InventoryContext} from "./InventoryProvider"
+import "./Inventory.css"
 
 
 export const InventoryDetail = () => {
@@ -29,7 +30,7 @@ export const InventoryDetail = () => {
     const handleSaveInventory = () => {
         let mktVal ;
         if (inventoryItem.marketValue === 0 ) {
-            mktVal = "N/A"
+            mktVal = inventoryItem.price
         } else {
             mktVal = inventoryItem.marketValue
         }
@@ -53,12 +54,14 @@ export const InventoryDetail = () => {
 
   return (
     <>
-    <h3>Update Details</h3>
+    <section id="newInvDetailsBtn">
+
+    <h3 id="newInvDetailsHeader">Update Details</h3>
     <form className="inventoryForm">
-            <fieldset>
-              <input type="text" id="inventory__quantity" name="quantity" placeholder="Add Quantity" defaultValue={inventoryItem.quantity} onChange={handleInputChange} />
-              <input type="text" id="inventory__size" name="size" placeholder="Add Size" defaultValue={inventoryItem.size} onChange={handleInputChange} />
-              <input type="text" id="inventory__pricePaid" name="price" placeholder="Add Price Paid" defaultValue={inventoryItem.price} onChange={handleInputChange} />
+            <fieldset id="newInvDetailsInputs">
+              <Input size="lg" type="text" id="inventory__quantity" name="quantity" placeholder="Add Quantity" defaultValue={inventoryItem.quantity} onChange={handleInputChange} />
+              <Input size="lg" type="text" id="inventory__size" name="size" placeholder="Add Size" defaultValue={inventoryItem.size} onChange={handleInputChange} />
+              <Input size="lg" type="text" id="inventory__pricePaid" name="price" placeholder="Add Price Paid" defaultValue={inventoryItem.price} onChange={handleInputChange} />
             </fieldset>
             <Button color="info" className="btn btn-primary"
             onClick={event => {
@@ -68,6 +71,7 @@ export const InventoryDetail = () => {
               history.push(`/Inventory/`)
             }}>SAVE</Button>
           </form> 
+            </section>
     </>
   )
 }
