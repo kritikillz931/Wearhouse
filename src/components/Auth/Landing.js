@@ -17,6 +17,7 @@ export const Landing = () => {
                     <Button color="info" onClick={() => history.push("/Login")}>
                         Login
             </Button>
+            &nbsp; &nbsp; &nbsp; &nbsp;
                     <Button color="info" onClick={() => history.push("/Register")}>
                         Register
             </Button>
