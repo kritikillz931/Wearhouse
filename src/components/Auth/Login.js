@@ -37,16 +37,9 @@ export const Login = props => {
             })
         }
         
-        var sectionStyle = {
-            
-            width: "100%",
-            height: "937px",
-            
-            backgroundImage: `url(${backgroundImg})`
-            };
         return (
             <>
-            <section style={sectionStyle} className="loginContainer">
+            <section className="loginContainer">
                 <dialog className="dialog dialog--password" ref={existDialog}>
                 <div>Incorrect Login Information</div>
                 <button className="button--close" onClick={e => existDialog.current.close()}>Close</button>

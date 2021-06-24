@@ -7,13 +7,18 @@ import { Register } from "./components/Auth/Register";
 import WEARHOUSELOGO from "./components/Images/WEARHOUSELOGO.png"
 import "./components/Auth/Login.css"
 import { Button } from 'reactstrap';
-import backgroundImg from "./components/Images/SNEAKERS.jpg"
+import backgroundImg from "./components/Images/newbg.jpg"
 import {Landing} from "./components/Auth/Landing"
 import {ReminderList} from "./components/Homepage/RemindersList"
 
 
 export const Wearhouse = () => {
 
+  var sectionStyle = {
+    width: "100%",
+    height: "937px",
+    backgroundImage: `url(${backgroundImg})`
+};
 
 
 return (
@@ -24,14 +29,22 @@ return (
           return (
             <>
               <NavBar />
+            <section style={sectionStyle}>
               
               <ApplicationViews />
+              </section>
               <>
     </>
             </>
           );
         } else {
-          return <Redirect to="/home" />;
+          return (
+          <>
+          <section style={sectionStyle}>
+            <Redirect to="/home" />
+            </section>
+            </>
+          );
         }
       }}
     />

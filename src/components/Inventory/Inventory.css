@@ -10,10 +10,10 @@
     justify-content: space-between;
     position: fixed;
     text-align: center;
-    top: 63%;
+    top: 53%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 1000px;
+    width: 70%;
     max-height: 500px;
     margin-bottom: 10px;
     overflow-y:auto;
@@ -25,6 +25,17 @@
 font-size: 25px;
 font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 text-transform: uppercase;
+
+    flex-direction: column;
+    justify-content: center;
+    justify-content: space-between;
+    position: fixed;
+    text-align: center;
+    top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 1000px;
+    max-height: 500px;
 }
 
 #inventory__sku{
@@ -74,3 +85,51 @@ text-transform: uppercase;
     transform: translate(65%, 0%);
 }
 
+#apiResults{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+#apiSave{
+    width: 100%;
+}
+
+#inventory__quantity {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+#inventory__size {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+#inventory__pricePaid {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 12px;
+}
+
+#newInvDetailsHeader{
+    text-align: center;
+    text-transform: uppercase;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#newInvDetailsBtn{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+
+#newInvDetailsInputs{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+
+}

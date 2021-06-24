@@ -1,56 +1,66 @@
-import React, { useContext, useEffect, useState } from "react"
-import { useHistory, useParams, } from 'react-router-dom';
-import {Button } from "reactstrap"
-import {InventoryContext} from "./InventoryProvider"
+import React, { useContext, useState } from "react"
+import { Button, Modal, ModalBody, ModalFooter } from "reactstrap"
+import { InventoryContext } from "./InventoryProvider"
+import { InventoryDetail } from "./InventoryDetail"
 import "./Inventory.css"
 
 
 
-export const InventorySearch = ({searchResult}) => {
-  const {addInventory, updateInventory} = useContext(InventoryContext)
-  
- 
-  //gets searchResult id from url route
-  const {inventoryId} = useParams();
+export const InventorySearch = (props) => {
+  const { addInventory } = useContext(InventoryContext)
+  const {
+    className,
+    searchResult
+  } = props;
+  const [modal, setModal] = useState(false);
+  const toggleDetails = () => setModal(!modal);
 
-  //gives ability to control navigation
-  const history = useHistory();
-const userId = parseInt(localStorage.getItem("wearhouse_user"))
-  console.log(searchResult)
 
-    const handleSaveInventory = () => {
+  const userId = parseInt(localStorage.getItem("wearhouse_user"))
 
-          //POST - add
-          addInventory({
-            userId: userId,
-            silhouette: searchResult.image.small,
-            brand: searchResult.brand,
-           name: searchResult.name,
-            marketValue: searchResult.estimatedMarketValue
-          })
-          .then((res) => history.push(`/Inventory/Details/${res.id}`))
-        
-      }
-      
+  const handleSaveInventory = () => {
+    //POST - add
+    addInventory({
+      userId: userId,
+      silhouette: searchResult.image.small,
+      brand: searchResult.brand,
+      name: searchResult.name,
+      marketValue: searchResult.estimatedMarketValue
+    })
+    .then(res => localStorage.setItem("inventoryId", res.id))
+    .then(toggleDetails)
+  }
+
 
 
   return (
     <>
-    <section >
-<p>Name: {searchResult.name}<br/>
-Brand: {searchResult.brand}<br/>
-sku: {searchResult.sku}<br/>
-Gender: {searchResult.gender}<br/>
-Release Year: {searchResult.releaseYear}<br/>
-Colorway: {searchResult.colorway}</p>
-<img src={searchResult.image.thumbnail}></img>
-<Button className="btn btn-primary" onClick={event => {
-  event.preventDefault()
-    handleSaveInventory()
-  
-}}>Save</Button>
-    <hr/>  
-    </section>
+      <section id="apiResults" >
+        <p>
+          Name: {searchResult.name}<br />
+          Brand: {searchResult.brand}<br />
+          sku: {searchResult.sku}<br />
+          Gender: {searchResult.gender}<br />
+          Release Year: {searchResult.releaseYear}<br />
+          Colorway: {searchResult.colorway}
+        </p>
+        <img src={searchResult.image.thumbnail}></img>
+        </section>
+        <Button id="apiSave" color="info" className="btn btn-primary" onClick={event => {
+          event.preventDefault()
+          handleSaveInventory()
+        }}>SAVE</Button>
+        
+
+
+      <Modal isOpen={modal} toggle={toggleDetails} className={className}>
+        <ModalBody>
+          <InventoryDetail />
+        </ModalBody>
+        <ModalFooter>
+          <Button color="info" onClick={toggleDetails}>Cancel</Button>{''}
+        </ModalFooter>
+      </Modal>
     </>
   )
 }

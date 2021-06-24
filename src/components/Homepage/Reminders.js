@@ -6,6 +6,6 @@
 
 export const Reminder = ({reminderProp}) => (
     <section className="reminder">
-        <h3 className="reminder__message">{reminderProp.message}</h3>
+        <h3 className="reminder__message">this doesn't do anything</h3>
     </section>
 )
