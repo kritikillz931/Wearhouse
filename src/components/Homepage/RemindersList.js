@@ -17,7 +17,7 @@ export const ReminderList = (props) => {
   const toggle = () => setModal(!modal);
   // Since you are no longer ALWAYS displaying all of the reminders
   const [filteredReminders, setFiltered] = useState([])
-  const [reminder, setReminder] = useState(0)
+  const [reminder, setReminder] = useState({})
 
   const [currentUser, setCurrentUser] = useState({})
 
@@ -61,17 +61,6 @@ export const ReminderList = (props) => {
       })
   }
 
-  const handleInputChange = (reminderId) => {
-    console.log(reminder)
-    updateReminder({
-      id: reminderId,
-      message: reminder.message,
-      date: new Date().toLocaleTimeString() + " " + new Date().toLocaleDateString()
-    })
-      .then(() => {
-        history.push(`/Reminders/`)
-      })
-  }
 
   return (
     <>
@@ -90,9 +79,9 @@ export const ReminderList = (props) => {
                     onClick={
                       (event) => {
                         event.preventDefault()
-                        setReminder(reminder.id)
+                        setReminder(reminder)
                         toggle()
-                        history.push(`/Reminders/Details/${reminder.id}`)
+                        
                       }
                       //when user clicks here
                       //1 update state of reminder to equal reminder.id
@@ -112,7 +101,7 @@ export const ReminderList = (props) => {
           </tbody></Table>
           </div>
           <div>
-            <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle} onClickl={() => history.push("/Reminders/Create")}>
+            <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle}>
               New Reminder
             </Button>
 
@@ -122,7 +111,7 @@ export const ReminderList = (props) => {
 
       <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalBody>
-          <ReminderForm reminder={reminder} />
+          <ReminderForm IncomingReminder={reminder} />
         </ModalBody>
         <ModalFooter>
           <Button color="info" onClick={toggle}>Cancel</Button>{''}

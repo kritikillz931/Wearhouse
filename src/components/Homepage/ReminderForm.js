@@ -4,25 +4,23 @@ import { useHistory, useParams } from 'react-router-dom';
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 import "./ReminderList.css"
 
-export const ReminderForm = () => {
+export const ReminderForm = ({IncomingReminder}) => {
   //getting fetch calls from providers
     const { addReminder, getReminderById, updateReminder } = useContext(ReminderContext)
     const [reminder, setReminder ] = useState({})
     const [isLoading, setIsLoading] = useState(true);
-    const {reminderId} = useParams();
+    
 	  const history = useHistory();
     const userId = parseInt(localStorage.getItem("wearhouse_user"))
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
     useEffect(() => {
-     if(reminderId) {
        console.log('theres an id.... ')
-       getReminderById(reminderId)
+       getReminderById(IncomingReminder.id)
        .then(remind => {
          setReminder(remind)
        })
-     }
     }, [])
    
 
@@ -33,7 +31,7 @@ export const ReminderForm = () => {
     }
 
     const handleSaveReminder = () => {
-        if (reminderId){
+        if (IncomingReminder){
           console.log("UPDATING!")
           //PUT - update
           updateReminder({
@@ -59,7 +57,7 @@ export const ReminderForm = () => {
       return (
         <>
           <Form classname="reminderForm">
-            <h2 className="reminderForm__title">{reminderId ? "Edit" : "New Reminder"}</h2>
+            <h2 className="reminderForm__title">{IncomingReminder ? "Edit" : "New Reminder"}</h2>
             <fieldset className="modalReminder">
               <Input size="lg" type="textarea" id="reminder__message" name="message" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.message} />
               <Input type="date" id="reminder__date" name="date" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.date} />
