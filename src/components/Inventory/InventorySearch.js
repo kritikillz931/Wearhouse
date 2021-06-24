@@ -64,7 +64,7 @@ export const InventorySearch = (props) => {
 
       <Modal isOpen={modal} toggle={toggleDetails} className={className}>
         <ModalBody>
-          <InventoryDetail inventory={newInventory} />
+          <InventoryDetail />
         </ModalBody>
         <ModalFooter>
           <Button color="info" onClick={toggleDetails}>Cancel</Button>{''}

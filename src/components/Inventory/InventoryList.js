@@ -8,6 +8,7 @@ import { TotalPricePaid } from "./InventoryTotalPrice"
 import { TotalMarketPrice } from "./InventoryMarketPrice"
 import { TotalQuantityAmount } from "./InventoryQuantityAmount";
 import { InventoryForm } from "./InventoryForm";
+import { InventoryDetail } from "./InventoryDetail";
 
 
 
@@ -21,6 +22,7 @@ export const InventoryList = (props) => {
   const toggle = () => setModal(!modal);
   // Since you are no longer ALWAYS displaying all of the inventoryList
   const [filteredInventoryList, setInventoryList] = useState([])
+  const [editModal, setEditModal] = useState(false);
   // const [inventory, setInventory ] = useState({})
 
 
@@ -29,7 +31,7 @@ export const InventoryList = (props) => {
   // Empty dependency array - useEffect only runs after first render
   useEffect(() => {
     getInventoryList()
-
+    localStorage.removeItem("inventoryId")
     // getInventoryDetails()
     // console.log(filteredInventoryList)
   }, [])
@@ -64,6 +66,12 @@ export const InventoryList = (props) => {
       })
   }
 
+  const openEditModal = (id) => {
+    localStorage.setItem("inventoryId", id)
+    setEditModal(true)
+    return;
+  }
+
 
   return (
     <>
@@ -78,7 +86,7 @@ export const InventoryList = (props) => {
                   <tr key={inventory.id}>
                     <td><img style={{ height: '100px', width: '100px' }} className="silhouetteImg" src={inventory.silhouette}></img></td><td className="prodInfo">{inventory.brand}</td><td className="prodInfo">{inventory.name}</td><td className="prodInfo">{inventory.size}</td><td className="prodInfo">{inventory.price}</td><td className="prodInfo">{inventory.marketValue}</td><td className="prodInfo">{inventory.quantity}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
                       event.preventDefault()
-                      history.push(`/Inventory/Details/${inventory.id}`)
+                      openEditModal(inventory.id)
                     }}>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(inventory.id)}>Delete</Button></td>
                   </tr>
 
@@ -101,7 +109,7 @@ export const InventoryList = (props) => {
                 <TotalQuantityAmount inventoryList={inventoryList} />
               </div>
             </div>
-            <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle} onClickl={() => history.push("/Inventory/Create")}>
+            <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle} >
               Add New
               </Button>
           </div>
@@ -115,6 +123,17 @@ export const InventoryList = (props) => {
           <Button color="info" onClick={toggle}>Cancel</Button>{''}
         </ModalFooter>
       </Modal>
+
+      <Modal isOpen={editModal} className={className}>
+        <ModalBody>
+          <InventoryDetail />
+        </ModalBody>
+        <ModalFooter>
+          <Button color="info" onClick={() => setEditModal(false)}>Cancel</Button>{''}
+        </ModalFooter>
+      </Modal>
+
+      
 
     </>
   )

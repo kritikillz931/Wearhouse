@@ -13,10 +13,10 @@ export const InventoryForm = () => {
   const [brandSearchTerms, setBrandSearchTerms] = useState("")
   const [nameSearchTerms, setNameSearchTerms] = useState("")
 
-    useEffect(() => {
+    // useEffect(() => {
      
-    setSearchResults([])
-    }, [skuSearchResults, nameSearchResults])
+    // setSearchResults([])
+    // }, [skuSearchResults, nameSearchResults])
    
 
     const handleSkuInputChange = (event) => {
