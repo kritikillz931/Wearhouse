@@ -25,7 +25,7 @@
 font-size: 25px;
 font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 text-transform: uppercase;
-
+    
     flex-direction: column;
     justify-content: center;
     justify-content: space-between;
@@ -36,6 +36,7 @@ text-transform: uppercase;
     transform: translate(-50%, -50%);
     width: 1000px;
     max-height: 500px;
+    
 }
 
 #inventory__sku{
@@ -133,3 +134,4 @@ text-transform: uppercase;
     text-align: center;
 
 }
+

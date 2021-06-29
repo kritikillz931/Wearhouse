@@ -102,7 +102,7 @@ export const InventoryList = (props) => {
         </ModalFooter>
       </Modal>
 
-      <Modal isOpen={editModal} className={className}>
+      <Modal id="updateDetailsModal" isOpen={editModal} className={className}>
         <ModalBody>
           <InventoryDetail />
         </ModalBody>

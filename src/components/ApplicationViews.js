@@ -5,6 +5,8 @@ import { RemindersProvider } from "./Homepage/RemindersProvider"
 import { InventoryList } from "./Inventory/InventoryList"
 import { InventoryProvider } from "./Inventory/InventoryProvider"
 import { LogOut } from "./Auth/Logout"
+import { TrackingProvider } from "./UserTracking/TrackingProvider"
+import { TrackingList } from "./UserTracking/TrackingList"
 
 
 
@@ -33,6 +35,17 @@ export const ApplicationViews = () => {
         <Route exact path="/LogOut">
             <LogOut />
         </Route>
+        
+{/* ----------------------------------------------------------------------------- */}        
+        
+        <TrackingProvider>
+        <Route path="/Tracking">
+            <TrackingList />
+        </Route>
+        </TrackingProvider>
+        
+        
+        
         </>
 
         

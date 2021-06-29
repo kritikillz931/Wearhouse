@@ -14,7 +14,7 @@ export const InventoryProvider = (props) => {
 
     // get inventory list for currently logged in user
     const getInventoryList = () => {
-        fetch(`http://localhost:8088/inventory?userId=${userId}`)
+        fetch(`http://localhost:8088/inventoryItems?userId=${userId}`)
         .then(res => res.json())  
         .then(setInventoryList)
     }
@@ -24,7 +24,7 @@ export const InventoryProvider = (props) => {
         fetch(`https://the-sneaker-database.p.rapidapi.com/sneakers?limit=100&sku=${searchSku}`, {
             "method": "GET",
             "headers": {
-                "x-rapidapi-key": "7680539ba2msh4be3503c616bb53p1cee89jsn8a6e9c4805c5",
+                "x-rapidapi-key": "092cb29a5fmshb82b4c04414c40cp13af28jsn2b6ebd07746b",
                 "x-rapidapi-host": "the-sneaker-database.p.rapidapi.com"
             }
         })
@@ -38,7 +38,7 @@ export const InventoryProvider = (props) => {
         fetch(`https://the-sneaker-database.p.rapidapi.com/sneakers?limit=10&brand=${searchBrand}&name=${searchName}`, {
             "method": "GET",
             "headers": {
-                "x-rapidapi-key": "7680539ba2msh4be3503c616bb53p1cee89jsn8a6e9c4805c5",
+                "x-rapidapi-key": "092cb29a5fmshb82b4c04414c40cp13af28jsn2b6ebd07746b",
                 "x-rapidapi-host": "the-sneaker-database.p.rapidapi.com"
             }
         })
@@ -48,7 +48,7 @@ export const InventoryProvider = (props) => {
 
 
     const addInventory = inventory => {
-        return fetch("http://localhost:8088/Inventory", {
+        return fetch("http://localhost:8088/inventoryItems", {
             method: "POST",
             headers: {
                 "Content-Type": "application/json"
@@ -59,20 +59,20 @@ export const InventoryProvider = (props) => {
     }
 
     const getInventoryById = inventoryId => {
-        return fetch (`http://localhost:8088/Inventory/${inventoryId}`)
+        return fetch (`http://localhost:8088/inventoryItems/${inventoryId}`)
         .then(res => res.json())
     }
 
 
     const releaseInventory = inventoryId => {
-        return fetch(`http://localhost:8088/Inventory/${inventoryId}`, {
+        return fetch(`http://localhost:8088/inventoryItems/${inventoryId}`, {
             method: "DELETE"
         })
             .then(getInventoryList)
     }
 
     const updateInventory = inventory => {
-        return fetch(`http://localhost:8088/Inventory/${inventory.id}`, {
+        return fetch(`http://localhost:8088/inventoryItems/${inventory.id}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json"
@@ -111,5 +111,5 @@ export const InventoryProvider = (props) => {
 
 // login with github - a9a32167c0msh7952c8897bffb8ap1bf7c8jsnf709d439260f
 // sneakerapi@emberparr.com - aee995da77mshe4417f3c39641d3p1149adjsnd7546f27c093
-// sneakerapi2@emberparr.com - 7680539ba2msh4be3503c616bb53p1cee89jsn8a6e9c4805c5
-//
+// sneakerapi2@emberparr.com - 092cb29a5fmshb82b4c04414c40cp13af28jsn2b6ebd07746b
+// sneakerapi3@emberparr.com - 092cb29a5fmshb82b4c04414c40cp13af28jsn2b6ebd07746b

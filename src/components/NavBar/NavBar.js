@@ -19,6 +19,10 @@ export const NavBar = () => {
             <NavItem>
               <NavLink className="text-white" href="/Inventory">Inventory</NavLink>
             </NavItem>
+
+            <NavItem>
+              <NavLink className="text-grey" href="/Tracking">Tracking</NavLink>
+            </NavItem>
             <NavItem>
               <NavLink className="text-grey" href="/LogOut">LogOut</NavLink>
             </NavItem>
