@@ -1,4 +1,42 @@
+.ReminderContainer {
+    min-width: 80%;
+    text-align: center;
+    position: relative;
+    top: 15px;      
+}
 
+
+
+#remindersHeader {
+    text-shadow: 2px 2px grey;
+    margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+
+
+
+/* .ReminderContainer {
+    flex-direction: column;
+    justify-content: center;
+    justify-content: space-between;
+    position: fixed;
+    text-align: center;
+    top: 63%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-height: 500px;
+    margin-bottom: 10px;
+
+    color: rgb(255, 255, 255);
+    
+} */
+
+
+
+
+/* 
 .RemindersHeader {
     display: flex;
     flex-direction: column;
@@ -22,24 +60,6 @@
 .todayIs {
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 25px;
-}
-.ReminderContainer {
-    text-transform: uppercase;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    justify-content: space-between;
-    position: fixed;
-    text-align: center;
-    top: 63%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-    max-height: 500px;
-    margin-bottom: 10px;
-
-    color: rgb(255, 255, 255);
-    
 }
 
 .reminders {
@@ -104,4 +124,4 @@ Table {
     font-size: 12px;
 
 }
-
+ */

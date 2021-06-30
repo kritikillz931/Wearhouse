@@ -24,6 +24,8 @@ return (
           return (
             <>
             <section className="wholePageBackground">
+              </section>
+              <section className="wholePageContainer">
               <NavBar />
               
               <ApplicationViews />

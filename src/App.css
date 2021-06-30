@@ -18,3 +18,10 @@
     margin-left: -512px; 
   }
 }
+
+.wholePageContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-content: space-around;
+}

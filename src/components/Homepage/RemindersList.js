@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
 import { useHistory } from "react-router-dom"
-import { Button, Modal, ModalBody, ModalFooter, Table } from 'reactstrap';
-import "./ReminderList.css"
+import { Button, Container, Jumbotron, Modal, ModalBody, ModalFooter, Table } from 'reactstrap';
+import "./Reminders.css"
 import { ReminderForm } from "../Homepage/ReminderForm"
 
 export const ReminderList = (props) => {
@@ -46,13 +46,15 @@ export const ReminderList = (props) => {
 
   return (
     <>
-      <div>
-        <section className="ReminderContainer">
-          <div className="welcome">WELCOME BACK, {currentUser.userName}</div>
-          <div className="todayIs">TODAY IS {todaysDate}</div>
+      <div className="ReminderContainer">
+        <Container fluid="md" >
+          <Jumbotron fluid className="text-white" id="remindersHeader">
+            <h1 className="display-3">WELCOME BACK, {currentUser.userName}</h1>
+            <p className="display-6">TODAY IS {todaysDate}</p>
+          </Jumbotron>
 
           <div className="reminders">
-            <Table dark>
+            <Table responsive dark>
               <thead>
                 <tr>
                   <th>Date</th>
@@ -65,7 +67,7 @@ export const ReminderList = (props) => {
                 filteredReminders.map(reminder => {
                   return (
                     <tr key={reminder.id}>
-                      <td>{reminder.date}</td>
+                      <th scope="row">{reminder.date}</th>
                       <td>{reminder.message}</td>
                       <td>
                         <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} 
@@ -105,7 +107,7 @@ export const ReminderList = (props) => {
               New Reminder
             </Button>
           </div>
-        </section>
+          </Container>
       </div>
 
       <Modal isOpen={modal} toggle={toggle} className={className}>

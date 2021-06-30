@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
 import { useHistory } from 'react-router-dom';
 import { Button, Form, Input } from 'reactstrap';
-import "./ReminderList.css"
+import "./Reminders.css"
 
 export const ReminderForm = ({IncomingReminder}) => {
     const { addReminder, getReminderById, updateReminder } = useContext(ReminderContext) // gets data from provider
