@@ -40,29 +40,29 @@ export const TrackingDetail = () => {
             packageInformation: TrackingDetail.packageInformation,
         })
         .then(window.location.reload())
-        console.log(handleSaveTracking)
+        
       }
 
-  return (
-    <>
-    <section id="newInvDetailsBtn">
+  // return (
+  //   <>
+  //   <section id="newInvDetailsBtn">
 
-    <h3 id="newInvDetailsHeader">Update Details</h3>
-    <form className="inventoryForm">
-            <fieldset id="newInvDetailsInputs">
-              <Input size="lg" type="text" id="inventory__quantity" name="quantity" placeholder="Add Quantity" defaultValue={TrackingDetail.details} onChange={handleInputChange} />
-              <Input size="lg" type="text" id="inventory__size" name="size" placeholder="Add Size" defaultValue={TrackingDetail.size} onChange={handleInputChange} />
-              <Input size="lg" type="text" id="inventory__pricePaid" name="price" placeholder="Add Price Paid" defaultValue={TrackingDetail.price} onChange={handleInputChange} />
-            </fieldset>
-            <Button color="info" className="btn btn-primary"
-            onClick={event => {
-              event.preventDefault()
-              handleSaveTracking()
-              toggle()
-              history.push(`/Tracking/`)
-            }}>SAVE</Button>
-          </form> 
-            </section>
-    </>
-  )
+  //   <h3 id="newInvDetailsHeader">Update Details</h3>
+  //   <form className="inventoryForm">
+  //           <fieldset id="newInvDetailsInputs">
+  //             <Input size="lg" type="text" id="inventory__quantity" name="quantity" placeholder="Add Quantity" defaultValue={TrackingDetail.details} onChange={handleInputChange} />
+  //             <Input size="lg" type="text" id="inventory__size" name="size" placeholder="Add Size" defaultValue={TrackingDetail.size} onChange={handleInputChange} />
+  //             <Input size="lg" type="text" id="inventory__pricePaid" name="price" placeholder="Add Price Paid" defaultValue={TrackingDetail.price} onChange={handleInputChange} />
+  //           </fieldset>
+  //           <Button color="info" className="btn btn-primary"
+  //           onClick={event => {
+  //             event.preventDefault()
+  //             handleSaveTracking()
+  //             toggle()
+  //             history.push(`/Tracking/`)
+  //           }}>SAVE</Button>
+  //         </form> 
+  //           </section>
+  //   </>
+  // )
 }

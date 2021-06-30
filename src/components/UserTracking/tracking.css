@@ -1,0 +1,31 @@
+#expandTrackingBtn {
+    color: lightgray
+}
+
+#apiResults {
+    line-height: normal;
+    font-size: 1.15rem;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+}
+
+#shippingDetails {
+    font-size: 1rem;
+}
+
+.TrackingContainer {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    justify-content: space-between;
+    position: fixed;
+    text-align: center;
+    top: 53%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 70%;
+    max-height: 500px;
+    margin-bottom: 10px;
+    overflow-y:auto;
+    -webkit-overflow-scrolling: auto;
+    margin-bottom: 15px;
+}

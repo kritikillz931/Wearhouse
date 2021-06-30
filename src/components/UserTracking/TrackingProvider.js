@@ -4,33 +4,39 @@ export const TrackingContext = createContext()
 
 export const TrackingProvider = (props) => {
     const [trackingList, setTrackingList] = useState([])
-    const [searchTrackingLocation, setTrackingLocation] = useState([])
-    const [trackingCarrierUsed, setTrackingCarrierUsed] = useState([])
+    const [trackingResults, setTrackingResults] = useState({})
 
 
 const userId = localStorage.getItem("wearhouse_user")
 
 const getTrackingList = () => {
-    fetch(`http://localhost:8088/trackingDetails?userId=${userId}`)
+    fetch(`http://localhost:8088/trackingDetails?_expand=inventoryItem`)
+    .then(res => res.json())
+    .then(setTrackingList)
 }
 
 
 const searchTracking = (trackingNumber, carrier) => {
-    setTrackingCarrierUsed([])
-    fetch("https://order-tracking.p.rapidapi.com/trackings/realtime", {
-	"method": "POST",
-	"headers": {
-		"content-type": "application/json",
-		"x-rapidapi-key": "7680539ba2msh4be3503c616bb53p1cee89jsn8a6e9c4805c5",
-		"x-rapidapi-host": "order-tracking.p.rapidapi.com"
-	},
-	"body": {
-		"tracking_number": `${trackingNumber}`,
-		"carrier_code": `${carrier}`
-	}
-})
-    .then(res => res.json())
-    .then(setTrackingLocation)
+    var myHeaders = new Headers();
+    myHeaders.append("x-rapidapi-key", "7680539ba2msh4be3503c616bb53p1cee89jsn8a6e9c4805c5");
+    myHeaders.append("x-rapidapi-host", "order-tracking.p.rapidapi.com");
+    myHeaders.append("content-type", "application/json");
+    
+    var raw = JSON.stringify({
+      "tracking_number": `${trackingNumber}`,
+      "carrier_code": `${carrier}`
+    });
+    
+    var requestOptions = {
+      method: 'POST',
+      headers: myHeaders,
+      body: raw,
+      redirect: 'follow'
+    };
+    
+    fetch("https://order-tracking.p.rapidapi.com/trackings/realtime", requestOptions)
+      .then(response => response.json())
+      .then(setTrackingResults)
 }
 
 const addTrackingNumber = trackingNumber => {
@@ -74,15 +80,13 @@ return (
     value={{
         trackingList,
         setTrackingList,
-        searchTrackingLocation,
-        setTrackingLocation,
+        trackingResults,
         getTrackingList,
         addTrackingNumber,
         getTrackingNumberById,
         releaseTrackingNumber,
         updateTrackingInfo,
-        searchTracking,
-        trackingCarrierUsed
+        searchTracking
 
     }}>
         {props.children}

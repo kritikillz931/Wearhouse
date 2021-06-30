@@ -4,19 +4,30 @@ import { Button, Form, Input } from "reactstrap"
 import { TrackingSearch } from "./TrackingSearch"
 
 export const TrackingInfoForm = () => {
-    const {searchTracking, searchTrackingLocation } = useContext(TrackingContext)
-    const [TrackingLocation, setTrackingLocation] = useState("")
-    const [trackingCarrierUsed, setTrackingCarrierUsed] = useState("")
+    const {searchTracking, trackingResults } = useContext(TrackingContext)
+    const [trackingNumber, setTrackingNumber] = useState("")
+    const [trackingCarrier, setTrackingCarrier] = useState("")
+    const [results, setResults] = useState({})
+
     
     const handleTrackingInputChange = (event) => {
-        setTrackingLocation(event.target.value)
+        setTrackingNumber(event.target.value)
+        console.log(trackingNumber)
     }
     const handleCarrierInputChange = (event) => {
-        setTrackingCarrierUsed(event.target.value)
+        setTrackingCarrier(event.target.value)
+        console.log(trackingCarrier)
     }
+    useEffect(() => {
+        setResults(trackingResults)
+        console.log("final results: ", trackingResults.data?.items)
+    }, [trackingResults])
+
     const trackingSearch = () => {
-        searchTracking(TrackingLocation, trackingCarrierUsed)
-        console.log(TrackingLocation, trackingCarrierUsed)
+        console.log("tracking number: ", trackingNumber)
+        console.log("carrier: ", trackingCarrier)
+        searchTracking(trackingNumber, trackingCarrier)
+        console.log("results: ", trackingResults)
     }
 
 
@@ -26,8 +37,8 @@ export const TrackingInfoForm = () => {
             <Form className="trackingForm">
             <h2 id="trackingHeader">Tracking Information</h2>
             <fieldset>
-                <Input type="text" id="trackingNumber" name="trackingNumber" placeholder="Enter Tracking Number..." value={TrackingLocation} onChange={handleTrackingInputChange} />
-                <Input type="text" id="carrier" name="carrier" placeholder="Enter Carrier..." value={trackingCarrierUsed} onChange={handleCarrierInputChange} />
+                <Input type="text" id="trackingNumber" name="trackingNumber" placeholder="Enter Tracking Number..." value={trackingNumber} onChange={handleTrackingInputChange} />
+                <Input type="text" id="carrier" name="carrier" placeholder="Enter Carrier..." value={trackingCarrier} onChange={handleCarrierInputChange} />
             </fieldset>
             <Button id="trackingButton" color="info"
             onClick={event => {
@@ -37,9 +48,11 @@ export const TrackingInfoForm = () => {
             </Form>
         </section>
         <div>
-            {searchTrackingLocation.results?.map(singleResult => {
-                return <TrackingSearch key={singleResult.id} searchResult={singleResult} />
-            })}
+
+         {trackingResults.data?.items.map(singleResult => {
+            return <TrackingSearch key={singleResult.id} searchResult={singleResult} />
+         })}
+
         </div>
         </>
     )

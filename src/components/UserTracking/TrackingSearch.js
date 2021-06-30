@@ -2,7 +2,7 @@ import React, { useContext, useState } from "react"
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap"
 import { TrackingContext } from "./TrackingProvider"
 import { TrackingDetail } from "./TrackingDetail"
-
+import "./tracking.css"
 
 
 
@@ -13,7 +13,8 @@ export const TrackingSearch = (props) => {
     searchResult
   } = props;
   const [modal, setModal] = useState(false);
-  const toggleDetails = () => setModal(!modal);
+  const toggleDetails = () => setShowDetails(!showDetails);
+  const [showDetails, setShowDetails] = useState(false)
 
 
   const userId = parseInt(localStorage.getItem("wearhouse_user"))
@@ -31,35 +32,36 @@ export const TrackingSearch = (props) => {
     .then(toggleDetails)
   }
 
+  console.log(searchResult.origin_info.trackinfo)
+
 
 
   return (
     <>
       <section id="apiResults" >
         <p>
-          Name: {searchResult.date}<br />
-          Brand: {searchResult.statusDescription}<br />
-          sku: {searchResult.details}<br />
-          Gender: {searchResult.checkpoin_status}<br />
-          Release Year: {searchResult.releaseYear}<br />
-          Colorway: {searchResult.colorway}
+          <b>Carrier: </b>{searchResult.carrier_code}<br />
+          <b>Tracking Number: </b>{searchResult.tracking_number}<br />
+          <b>Status: </b>{searchResult.status}<br />
+          <b>Latest Update: </b>{searchResult.status} @ {searchResult.lastUpdateTime}<br /> <br />
+          <span id="expandTrackingBtn" onClick={toggleDetails}>{showDetails ? "Hide Tracking Details" : "Show Tracking Details" }</span> <br />
+          <br />
+            {showDetails ? searchResult.origin_info.trackinfo.map(action => {
+              return <p id="shippingDetails">
+                <b>Date: </b>{action.Date} <br />
+                <b>Status: </b>{action.StatusDescription} <br />
+                <b>Details: </b>{action.Details} <br />
+                </p>
+              })
+            : <hr />}<br />
+          
+          
         </p>
         </section>
         <Button id="apiSave" color="info" className="btn btn-primary" onClick={event => {
           event.preventDefault()
           handleSaveTracking()
         }}>SAVE</Button>
-        
-
-
-      <Modal isOpen={modal} toggle={toggleDetails} className={className}>
-        <ModalBody>
-          <TrackingDetail />
-        </ModalBody>
-        <ModalFooter>
-          <Button color="info" onClick={toggleDetails}>Cancel</Button>{''}
-        </ModalFooter>
-      </Modal>
     </>
   )
 }

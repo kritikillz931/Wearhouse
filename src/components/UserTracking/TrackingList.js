@@ -1,8 +1,8 @@
 import React, { useContext, useEffect, useState } from "react"
-import { TrackingContext, TrackingProvider } from "./TrackingProvider"
+import { TrackingContext } from "./TrackingProvider"
 import { useHistory } from "react-router-dom"
 import { Table, Button, Modal, ModalBody, ModalHeader, ModalFooter, } from 'reactstrap';
-import { TrackingForm, TrackingInfoForm } from "./TrackingForm";
+import { TrackingInfoForm } from "./TrackingForm";
 import { TrackingDetail } from "./TrackingDetail";
 
 export const TrackingList = (props) => {
@@ -15,6 +15,7 @@ export const TrackingList = (props) => {
     const [filteredTrackingList, setTrackingList] = useState([])
     const [editModal, setEditModal] = useState(false);
     const history = useHistory()
+    const userId = parseInt(localStorage.getItem("wearhouse_user"))
 
     useEffect(() =>{
         getTrackingList()
@@ -22,7 +23,8 @@ export const TrackingList = (props) => {
     }, [])
 
     useEffect(() => {
-        setTrackingList(trackingList)
+        let usersTracking = (trackingList.filter(track => track.inventoryItem.userId === userId))
+        setTrackingList(usersTracking)
     }, [trackingList])
 
     const handleRelease = (trackingId) => {
@@ -42,15 +44,38 @@ return (
     <>
     <div>
         <section className="TrackingContainer">
-          <div ><Table dark><thead><tr><th>Date Shipped</th><th>Carrier</th><th>Tracking Number</th><th>Products</th><th>Package Information</th><th>Actions</th></tr></thead><tbody>
+          <div >
+            <Table dark>
+              <thead>
+                <tr>
+                  <th>Carrier</th>
+                  <th>Tracking Number</th>
+                  <th>Product</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
             {
               filteredTrackingList.map(tracking => {
                 return (
                   <tr key={tracking.id}>
-                    <td className="prodInfo">{tracking.date}</td><td className="prodInfo">{tracking.carrier}</td><td className="prodInfo">{tracking.trackingNumber}</td><td className="prodInfo">{tracking.products}</td><td className="prodInfo">{tracking.packageInfo}</td><td><Button className="text-white" color="info" trackingNumber="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
-                      event.preventDefault()
-                      openEditModal(tracking.id)
-                    }}>edit</Button> <Button className="text-white" color="info" trackingNumber="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(tracking.id)}>Delete</Button></td>
+                    <td className="prodInfo">{tracking.carrier}</td>
+                    <td className="prodInfo">{tracking.trackingNumber}</td>
+                    <td className="prodInfo"><b>{tracking.inventoryItem.brand}</b> <br /> {tracking.inventoryItem.name}</td>
+                    <td>
+                      <Button  
+                        color="info" 
+                        size="sm" 
+                        onClick={(event) => {
+                          event.preventDefault()
+                          openEditModal(tracking.id)
+                          }}
+                        >View / Edit Details
+                      </Button> 
+                      <span>&#9;</span>
+                      <Button color="info" size="sm" onClick={() => handleRelease(tracking.id)}>Delete</Button>
+                      
+                      </td>
                   </tr>
                 )
               })
