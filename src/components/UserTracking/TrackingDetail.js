@@ -7,7 +7,7 @@ import { InventoryContext } from "../Inventory/InventoryProvider"
 
 
 export const TrackingDetail = ({searchResult}) => {
-  const { getUnshippedInventoryList, unshippedInventory} = useContext(InventoryContext)
+  const { getUnshippedInventoryList, unshippedInventory, updateInventory} = useContext(InventoryContext)
   const { addTracking, updateTrackingInfo } = useContext(TrackingContext)
   const [unshippedInventoryList, setUnshippedInventory] = useState([])
 
@@ -18,7 +18,7 @@ export const TrackingDetail = ({searchResult}) => {
 
   // gets inventory items that have not yet been shipped
   useEffect(() => {
-    const NoShippingYet = (unshippedInventory.filter(item => item.trackingDetails.length < 1))
+    const NoShippingYet = (unshippedInventory.filter(item => item.quantity > 0))
     setUnshippedInventory(NoShippingYet)
   }, [unshippedInventory])
 
@@ -29,6 +29,18 @@ export const TrackingDetail = ({searchResult}) => {
       trackingNumber: searchResult.tracking_number,
       carrier: searchResult.carrier_code,
       inventoryItemId: item.id
+    })
+    updateInventory({
+      id: item.id,
+      userId: item.userId,
+      silhouette: item.silhouette,
+      brand: item.brand,
+      name: item.name,
+      sku: item.sku,
+      marketValue: item.marketValue,
+      size: item.size,
+      quantity: item.quantity - 1,
+      price: item.price
     })
     .then(res => localStorage.setItem("trackingId", res.id))
     .then(window.location.reload())
