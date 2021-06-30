@@ -16,7 +16,7 @@
     width: 70%;
     max-height: 500px;
     margin-bottom: 10px;
-    overflow-y:auto;
+    overflow-y:scroll;
     -webkit-overflow-scrolling: auto;
     margin-bottom: 15px;
 }
@@ -26,9 +26,9 @@ font-size: 25px;
 font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 text-transform: uppercase;
     
-    flex-direction: column;
-    justify-content: center;
-    justify-content: space-between;
+    
+    
+    
     position: fixed;
     text-align: center;
     top: 90%;

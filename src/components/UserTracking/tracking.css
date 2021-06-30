@@ -5,7 +5,10 @@
 #apiResults {
     line-height: normal;
     font-size: 1.15rem;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: sans-serif;
+    display: flex;
+    text-align: center;
+    text-transform: uppercase;
 }
 
 #shippingDetails {
@@ -28,4 +31,25 @@
     overflow-y:auto;
     -webkit-overflow-scrolling: auto;
     margin-bottom: 15px;
+}
+
+#trackingModal {
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-transform: uppercase;
+}
+
+#trackingNumberInput {
+text-align: center;
+font-family:sans-serif;
+}
+
+#carrierInput {
+    text-align: center;
+font-family:sans-serif;
+}
+
+#trackingButton {
+    font-family: sans-serif;
+    text-transform: uppercase;
 }
