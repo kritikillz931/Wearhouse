@@ -17,7 +17,10 @@ export const InventoryList = (props) => {
     className
   } = props;
   const [modal, setModal] = useState(false);
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    localStorage.removeItem("inventoryId")
+    setModal(!modal)
+  };
   const [filteredInventoryList, setInventoryList] = useState([])
   const [editModal, setEditModal] = useState(false);
   const toggleEditModal = () => setEditModal(!editModal)

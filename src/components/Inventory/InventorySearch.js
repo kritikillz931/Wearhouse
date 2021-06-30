@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react"
-import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
+import { Button, Card, CardSubtitle, CardText, Modal, ModalBody, ModalFooter, ModalHeader, CardBody, CardTitle } from "reactstrap"
 import { InventoryContext } from "./InventoryProvider"
 import { InventoryDetail } from "./InventoryDetail"
 import "./Inventory.css"
@@ -35,7 +35,28 @@ export const InventorySearch = (props) => {
 
   return (
     <>
-      <section id="apiResults" >
+      <Card>
+        <CardBody>
+          <CardTitle tag="h5">Brand: {searchResult.brand}</CardTitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted">{searchResult.name}</CardSubtitle>
+        </CardBody>
+        <img width="100%" src={searchResult.image.thumbnail} alt="shoe thumbnail"/>
+        <CardBody>
+          <CardText>
+            sku: {searchResult.sku}<br />
+            Gender: {searchResult.gender}<br />
+            Release Year: {searchResult.releaseYear}<br />
+            Colorway: {searchResult.colorway}
+          </CardText>
+        </CardBody>
+        <Button id="apiSave" color="info" className="btn btn-primary" onClick={event => {
+          event.preventDefault()
+          handleSaveInventory()
+        }}>SELECT</Button>
+      </Card>
+
+
+      {/* <section id="apiResults" >
         <p>
           Name: {searchResult.name}<br />
           Brand: {searchResult.brand}<br />
@@ -49,7 +70,7 @@ export const InventorySearch = (props) => {
         <Button id="apiSave" color="info" className="btn btn-primary" onClick={event => {
           event.preventDefault()
           handleSaveInventory()
-        }}>SAVE</Button>
+        }}>SAVE</Button> */}
         
 
 
@@ -58,9 +79,6 @@ export const InventorySearch = (props) => {
         <ModalBody>
           <InventoryDetail />
         </ModalBody>
-        <ModalFooter>
-          <Button color="info" onClick={toggleDetails}>Cancel</Button>{''}
-        </ModalFooter>
       </Modal>
     </>
   )

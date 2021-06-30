@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
 import "./Inventory.css"
 import { InventorySearch } from "./InventorySearch"
-import { Button, Form, Input } from "reactstrap"
+import { Button, Form, Input, InputGroup, InputGroupAddon } from "reactstrap"
 
 
 export const InventoryForm = () => {
@@ -45,29 +45,32 @@ export const InventoryForm = () => {
   return (
     <>
       <section id="inventoryModal">
-        <Form className="inventoryForm">
-          <h2 id="inventoryHeader">Search The Market</h2>
-          <fieldset>
-            <Input type="text" id="inventory__sku" name="sku" placeholder="Search By Sku..." value={skuSearchTerms} onChange={handleSkuInputChange} />
-          </fieldset>
-          <Button id="sbs" color="info"
-            onClick={event => {
+        <h2 id="inventoryHeader">Search The Market</h2>
+        <InputGroup>
+          <Input type="text" id="inventory__sku" name="sku" placeholder="Search By Sku..." value={skuSearchTerms} onChange={handleSkuInputChange} />
+          <InputGroupAddon addonType="append"> <Button onClick={event => {
               event.preventDefault()
               search("skuSearch")
-            }}>Search By Sku</Button>
-          <fieldset>
+            }}>Search By SKU</Button> </InputGroupAddon>
+        </InputGroup>
+        <hr />
+        <p>OR</p>
+        <hr />
 
-            <Input type="text" id="inventory__brand" name="message" placeholder="Brand..." value={brandSearchTerms} onChange={handleBrandInputChange} />
-            <br />
-            <Input size="lg" type="text" id="inventory__name" name="message" placeholder="Name..." value={nameSearchTerms} onChange={handleNameInputChange} />
-          </fieldset>
-          <Button id="sbnb" color="info"
-            onClick={event => {
+        <InputGroup>
+          <Input type="text" id="inventory__brand" name="message" placeholder="Brand..." value={brandSearchTerms} onChange={handleBrandInputChange} />
+          <Input type="text" id="inventory__name" name="message" placeholder="Name..." value={nameSearchTerms} onChange={handleNameInputChange} />
+          <InputGroupAddon addonType="append"> 
+          <Button onClick={event => {
               event.preventDefault()
               search("nameSearch")
-            }}>Search By Brand & Name</Button>
+            }}>Search By Name</Button> </InputGroupAddon>
+        </InputGroup>
+        <hr />
+        <br />
 
-        </Form>
+
+
         <div >{skuSearchResults.results?.map(singleResult => {
           return <InventorySearch key={singleResult.id} searchResult={singleResult} />
         })}</div>

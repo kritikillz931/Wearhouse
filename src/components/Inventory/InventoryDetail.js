@@ -27,6 +27,10 @@ export const InventoryDetail = () => {
     console.log(inventoryItem)
   }
 
+  const refreshPage = () => {
+    window.location.reload()
+  }
+
   const handleSaveInventory = () => {
     let mktVal;
     if (inventoryItem.marketValue === 0) {
@@ -90,13 +94,13 @@ export const InventoryDetail = () => {
             history.push(`/Inventory/`)
           }}>SAVE</Button>
 
-        <Button color="secondary" className="inventoryDeleteBtn"
+        {inventoryItem.size ? <Button color="secondary" className="inventoryDeleteBtn"
           onClick={event => {
             event.preventDefault()
             handleRelease(inventoryItem.id)
             toggle()
             history.push(`/Inventory/`)
-          }}>Delete</Button>
+          }}>Delete</Button> : <Button color="secondary" onClick={() => refreshPage()}>Cancel</Button> }
 </ModalFooter>
 
 
