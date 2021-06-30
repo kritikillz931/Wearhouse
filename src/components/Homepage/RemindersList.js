@@ -53,7 +53,7 @@ export const ReminderList = (props) => {
             <p className="display-6">TODAY IS {todaysDate}</p>
           </Jumbotron>
 
-          <div className="reminders">
+          
             <Table responsive dark>
               <thead>
                 <tr>
@@ -67,19 +67,19 @@ export const ReminderList = (props) => {
                 filteredReminders.map(reminder => {
                   return (
                     <tr key={reminder.id}>
-                      <th scope="row">{reminder.date}</th>
+                      <td>{reminder.date}</td>
                       <td>{reminder.message}</td>
                       <td>
-                        <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} 
+                        <Button className="text-white" color="info" size="sm"  
                           onClick={
                             (event) => {
                               event.preventDefault()
                               setReminder(reminder)
                               toggle()
                             }                      
-                          }>edit
+                          }>Edit
                         </Button> 
-                      
+                      <span>&emsp;</span>
                         <Button 
                           className="text-white" 
                           color="info" size="sm" 
@@ -94,9 +94,7 @@ export const ReminderList = (props) => {
               }
               </tbody>
             </Table>
-          </div>
-          <div>
-            <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" 
+            <Button size="lg" block  color="info" 
              onClick={
               (event) => {
                 event.preventDefault()
@@ -106,7 +104,6 @@ export const ReminderList = (props) => {
             }>
               New Reminder
             </Button>
-          </div>
           </Container>
       </div>
 
