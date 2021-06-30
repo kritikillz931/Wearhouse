@@ -32,17 +32,10 @@ export const InventoryList = (props) => {
   }, [])
 
   useEffect(() => {
-    setInventoryList(inventoryList)
+    let inStock = inventoryList.filter(item => parseInt(item.quantity) > 0)
+    setInventoryList(inStock)
   }, [inventoryList])
 
-  useEffect(() => {
-    if (searchTerms !== "") {
-      const subset = inventoryList.filter(inventory => inventory.sku.toLowerCase().includes(searchTerms))
-      setInventoryList(subset)
-    } else {
-      setInventoryList(inventoryList)
-    }
-  }, [searchTerms, inventoryList])
 
 
   const handleRelease = (inventoryId) => {
