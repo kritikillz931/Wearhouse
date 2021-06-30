@@ -59,7 +59,7 @@ export const InventoryList = (props) => {
     <>
       <div>
         <section className="InventoryContainer">
-          <div ><Table dark><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size(per)</th><th>Price(per)</th><th>Market Value(per)</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
+          <div ><Table dark className="tableFixHead"><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size(per)</th><th>Price(per)</th><th>Market Value(per)</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
             {
               filteredInventoryList.map(inventory => {
                 return (
