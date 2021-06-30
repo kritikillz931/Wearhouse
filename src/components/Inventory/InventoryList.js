@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
 import { useHistory } from "react-router-dom"
-import { Table, Button, Modal, ModalBody, ModalHeader, ModalFooter, } from 'reactstrap';
+import { Table, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, Row, } from 'reactstrap';
 import "./Inventory.css"
 import { TotalPricePaid } from "./InventoryTotalPrice"
 import { TotalMarketPrice } from "./InventoryMarketPrice"
@@ -59,7 +59,7 @@ export const InventoryList = (props) => {
     <>
       <div>
         <section className="InventoryContainer">
-          <div ><Table dark className="tableFixHead"><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size(per)</th><th>Price(per)</th><th>Market Value(per)</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
+          <div ><Table dark><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size(per)</th><th>Price(per)</th><th>Market Value(per)</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
             {
               filteredInventoryList.map(inventory => {
                 return (
@@ -75,22 +75,32 @@ export const InventoryList = (props) => {
           </tbody></Table>
           </div>
         </section>
-          <div className="totalsContainer">
-            <div className="text-white">
-              <div className="totalPrice">
-                <TotalPricePaid inventoryList={inventoryList} />
-              </div>
-              <div className="totalMarket">
-                <TotalMarketPrice inventoryList={inventoryList} />
-              </div>
-              <div className="totalQuantity">
-                <TotalQuantityAmount inventoryList={inventoryList} />
-              </div>
-            </div>
+            <Container className="totalsContainer">
+              <Row className="justify-content-between" xs="1" sm="2" md="4">
+            <TotalPricePaid inventoryList={inventoryList} />
+            <TotalMarketPrice inventoryList={inventoryList} />
+            <TotalQuantityAmount inventoryList={inventoryList} />
+                
+              </Row>
             <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle} >
               Add New
               </Button>
-          </div>
+            </Container>
+
+
+
+
+
+          {/* <div className="totalsContainer">
+            <div className="text-white">
+              <div className="totalPrice">
+              </div>
+              <div className="totalMarket">
+              </div>
+              <div className="totalQuantity">
+              </div>
+            </div>
+          </div> */}
       </div>
 
       <Modal isOpen={modal} toggle={toggle} className={className}>

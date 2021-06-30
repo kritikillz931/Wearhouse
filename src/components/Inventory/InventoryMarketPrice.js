@@ -1,5 +1,6 @@
 import React from "react"
 import {useEffect, useState, useContext} from "react"
+import { Col } from "reactstrap"
 import {InventoryContext} from "./InventoryProvider"
 
 
@@ -22,7 +23,9 @@ export const TotalMarketPrice = () => {
 
     return (
         <>
-        Total Market Value: ${price}
+        <Col>
+        Total Market Value:<br /> ${price}
+        </Col>
         </>
     )
 }

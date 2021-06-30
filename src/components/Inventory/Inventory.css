@@ -26,20 +26,17 @@
     z-index: 1;
 }
 .totalsContainer {
-font-size: 25px;
+font-size: 1.10rem;
 font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 text-transform: uppercase;
-    
-    
-    
-    
     position: fixed;
     text-align: center;
-    top: 90%;
+    top: 84%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 1000px;
+    width: 70%;
     max-height: 500px;
+    color: white;
     
 }
 
