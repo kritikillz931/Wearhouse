@@ -7,24 +7,24 @@ export const NavBar = () => {
   const toggleNavbar = () => setCollapsed(!collapsed);
   
   return (
-    <div>
-      <Navbar  className="navBar" color="transparent" dark>
+    <div className="navBar">
+      <Navbar color="transparent" dark>
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
-        <NavbarBrand href="/" className="mr-auto"></NavbarBrand>
+        <NavbarBrand href="/" className="mr-auto">Wearhouse</NavbarBrand>
         <Collapse isOpen={!collapsed} navbar>
-          <Nav navbar>
+          <Nav navbar className="navBarLinks">
             <NavItem>
-              <NavLink className="text-white" href="/Reminders">Reminders</NavLink>
+              <NavLink className="navBarLink text-white" href="/Reminders">Reminders</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink className="text-white" href="/Inventory">Inventory</NavLink>
+              <NavLink className="navBarLink text-white" href="/Inventory">Inventory</NavLink>
             </NavItem>
 
             <NavItem>
-              <NavLink className="text-grey" href="/Tracking">Tracking</NavLink>
+              <NavLink className="navBarLink text-white" href="/Tracking">Tracking</NavLink>
             </NavItem>
             <NavItem>
-              <NavLink className="text-grey" href="/LogOut">LogOut</NavLink>
+              <NavLink className="navBarLink text-grey" className="text-grey" href="/LogOut">LogOut</NavLink>
             </NavItem>
           </Nav>
         </Collapse>
