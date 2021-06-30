@@ -16,7 +16,7 @@ export const InventoryProvider = (props) => {
 
     // get inventory list for currently logged in user
     const getInventoryList = () => {
-        fetch(`http://localhost:8088/inventoryItems?userId=${userId}`)
+        fetch(`http://localhost:8088/inventoryItems?_embed=trackingDetails&userId=${userId}`)
         .then(res => res.json())  
         .then(setInventoryList)
     }
@@ -69,7 +69,7 @@ export const InventoryProvider = (props) => {
     }
 
     const getInventoryById = inventoryId => {
-        return fetch (`http://localhost:8088/inventoryItems/${inventoryId}`)
+        return fetch (`http://localhost:8088/inventoryItems/${inventoryId}?_embed=trackingDetails`)
         .then(res => res.json())
     }
 

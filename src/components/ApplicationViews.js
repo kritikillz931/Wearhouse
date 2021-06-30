@@ -26,9 +26,11 @@ export const ApplicationViews = () => {
 {/* ----------------------------------------------------------------------------- */}
 
         <InventoryProvider>
+            <TrackingProvider>
             <Route exact path="/Inventory">
                 <InventoryList />
             </Route>
+            </TrackingProvider>
         </InventoryProvider>
 
 
