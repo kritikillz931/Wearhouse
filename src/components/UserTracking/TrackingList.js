@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom"
 import { Table, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, Jumbotron, } from 'reactstrap';
 import { TrackingInfoForm } from "./TrackingForm";
 import { TrackingDetail } from "./TrackingDetail";
+import { InventoryDetail } from "../Inventory/InventoryDetail";
 
 export const TrackingList = (props) => {
   const { trackingList, releaseTracking, getTrackingList } = useContext(TrackingContext)
@@ -13,7 +14,6 @@ export const TrackingList = (props) => {
   const [modal, setModal] = useState(false)
   const toggle = () => setModal(!modal)
   const [filteredTrackingList, setTrackingList] = useState([])
-  const [editModal, setEditModal] = useState(false);
   const history = useHistory()
   const userId = parseInt(localStorage.getItem("wearhouse_user"))
 
@@ -33,9 +33,11 @@ export const TrackingList = (props) => {
       })
   }
 
-  const openEditModal = (id) => {
-    localStorage.setItem("trackingId", id)
-    setEditModal(true)
+  const openEditModal = (trackingNumber, trackingCarrier, trackingInventory) => {
+    localStorage.setItem("trackingNumber", trackingNumber)
+    localStorage.setItem("trackingCarrier", trackingCarrier)
+    localStorage.setItem("trackingInventory", trackingInventory)
+    setModal(true)
     return;
   }
 
@@ -60,21 +62,14 @@ export const TrackingList = (props) => {
                 {
                   filteredTrackingList.map(tracking => {
                     return (
-                      <tr key={tracking.id}>
+                      <tr key={tracking.id} onClick={(event) => {
+                        event.preventDefault()
+                        openEditModal(tracking.trackingNumber, tracking.carrier, tracking.inventoryItem)
+                      }}>
                         <td className="prodInfo">{tracking.carrier}</td>
                         <td className="prodInfo">{tracking.trackingNumber}</td>
                         <td className="prodInfo"><b>{tracking.inventoryItem.brand}</b> <br /> {tracking.inventoryItem.name}</td>
                         <td>
-                          <Button
-                            color="info"
-                            size="sm"
-                            onClick={(event) => {
-                              event.preventDefault()
-                              openEditModal(tracking.id)
-                            }}
-                          >View / Edit Details
-                      </Button>
-                          <span>&#9;</span>
                           <Button color="info" size="sm" onClick={() => handleRelease(tracking.id)}>Delete</Button>
 
                         </td>
@@ -94,12 +89,14 @@ export const TrackingList = (props) => {
 
         <Modal isOpen={modal} toggle={toggle} className={className}>
           <ModalBody>
-            <TrackingInfoForm onClick={toggle} trackingList={trackingList} />
+            <TrackingInfoForm onClick={toggle}  />
           </ModalBody>
           <ModalFooter>
             <Button color="secondary" onClick={toggle}>Cancel</Button>{''}
           </ModalFooter>
         </Modal>
+
+        
 
       
     </>
