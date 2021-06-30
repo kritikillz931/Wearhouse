@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
 import { useHistory } from "react-router-dom"
-import { Table, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, Row, Jumbotron, } from 'reactstrap';
+import { Table, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, Jumbotron, } from 'reactstrap';
 import "./Inventory.css"
 import { TotalPricePaid } from "./InventoryTotalPrice"
 import { TotalMarketPrice } from "./InventoryMarketPrice"
@@ -20,6 +20,7 @@ export const InventoryList = (props) => {
   const toggle = () => setModal(!modal);
   const [filteredInventoryList, setInventoryList] = useState([])
   const [editModal, setEditModal] = useState(false);
+  const toggleEditModal = () => setEditModal(!editModal)
   const history = useHistory()
 
   useEffect(() => {
@@ -48,8 +49,9 @@ export const InventoryList = (props) => {
       })
   }
 
-  const openEditModal = (id) => {
+  const openEditModal = (id, name) => {
     localStorage.setItem("inventoryId", id)
+    localStorage.setItem("inventoryName", name)
     setEditModal(true)
     return;
   }
@@ -73,7 +75,6 @@ export const InventoryList = (props) => {
                 <th class="inventoryMarketCol">Market Value</th>
                 <th class="inventorySizeCol">Size</th>
                 <th class="inventoryQtyCol">Qty</th>
-                <th class="inventoryActionsCol">Actions</th>
               </tr>
             </thead>
             <tbody className="inventoryTableBody">
@@ -82,7 +83,7 @@ export const InventoryList = (props) => {
                 return (
                   <tr key={inventory.id} id="inventoryTableRow" onClick={(event) => {
                     event.preventDefault()
-                    openEditModal(inventory.id)
+                    openEditModal(inventory.id, inventory.name)
                   }}>
                     <td><img  id="silhouetteImg" src={inventory.silhouette}></img></td>
                     <td id="inventoryBrand">{inventory.brand}</td>
@@ -91,28 +92,23 @@ export const InventoryList = (props) => {
                     <td >${inventory.marketValue} <br />/each</td>
                     <td >{inventory.size}</td>
                     <td >{inventory.quantity}</td>
-                    <td>
-                      {/* <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
-                        event.preventDefault()
-                        openEditModal(inventory.id)
-                      }}>Edit</Button>  */}
-                      <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(inventory.id)}>Delete</Button></td>
+                    
                   </tr>
                 )
               })
             }
           </tbody></Table>
               <Container className="totalsContainer">
-                <Table className="totalsContainer" responsive hover dark size="md">
+                <Table responsive hover dark size="md">
                   <thead>
                     <th>
-                    <TotalPricePaid inventoryList={inventoryList} />
+                      <TotalPricePaid inventoryList={inventoryList} />
                     </th>
                     <th>
-                    <TotalMarketPrice inventoryList={inventoryList} />
+                      <TotalMarketPrice inventoryList={inventoryList} />
                     </th>
                     <th>
-                    <TotalQuantityAmount inventoryList={inventoryList} />
+                      <TotalQuantityAmount inventoryList={inventoryList} />
                     </th>
                   </thead>
                   
@@ -127,6 +123,7 @@ export const InventoryList = (props) => {
 
       <Modal isOpen={modal} toggle={toggle} className={className}>
         <ModalBody>
+          
           <InventoryForm onClick={toggle} inventoryList={inventoryList} />
         </ModalBody>
         <ModalFooter>
@@ -135,12 +132,10 @@ export const InventoryList = (props) => {
       </Modal>
 
       <Modal id="updateDetailsModal" isOpen={editModal} className={className}>
+      <ModalHeader toggle={toggleEditModal}>Update Details for {localStorage.getItem("inventoryName")}</ModalHeader>
         <ModalBody>
           <InventoryDetail />
         </ModalBody>
-        <ModalFooter>
-          <Button color="info" onClick={() => setEditModal(false)}>Cancel</Button>{''}
-        </ModalFooter>
       </Modal>
 
       

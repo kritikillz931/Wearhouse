@@ -81,6 +81,43 @@
     margin-top: 0;
 }
 
+/* ******************************************
+for inside InventoryDetails modal 
+****************************************** */
+
+.shoeDetailsImage {
+    max-width: 90%;
+    justify-content: space-around;
+}
+
+.inventoryDeleteBtn {
+    justify-content: right;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /* .totalsContainer {
     font-size: 1.10rem;
     font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;

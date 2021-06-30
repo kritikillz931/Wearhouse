@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react"
-import { Button, Modal, ModalBody, ModalFooter } from "reactstrap"
+import { Button, Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap"
 import { InventoryContext } from "./InventoryProvider"
 import { InventoryDetail } from "./InventoryDetail"
 import "./Inventory.css"
@@ -54,6 +54,7 @@ export const InventorySearch = (props) => {
 
 
       <Modal isOpen={modal} toggle={toggleDetails} className={className}>
+        <ModalHeader toggle={toggleDetails}>Update Details</ModalHeader>
         <ModalBody>
           <InventoryDetail />
         </ModalBody>
