@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react"
+import React, { useContext, useEffect, useState } from "react"
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap"
 import { TrackingContext } from "./TrackingProvider"
 import { TrackingDetail } from "./TrackingDetail"
@@ -6,8 +6,11 @@ import "./tracking.css"
 
 
 
+
 export const TrackingSearch = (props) => {
-  const { addTracking } = useContext(TrackingContext)
+  
+  
+  const [currentTracking, setCurrentTracking] = useState({})
   const {
     className,
     searchResult
@@ -15,22 +18,27 @@ export const TrackingSearch = (props) => {
   const [modal, setModal] = useState(false);
   const toggleDetails = () => setShowDetails(!showDetails);
   const [showDetails, setShowDetails] = useState(false)
+  const toggleModal = () => setModal(!modal)
 
 
-  const userId = parseInt(localStorage.getItem("wearhouse_user"))
-
-  const handleSaveTracking = () => {
-    //POST - add
-    addTracking({
-      userId: userId,
-      date: searchResult.date,
-      statusDescription: searchResult.statusDescription,
-      Location: searchResult.details,
-      checkpoint: searchResult.checkpoin_status
-    })
-    .then(res => localStorage.setItem("trackingId", res.id))
-    .then(toggleDetails)
+  const moveToNextStep = () => {
+    toggleModal()
   }
+
+  // const updateTracking = (item) => {
+  //   // PUT - update
+  //   updateTrackingInfo(
+  //     {
+  //       id: currentTracking.id,
+  //       userId: userId,
+  //       trackingNumber: currentTracking.trackingNumber,
+  //       carrier: currentTracking.carrier,
+  //       inventoryItemId: item.id
+  //     }
+  //   )
+  //   .then(window.location.reload())
+  // }
+
 
   console.log(searchResult.origin_info.trackinfo)
 
@@ -60,8 +68,19 @@ export const TrackingSearch = (props) => {
         </section>
         <Button id="apiSave" color="info" className="btn btn-primary" onClick={event => {
           event.preventDefault()
-          handleSaveTracking()
+          moveToNextStep()
         }}>SAVE</Button>
+
+
+
+      <Modal isOpen={modal} toggle={toggleModal} className={className}>
+        <ModalBody>
+          <TrackingDetail searchResult={searchResult} />
+        </ModalBody>
+        <ModalFooter>
+          <Button color="info" onClick={toggleModal}>Cancel</Button>{''}
+        </ModalFooter>
+      </Modal>
     </>
   )
 }

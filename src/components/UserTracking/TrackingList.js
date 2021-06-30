@@ -99,14 +99,7 @@ return (
         </ModalFooter>
       </Modal>
 
-      <Modal id="updateDetailsModal" isOpen={editModal} className={className}>
-        <ModalBody>
-          <TrackingDetail />
-        </ModalBody>
-        <ModalFooter>
-          <Button color="info" onClick={() => setEditModal(false)}>Cancel</Button>{''}
-        </ModalFooter>
-      </Modal>
+      
     </>
 )
 }

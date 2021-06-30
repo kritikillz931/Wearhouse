@@ -39,13 +39,13 @@ const searchTracking = (trackingNumber, carrier) => {
       .then(setTrackingResults)
 }
 
-const addTrackingNumber = trackingNumber => {
-    return fetch("http://localhost:8088/trackingInfo", {
+const addTracking = trackingInfo => {
+    return fetch("http://localhost:8088/trackingDetails", {
         method: "POST",
         headers: {
             "Content-Type": "application/json"
         },
-        body: JSON.stringify(trackingNumber)
+        body: JSON.stringify(trackingInfo)
     })
     .then(response => response.json())
 }
@@ -82,7 +82,7 @@ return (
         setTrackingList,
         trackingResults,
         getTrackingList,
-        addTrackingNumber,
+        addTracking,
         getTrackingNumberById,
         releaseTrackingNumber,
         updateTrackingInfo,
