@@ -1,13 +1,13 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory, useParams, } from 'react-router-dom';
-import { Card, CardTitle, CardText, Button, Input, InputGroup, InputGroupAddon, InputGroupText, ModalBody, ModalFooter } from "reactstrap"
+import { Modal, Button, Input, InputGroup, InputGroupAddon, InputGroupText, ModalBody, ModalFooter } from "reactstrap"
 import { InventoryContext } from "./InventoryProvider"
 import "./Inventory.css"
 import {TrackingContext} from "../UserTracking/TrackingProvider"
 import {InventoryTracker} from "./InventoryTrack"
+import {TrackingInfoForm} from "../UserTracking/TrackingForm"
 
-
-export const InventoryDetail = () => {
+export const InventoryDetail = (props) => {
   const { updateInventory, getInventoryById, releaseInventory } = useContext(InventoryContext)
   const {searchTracking, trackingResults } = useContext(TrackingContext)
   const [inventoryItem, setInventoryItem] = useState({})
@@ -17,7 +17,9 @@ export const InventoryDetail = () => {
   const [showTracking, setShowTracking] = useState(false)
   const history = useHistory();
   const userId = parseInt(localStorage.getItem("wearhouse_user"))
-
+  const {
+    className
+  } = props;
   const inventoryId = parseInt(localStorage.getItem("inventoryId"))
   useEffect(() => {
     getInventoryById(inventoryId)
@@ -100,7 +102,7 @@ export const InventoryDetail = () => {
               history.push(`/Inventory/`)
             }}>SAVE</Button>
 
-          <Button>Add Tracking Info</Button>
+          <Button onClick={toggle}>Add Tracking Info</Button>
 
           {inventoryItem.size ? <Button color="danger" className="inventoryDeleteBtn"
             onClick={event => {
@@ -112,43 +114,29 @@ export const InventoryDetail = () => {
 
 
         </ModalFooter>
-        {/* <ModalBody>
-          <span id="expandTrackingBtn" onClick={toggleDetails}>{showTracking ? "Hide Tracking Details" : "Show Tracking Details"}</span>
-          {showTracking ? trackingData.map((trackInfo) => {
-            console.log(trackingResults)
-            return <>
-              <div>
-                <Card body>
-                  <CardTitle tag="h5">Tracking Number: {trackInfo.data.items[0].carrier_code}</CardTitle>
-                  <CardText>Carrier: {trackingResults.carrier}</CardText>
-                  <Button>Delete Tracking Info</Button>
-                </Card>
-              </div>
-
-            </>
-                      }
-
-          ) : <hr />}
-
-        </ModalBody> */}
-
-
         <ModalBody>
           <span id="expandTrackingBtn" onClick={toggleDetails}>{showTracking ? "Hide Tracking Details" : "Show Tracking Details"}</span>
           {showTracking ? inventoryItem.trackingDetails?.map((trackInfo) => {
             return <>
               <InventoryTracker info={trackInfo} />
-
             </>
                       }
-
           ) : <hr />}
-
         </ModalBody>
-
-
-
       </section>
+
+
+
+
+
+      <Modal isOpen={modal} toggle={toggle} className={className}>
+          <ModalBody>
+            <TrackingInfoForm onClick={toggle}  shoeInfo={inventoryItem}/>
+          </ModalBody>
+          <ModalFooter>
+            <Button color="secondary" onClick={toggle}>Cancel</Button>{''}
+          </ModalFooter>
+        </Modal>
     </>
   )
 }

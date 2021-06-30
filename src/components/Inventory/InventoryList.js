@@ -67,7 +67,7 @@ export const InventoryList = (props) => {
           <Jumbotron fluid className="text-white" id="inventoryHeader">
             <h1 className="display-5">Current Inventory</h1>
           </Jumbotron>
-        
+        <div className="InventoryTable">
           <Table responsive hover dark size="sm">
             <thead>
               <tr>
@@ -100,7 +100,9 @@ export const InventoryList = (props) => {
                 )
               })
             }
-          </tbody></Table>
+            </tbody>
+          </Table>
+                </div>
               <Container className="totalsContainer">
                 <Table responsive hover dark size="md">
                   <thead>

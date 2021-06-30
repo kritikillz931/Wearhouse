@@ -7,14 +7,19 @@
     padding: 0px;
 }
 
-.inventoryTableBody {
-    max-height: 100px;
+.InventoryTable {
+    overflow-y:auto;
+    -webkit-overflow-scrolling: auto;
+    max-height: 500px;
 }
 
-.InventoryContainer thead th {
+.InventoryTable th {
     position: sticky;
     top: 0;
     z-index: 1;
+}
+
+.InventoryTable thead {
     text-transform: uppercase;
     padding-top: 15px;
     padding-bottom: 15px;

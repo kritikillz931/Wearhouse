@@ -3,17 +3,19 @@ import { Button, Modal, ModalBody, ModalFooter } from "reactstrap"
 import { TrackingContext } from "./TrackingProvider"
 import { TrackingDetail } from "./TrackingDetail"
 import "./tracking.css"
-
+import { InventoryContext } from "../Inventory/InventoryProvider"
 
 
 
 export const TrackingSearch = (props) => {
-  
+  const { updateInventory} = useContext(InventoryContext)
+  const { addTracking } = useContext(TrackingContext)
   
   const [currentTracking, setCurrentTracking] = useState({})
   const {
     className,
-    searchResult
+    searchResult,
+    shoeInfo
   } = props;
   const [modal, setModal] = useState(false);
   const toggleDetails = () => setShowDetails(!showDetails);
@@ -22,7 +24,29 @@ export const TrackingSearch = (props) => {
 
 
   const moveToNextStep = () => {
-    toggleModal()
+    if(shoeInfo) {
+      addTracking({
+        trackingNumber: searchResult.tracking_number,
+        carrier: searchResult.carrier_code,
+        inventoryItemId: shoeInfo.id
+      })
+      updateInventory({
+        id: shoeInfo.id,
+        userId: shoeInfo.userId,
+        silhouette: shoeInfo.silhouette,
+        brand: shoeInfo.brand,
+        name: shoeInfo.name,
+        sku: shoeInfo.sku,
+        marketValue: shoeInfo.marketValue,
+        size: shoeInfo.size,
+        quantity: shoeInfo.quantity - 1,
+        price: shoeInfo.price
+      })
+      window.location.reload()
+    } else {
+
+      toggleModal()
+    }
   }
 
 

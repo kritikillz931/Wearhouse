@@ -16,21 +16,18 @@
 }
 
 .TrackingContainer {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    justify-content: space-between;
-    position: fixed;
+    min-width: 80%;
     text-align: center;
-    top: 53%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 70%;
-    max-height: 500px;
-    margin-bottom: 10px;
+    position: relative;
+    top: 15px;
+    margin-bottom: 0;
+    padding: 0px;
+}
+
+.InventoryTable {
     overflow-y:auto;
     -webkit-overflow-scrolling: auto;
-    margin-bottom: 15px;
+    max-height: 500px;
 }
 
 #trackingModal {

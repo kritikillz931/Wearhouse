@@ -3,7 +3,7 @@ import { TrackingContext } from "./TrackingProvider"
 import { Button, Form, Input } from "reactstrap"
 import { TrackingSearch } from "./TrackingSearch"
 
-export const TrackingInfoForm = () => {
+export const TrackingInfoForm = ({shoeInfo}) => {
     const {searchTracking, trackingResults } = useContext(TrackingContext)
     const [trackingNumber, setTrackingNumber] = useState("")
     const [trackingCarrier, setTrackingCarrier] = useState("")
@@ -30,7 +30,7 @@ export const TrackingInfoForm = () => {
     const trackingSearch = () => {
         searchTracking(trackingNumber, trackingCarrier)
     }
-
+    console.log("shoe info made it!!", shoeInfo)
 
     return (
         <>
@@ -51,7 +51,7 @@ export const TrackingInfoForm = () => {
         <div>
 
          {results.data?.items.map(singleResult => {
-            return <TrackingSearch key={singleResult.id} searchResult={singleResult} />
+            return <TrackingSearch key={singleResult.id} searchResult={singleResult} shoeInfo={shoeInfo} />
          })}
 
         </div>
