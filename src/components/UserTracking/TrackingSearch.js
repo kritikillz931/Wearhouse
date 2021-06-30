@@ -25,24 +25,6 @@ export const TrackingSearch = (props) => {
     toggleModal()
   }
 
-  // const updateTracking = (item) => {
-  //   // PUT - update
-  //   updateTrackingInfo(
-  //     {
-  //       id: currentTracking.id,
-  //       userId: userId,
-  //       trackingNumber: currentTracking.trackingNumber,
-  //       carrier: currentTracking.carrier,
-  //       inventoryItemId: item.id
-  //     }
-  //   )
-  //   .then(window.location.reload())
-  // }
-
-
-  console.log(searchResult.origin_info.trackinfo)
-
-
 
   return (
     <>
@@ -78,7 +60,7 @@ export const TrackingSearch = (props) => {
           <TrackingDetail searchResult={searchResult} />
         </ModalBody>
         <ModalFooter>
-          <Button color="info" onClick={toggleModal}>Cancel</Button>{''}
+          <Button color="secondary" onClick={toggleModal}>Cancel</Button>{''}
         </ModalFooter>
       </Modal>
     </>

@@ -8,6 +8,8 @@ export const InventoryProvider = (props) => {
     const [inventoryList, setInventoryList,] = useState([])
     const [skuSearchResults, setSkuSearchResults] = useState([])
     const [nameSearchResults, setNameSearchResults] = useState([])
+    const [unshippedInventory, setUnshippedInventory] = useState([])
+    
     const [searchTerms, setSearchTerms ] = useState("")
     // get userId for currently logged in user
     const userId = localStorage.getItem("wearhouse_user")
@@ -18,6 +20,14 @@ export const InventoryProvider = (props) => {
         .then(res => res.json())  
         .then(setInventoryList)
     }
+
+    const getUnshippedInventoryList = () => {
+        fetch(`http://localhost:8088/inventoryItems?_embed=trackingDetails&userId=${userId}`)
+        .then(res => res.json())
+        .then(setUnshippedInventory)
+    }
+
+
 
     const searchSku = (searchSku) => {
         setNameSearchResults([])
@@ -97,12 +107,14 @@ export const InventoryProvider = (props) => {
             releaseInventory,
             updateInventory,
             getInventoryById,
+            unshippedInventory,
             searchTerms,
             setSearchTerms,
             searchSku,
             skuSearchResults,
             nameSearchResults,
-            searchName
+            searchName,
+            getUnshippedInventoryList
         }}>
             {props.children}
         </InventoryContext.Provider>

@@ -19,7 +19,6 @@ export const TrackingList = (props) => {
 
     useEffect(() =>{
         getTrackingList()
-        localStorage.removeItem("trackingId")
     }, [])
 
     useEffect(() => {
@@ -95,7 +94,7 @@ return (
           <TrackingInfoForm onClick={toggle} trackingList={trackingList} />
         </ModalBody>
         <ModalFooter>
-          <Button color="info" onClick={toggle}>Cancel</Button>{''}
+          <Button color="secondary" onClick={toggle}>Cancel</Button>{''}
         </ModalFooter>
       </Modal>
 

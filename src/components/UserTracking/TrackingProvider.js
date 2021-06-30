@@ -17,6 +17,7 @@ const getTrackingList = () => {
 
 
 const searchTracking = (trackingNumber, carrier) => {
+    setTrackingResults([])
     var myHeaders = new Headers();
     myHeaders.append("x-rapidapi-key", "7680539ba2msh4be3503c616bb53p1cee89jsn8a6e9c4805c5");
     myHeaders.append("x-rapidapi-host", "order-tracking.p.rapidapi.com");

@@ -7,7 +7,7 @@ export const TrackingInfoForm = () => {
     const {searchTracking, trackingResults } = useContext(TrackingContext)
     const [trackingNumber, setTrackingNumber] = useState("")
     const [trackingCarrier, setTrackingCarrier] = useState("")
-    const [results, setResults] = useState({})
+    const [results, setResults] = useState([])
 
     
     const handleTrackingInputChange = (event) => {
@@ -19,15 +19,16 @@ export const TrackingInfoForm = () => {
         console.log(trackingCarrier)
     }
     useEffect(() => {
+        setResults([])
+    },[])
+
+    useEffect(() => {
         setResults(trackingResults)
         console.log("final results: ", trackingResults.data?.items)
     }, [trackingResults])
 
     const trackingSearch = () => {
-        console.log("tracking number: ", trackingNumber)
-        console.log("carrier: ", trackingCarrier)
         searchTracking(trackingNumber, trackingCarrier)
-        console.log("results: ", trackingResults)
     }
 
 
@@ -44,12 +45,12 @@ export const TrackingInfoForm = () => {
             onClick={event => {
                 event.preventDefault()
                 trackingSearch()
-                }}>Tracking Number & Carrier</Button>
+                }}>Search</Button>
             </Form>
         </section>
         <div>
 
-         {trackingResults.data?.items.map(singleResult => {
+         {results.data?.items.map(singleResult => {
             return <TrackingSearch key={singleResult.id} searchResult={singleResult} />
          })}
 
