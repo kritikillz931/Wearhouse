@@ -40,8 +40,8 @@ export const TrackingInfoForm = ({shoeInfo}) => {
             <Form className="trackingForm">
             <h2 id="trackingHeader">Tracking Information</h2>
             <fieldset>
-                <Input type="text" id="trackingNumberInput" name="trackingNumber" placeholder="Enter Tracking Number..." value={trackNum} onChange={handleTrackingInputChange} />
-                <Input type="text" id="carrierInput" name="carrier" placeholder="Enter Carrier..." value={trackCar} onChange={handleCarrierInputChange} />
+                <Input type="text" id="trackingNumberInput" name="trackingNumber" placeholder="Enter Tracking Number..." defaultValue={trackNum} onChange={handleTrackingInputChange} />
+                <Input type="text" id="carrierInput" name="carrier" placeholder="Enter Carrier..." defaultValue={trackCar} onChange={handleCarrierInputChange} />
             </fieldset>
             <Button id="trackingButton" color="info"
             onClick={event => {

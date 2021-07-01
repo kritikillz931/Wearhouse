@@ -57,9 +57,9 @@ export const ReminderList = (props) => {
             <Table responsive dark>
               <thead>
                 <tr>
-                  <th>Date</th>
-                  <th>Reminder</th>
-                  <th>actions</th>
+                  <th className="reminderDateCol">Date</th>
+                  <th className="reminderReminderCol">Reminder</th>
+                  <th className="reminderActionsCol">actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -94,7 +94,7 @@ export const ReminderList = (props) => {
               }
               </tbody>
             </Table>
-            <Button size="lg" block  color="info" 
+            <Button id="newReminderButton" size="lg" block  color="info" 
              onClick={
               (event) => {
                 event.preventDefault()
@@ -112,7 +112,7 @@ export const ReminderList = (props) => {
           <ReminderForm IncomingReminder={reminder} />
         </ModalBody>
         <ModalFooter>
-          <Button color="info" onClick={toggle}>Cancel</Button>{''}
+          <Button color="danger" onClick={toggle}>CANCEL</Button>{''}
         </ModalFooter>
       </Modal>
     </>

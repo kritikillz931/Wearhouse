@@ -27,6 +27,7 @@ export const ReminderForm = ({IncomingReminder}) => {
     }
 
     const handleSaveReminder = () => {
+      console.log(IncomingReminder)
         if (IncomingReminder.id){
           console.log("UPDATING!")
           //PUT - update
@@ -38,6 +39,7 @@ export const ReminderForm = ({IncomingReminder}) => {
           })
           history.push("/Reminders")
         }else {
+          console.log("Addinggggg!")
           //POST - add
           addReminder({
               date: reminder.date,
@@ -51,10 +53,10 @@ export const ReminderForm = ({IncomingReminder}) => {
       return (
         <>
           <Form classname="reminderForm">
-            <h2 className="reminderForm__title">{IncomingReminder.id ? "Edit" : "New Reminder"}</h2>
+            <h2 className="reminderForm__title">{IncomingReminder.id ? "EDIT" : "NEW REMINDER"}</h2>
             <fieldset className="modalReminder">
-              <Input size="lg" type="textarea" id="reminder__message" name="message" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.message} />
-              <Input type="date" id="reminder__date" name="date" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.date} />
+              <Input size="sm" type="textarea" id="reminder__message" name="message" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.message} />
+              <Input size="sm" type="date" id="reminder__date" name="date" onChange={handleControlledInputChange} defaultValue={reminder.date} />
             </fieldset><br />
             <Button color="info" className="btn btn-primary"
               onClick={event => {

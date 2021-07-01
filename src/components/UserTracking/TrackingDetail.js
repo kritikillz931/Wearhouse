@@ -25,7 +25,8 @@ export const TrackingDetail = ({searchResult}) => {
 
   // saves tracking info to the DB
   const handleSaveTracking = (item) => {
-    addTracking({
+    updateTrackingInfo({
+      id: item.trackingDetails.id,
       trackingNumber: searchResult.tracking_number,
       carrier: searchResult.carrier_code,
       inventoryItemId: item.id
@@ -42,7 +43,13 @@ export const TrackingDetail = ({searchResult}) => {
       quantity: item.quantity - 1,
       price: item.price
     })
-    .then(res => localStorage.setItem("trackingId", res.id))
+    .then(() => {
+      localStorage.removeItem("trackingId")
+      localStorage.removeItem("trackingNumber")
+      localStorage.removeItem("trackingInventory")
+      localStorage.removeItem("trackingCarrier")
+      localStorage.removeItem("trackingInventoryId")
+    })
     .then(window.location.reload())
   }
 

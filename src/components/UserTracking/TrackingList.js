@@ -80,8 +80,8 @@ export const TrackingList = (props) => {
               </tbody></Table>
           </div>
           <div className="totalsContainer">
-            <Button className="text-white" trackingNumber="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle} >
-              Add New
+            <Button className="text-white"  size="md" block  color="info" onClick={toggle} >
+              ADD NEW
               </Button>
           </div>
       </Container>
@@ -92,7 +92,7 @@ export const TrackingList = (props) => {
             <TrackingInfoForm onClick={toggle}  />
           </ModalBody>
           <ModalFooter>
-            <Button color="secondary" onClick={toggle}>Cancel</Button>{''}
+            <Button color="danger" onClick={toggle}>CANCEL</Button>{''}
           </ModalFooter>
         </Modal>
 

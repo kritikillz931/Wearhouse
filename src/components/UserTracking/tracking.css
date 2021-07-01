@@ -5,9 +5,9 @@
 #apiResults {
     line-height: normal;
     font-size: 1.15rem;
-    font-family: sans-serif;
+    
     display: flex;
-    text-align: center;
+    
     text-transform: uppercase;
 }
 

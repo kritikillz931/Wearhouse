@@ -2,12 +2,28 @@
     min-width: 80%;
     text-align: center;
     position: relative;
-    top: 15px;      
+    top: 15px;  
+    
 }
 
 #remindersHeader {
     text-shadow: 2px 2px grey;
     margin-bottom: 50px;
+    text-transform: uppercase;
+}
+
+.reminderForm__title {
+   font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+   text-align: center;
+}
+
+#reminder__message {
+    text-align: center;
+    text-transform: uppercase;
+}
+
+#reminder__date {
+    text-align: center;
     text-transform: uppercase;
 }
 
@@ -19,3 +35,18 @@
     font-size: 1.15rem;
 }
 
+#newReminderButton {
+    color: white;
+    text-transform: uppercase;
+    
+}
+
+.reminderDateCol {
+    width: 33%
+}
+.reminderReminderCol {
+    width: 33%
+}
+.reminderActionCol {
+    width: 33%
+}
