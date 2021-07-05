@@ -1,25 +1,24 @@
+// RemindersList.js renders table of reminder for current user
 import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
-import { useHistory } from "react-router-dom"
-import { Button, Container, Jumbotron, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap';
+import { Button, Container, Jumbotron, Modal, ModalBody, ModalHeader, Table } from 'reactstrap';
 import "./Reminders.css"
 import { ReminderForm } from "../Homepage/ReminderForm"
 
-export const ReminderList = (props) => {
-  const { className } = props;
-  const { reminders, getReminders, releaseReminder } = useContext(ReminderContext)
+export const ReminderList = () => {
+  const { reminders, getReminders } = useContext(ReminderContext)
   const [filteredReminders, setFiltered] = useState([])
   const [reminder, setReminder] = useState({})
   const [currentUser, setCurrentUser] = useState({})
 
-  // modal open / close
+  // modal open / close functionality
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
-  const todaysDate = new Date().toLocaleDateString() 
-  const history = useHistory()
-  const userId = localStorage.getItem("wearhouse_user")
+  const todaysDate = new Date().toLocaleDateString() // gets today's date to display on homepage
+  const userId = localStorage.getItem("wearhouse_user") // gets userID to use in getCurrentUser function
 
+  // gets the current user from the database and sets the currentUser state to the user object
   const getCurrentUser = () => {
     fetch(`http://localhost:8088/users/${userId}`)
       .then(res => res.json())
@@ -32,11 +31,13 @@ export const ReminderList = (props) => {
     getCurrentUser()
   }, [])
 
+  // when reminders is updated or changed, this useEffect gets all reminders again and sets the filtered reminders to the updated array of reminders. 
   useEffect(() => {
-    setFiltered(reminders) //set filtered is called when reminders data is updated or changed giving filtered items a value of reminders
+    getReminders().then(setFiltered(reminders)) 
   }, [reminders])
 
 
+  // renders the html for the reminders table, add new reminder button and reminder form modal.
   return (
     <>
       <div className="ReminderContainer">
@@ -85,14 +86,13 @@ export const ReminderList = (props) => {
           </Container>
       </div>
 
-      <Modal isOpen={modal} toggle={toggle} className={className}>
+      <Modal isOpen={modal} toggle={toggle} >
         <ModalHeader className="reminderForm__title" toggle={toggle} className="ModalCloseBtn" charCode="x">
           {reminder.id ? "EDIT REMINDER" : "ADD NEW REMINDER"}
         </ModalHeader>
         <ModalBody>
           <ReminderForm IncomingReminder={reminder} />
         </ModalBody>
-       
       </Modal>
     </>
   )

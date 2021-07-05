@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
 import { useHistory } from 'react-router-dom';
-import { Button, Form, Input, ModalFooter } from 'reactstrap';
+import { Button, Form, FormGroup, Input, ModalFooter } from 'reactstrap';
 import "./Reminders.css"
 
 export const ReminderForm = ({ IncomingReminder }) => {
@@ -10,8 +10,10 @@ export const ReminderForm = ({ IncomingReminder }) => {
   const history = useHistory(); // allows for rerouting
   const userId = parseInt(localStorage.getItem("wearhouse_user")) // retrieves userId from local storage
 
+  // if there is an incoming reminder (for edit existing reminder), fetch that reminder from DB
   useEffect(() => {
-    if (IncomingReminder !== {}) {
+    console.log(IncomingReminder)
+    if (IncomingReminder.id) {
       getReminderById(IncomingReminder.id)
         .then(remind => {
           setReminder(remind)
@@ -20,6 +22,7 @@ export const ReminderForm = ({ IncomingReminder }) => {
   }, [IncomingReminder])
 
 
+  // when any value is changed using the inputs, the value is saved to the reminder state
   const handleControlledInputChange = (event) => {
     const newReminder = { ...reminder }
     newReminder[event.target.name] = event.target.value
@@ -34,15 +37,15 @@ export const ReminderForm = ({ IncomingReminder }) => {
       })
   }
 
+  // closes modal and resets incoming reminder value
   const refreshPage = () => {
     window.location.reload()
   }
 
+  // handles 'save' button in modal to update or add new reminder in DB
   const handleSaveReminder = () => {
     console.log(IncomingReminder)
     if (IncomingReminder.id) {
-      console.log("UPDATING!")
-      //PUT - update
       updateReminder({
         id: reminder.id,
         message: reminder.message,
@@ -51,8 +54,6 @@ export const ReminderForm = ({ IncomingReminder }) => {
       })
       history.push("/Reminders")
     } else {
-      console.log("Addinggggg!")
-      //POST - add
       addReminder({
         date: reminder.date,
         message: reminder.message,
@@ -65,24 +66,24 @@ export const ReminderForm = ({ IncomingReminder }) => {
   return (
     <>
       <Form classname="reminderForm">
-
-        <fieldset className="modalReminder">
+        <FormGroup className="modalReminder">
           <Input size="sm" type="textarea" id="reminder__message" name="message" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.message} />
+          <br />
           <Input size="sm" type="date" id="reminder__date" name="date" onChange={handleControlledInputChange} defaultValue={reminder.date} />
-        </fieldset><br />
+        </FormGroup><br />
         <ModalFooter>
-        <Button color="info" className="btn btn-primary"
-          onClick={event => {
-            event.preventDefault()
-            handleSaveReminder()
-            window.location.reload()
-          }}
-        >SAVE</Button>
-        {reminder.id ? <Button
-          color="danger" size="md"
-          onClick={() => handleRelease(reminder.id)}>
-          DELETE</Button> : <Button color="danger" size="md" onClick={() => refreshPage()}>Cancel</Button>}
-          </ModalFooter>
+          <Button color="info" className="btn btn-primary"
+            onClick={event => {
+              event.preventDefault()
+              handleSaveReminder()
+              window.location.reload()
+            }}
+          >SAVE</Button>
+          {reminder.id ? <Button
+            color="danger" size="md"
+            onClick={() => handleRelease(reminder.id)}>
+            DELETE</Button> : <Button color="danger" size="md" onClick={() => refreshPage()}>Cancel</Button>}
+        </ModalFooter>
 
 
       </Form>
