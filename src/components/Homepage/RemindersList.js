@@ -36,13 +36,6 @@ export const ReminderList = (props) => {
     setFiltered(reminders) //set filtered is called when reminders data is updated or changed giving filtered items a value of reminders
   }, [reminders])
 
-  // when delete button pressed, reminder is removed from database
-  const handleRelease = (reminderId) => {
-    releaseReminder(reminderId)
-      .then(() => {
-        history.push("/Reminders")
-      })
-  }
 
   return (
     <>
@@ -59,42 +52,27 @@ export const ReminderList = (props) => {
                 <tr>
                   <th className="reminderDateCol">Date</th>
                   <th className="reminderReminderCol">Reminder</th>
-                  <th className="reminderActionsCol">actions</th>
                 </tr>
               </thead>
               <tbody>
               {
                 filteredReminders.map(reminder => {
                   return (
-                    <tr key={reminder.id}>
+                    <tr key={reminder.id} onClick={() => {
+                      setReminder(reminder)
+                      toggle()
+                    }
+
+                    }>
                       <td>{reminder.date}</td>
                       <td>{reminder.message}</td>
-                      <td>
-                        <Button className="text-white" color="info" size="sm"  
-                          onClick={
-                            (event) => {
-                              event.preventDefault()
-                              setReminder(reminder)
-                              toggle()
-                            }                      
-                          }>EDIT
-                        </Button> 
-                      <span>&emsp;</span>
-                        <Button 
-                          className="text-white" 
-                          color="info" size="sm" 
-                          style={{ height: '30px', width: '60px' }} 
-                          onClick={() => handleRelease(reminder.id)}>
-                            DELETE
-                        </Button>
-                      </td>
                     </tr>
                   )
                 })
               }
               </tbody>
             </Table>
-            <Button id="newReminderButton" size="sm" block  color="info" 
+            <Button className="text-white" size="sm" block  color="info" 
              onClick={
               (event) => {
                 event.preventDefault()
@@ -102,7 +80,7 @@ export const ReminderList = (props) => {
                 toggle()
               }                      
             }>
-              New Reminder
+              NEW REMINDER
             </Button>
           </Container>
       </div>
@@ -114,9 +92,7 @@ export const ReminderList = (props) => {
         <ModalBody>
           <ReminderForm IncomingReminder={reminder} />
         </ModalBody>
-        <ModalFooter>
-          <Button color="danger" onClick={toggle}>CANCEL</Button>{''}
-        </ModalFooter>
+       
       </Modal>
     </>
   )

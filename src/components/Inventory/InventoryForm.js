@@ -49,9 +49,9 @@ export const InventoryForm = () => {
         <InputGroup>
           <Input type="text" id="inventory__sku" name="sku" placeholder="SEARCH BY SKU" value={skuSearchTerms} onChange={handleSkuInputChange} />
           <InputGroupAddon addonType="append"> <Button color="info" onClick={event => {
-              event.preventDefault()
-              search("skuSearch")
-            }}>SEARCH BY SKU</Button> </InputGroupAddon>
+            event.preventDefault()
+            search("skuSearch")
+          }}>SEARCH BY SKU</Button> </InputGroupAddon>
         </InputGroup>
         <hr />
         <p id="or">NO SKU AVAILABLE? TRY SEARCHING BY BRAND AND NAME </p>
@@ -60,8 +60,8 @@ export const InventoryForm = () => {
         <InputGroup>
           <Input type="text" id="inventory__brand" name="message" placeholder="BRAND" value={brandSearchTerms} onChange={handleBrandInputChange} />
           <Input type="text" id="inventory__name" name="message" placeholder="NAME" value={nameSearchTerms} onChange={handleNameInputChange} />
-          <InputGroupAddon addonType="append"> 
-          <Button color="info" onClick={event => {
+          <InputGroupAddon addonType="append">
+            <Button color="info" onClick={event => {
               event.preventDefault()
               search("nameSearch")
             }}>SEARCH BY NAME</Button> </InputGroupAddon>
