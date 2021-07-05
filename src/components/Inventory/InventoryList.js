@@ -1,11 +1,12 @@
 import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
 import { useHistory } from "react-router-dom"
-import { Table, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, Jumbotron, } from 'reactstrap';
+import { Table, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, Jumbotron, Form, } from 'reactstrap';
 import "./Inventory.css"
 import { TotalPricePaid } from "./InventoryTotalPrice"
 import { TotalMarketPrice } from "./InventoryMarketPrice"
 import { TotalQuantityAmount } from "./InventoryQuantityAmount";
+import { InventoryEstimatedProfits } from "./InventoryEstimatedProfits"
 import { InventoryForm } from "./InventoryForm";
 import { InventoryDetail } from "./InventoryDetail";
 
@@ -108,11 +109,14 @@ export const InventoryList = (props) => {
                     <th>
                       <TotalQuantityAmount inventoryList={inventoryList} />
                     </th>
+                    <th>
+                      <InventoryEstimatedProfits inventoryList={inventoryList} />
+                    </th>
                   </thead>
                   
                 </Table>
-                <Button className="text-white" size="lg" color="info" onClick={toggle} >
-                Add New
+                <Button className="text-white" size="sm" color="info" onClick={toggle} >
+                ADD NEW
                 </Button>
               </Container>
             </Container>
@@ -125,7 +129,7 @@ export const InventoryList = (props) => {
           <InventoryForm onClick={toggle} inventoryList={inventoryList} />
         </ModalBody>
         <ModalFooter>
-          <Button color="info" onClick={toggle}>Cancel</Button>{''}
+          <Button color="info" onClick={toggle}>CANCEL</Button>{''}
         </ModalFooter>
       </Modal>
 

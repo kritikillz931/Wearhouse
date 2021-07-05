@@ -25,6 +25,25 @@
     padding-bottom: 15px;
 }
 
+#inventory__sku {
+    text-align: center;
+}
+
+#inventory__brand {
+    text-align: center;
+}
+
+#inventory__name {
+    text-align: center;
+}
+
+#or {
+    text-align: center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    font-style: italic;
+    font-size: .9rem;
+}
+
 /* specific sizing for each column of inventory to space things out better */
     .inventoryPicCol {
         width: 15%
@@ -59,9 +78,10 @@
     }
 
 #inventoryHeader {
-    text-shadow: 2px 2px grey;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     margin-bottom: 20px;
     text-transform: uppercase;
+    text-align: center;
 }
 
 #inventoryTableRow {

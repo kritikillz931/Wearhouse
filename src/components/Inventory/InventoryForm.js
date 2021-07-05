@@ -47,24 +47,24 @@ export const InventoryForm = () => {
       <section id="inventoryModal">
         <h2 id="inventoryHeader">Search The Market</h2>
         <InputGroup>
-          <Input type="text" id="inventory__sku" name="sku" placeholder="Search By Sku..." value={skuSearchTerms} onChange={handleSkuInputChange} />
-          <InputGroupAddon addonType="append"> <Button onClick={event => {
+          <Input type="text" id="inventory__sku" name="sku" placeholder="SEARCH BY SKU" value={skuSearchTerms} onChange={handleSkuInputChange} />
+          <InputGroupAddon addonType="append"> <Button color="info" onClick={event => {
               event.preventDefault()
               search("skuSearch")
-            }}>Search By SKU</Button> </InputGroupAddon>
+            }}>SEARCH BY SKU</Button> </InputGroupAddon>
         </InputGroup>
         <hr />
-        <p>OR</p>
+        <p id="or">NO SKU AVAILABLE? TRY SEARCHING BY BRAND AND NAME </p>
         <hr />
 
         <InputGroup>
-          <Input type="text" id="inventory__brand" name="message" placeholder="Brand..." value={brandSearchTerms} onChange={handleBrandInputChange} />
-          <Input type="text" id="inventory__name" name="message" placeholder="Name..." value={nameSearchTerms} onChange={handleNameInputChange} />
+          <Input type="text" id="inventory__brand" name="message" placeholder="BRAND" value={brandSearchTerms} onChange={handleBrandInputChange} />
+          <Input type="text" id="inventory__name" name="message" placeholder="NAME" value={nameSearchTerms} onChange={handleNameInputChange} />
           <InputGroupAddon addonType="append"> 
-          <Button onClick={event => {
+          <Button color="info" onClick={event => {
               event.preventDefault()
               search("nameSearch")
-            }}>Search By Name</Button> </InputGroupAddon>
+            }}>SEARCH BY NAME</Button> </InputGroupAddon>
         </InputGroup>
         <hr />
         <br />

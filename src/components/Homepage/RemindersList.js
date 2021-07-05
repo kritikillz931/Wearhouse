@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
 import { useHistory } from "react-router-dom"
-import { Button, Container, Jumbotron, Modal, ModalBody, ModalFooter, Table } from 'reactstrap';
+import { Button, Container, Jumbotron, Modal, ModalBody, ModalFooter, ModalHeader, Table } from 'reactstrap';
 import "./Reminders.css"
 import { ReminderForm } from "../Homepage/ReminderForm"
 
@@ -77,7 +77,7 @@ export const ReminderList = (props) => {
                               setReminder(reminder)
                               toggle()
                             }                      
-                          }>Edit
+                          }>EDIT
                         </Button> 
                       <span>&emsp;</span>
                         <Button 
@@ -85,7 +85,7 @@ export const ReminderList = (props) => {
                           color="info" size="sm" 
                           style={{ height: '30px', width: '60px' }} 
                           onClick={() => handleRelease(reminder.id)}>
-                            Delete
+                            DELETE
                         </Button>
                       </td>
                     </tr>
@@ -94,7 +94,7 @@ export const ReminderList = (props) => {
               }
               </tbody>
             </Table>
-            <Button id="newReminderButton" size="lg" block  color="info" 
+            <Button id="newReminderButton" size="sm" block  color="info" 
              onClick={
               (event) => {
                 event.preventDefault()
@@ -108,6 +108,9 @@ export const ReminderList = (props) => {
       </div>
 
       <Modal isOpen={modal} toggle={toggle} className={className}>
+        <ModalHeader toggle={toggle} className="ModalCloseBtn" charCode="x">
+          Reminder
+        </ModalHeader>
         <ModalBody>
           <ReminderForm IncomingReminder={reminder} />
         </ModalBody>

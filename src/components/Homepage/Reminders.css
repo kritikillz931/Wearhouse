@@ -50,3 +50,18 @@
 .reminderActionCol {
     width: 33%
 }
+
+.ModalCloseBtn button {
+    color: grey;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 350;
+}
+
+.ModalCloseBtn button :hover {
+    color: darkgray;
+    background: transparent;
+    border: none;
+    font-weight: 600;
+}

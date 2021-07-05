@@ -1,11 +1,9 @@
 import React, { useContext, useEffect, useState } from "react"
-import { useHistory, useParams, } from 'react-router-dom';
-import { Modal, Button, Input, InputGroup, InputGroupAddon, InputGroupText, ModalBody, ModalFooter } from "reactstrap"
+import { useHistory } from 'react-router-dom';
+import { Modal, Button, Input, InputGroup, InputGroupAddon, InputGroupText, ModalFooter } from "reactstrap"
 import { InventoryContext } from "./InventoryProvider"
 import "./Inventory.css"
 import {TrackingContext} from "../UserTracking/TrackingProvider"
-import {InventoryTracker} from "./InventoryTrack"
-import {TrackingInfoForm} from "../UserTracking/TrackingForm"
 
 export const InventoryDetail = (props) => {
   const { updateInventory, getInventoryById, releaseInventory } = useContext(InventoryContext)
@@ -102,7 +100,7 @@ export const InventoryDetail = (props) => {
               history.push(`/Inventory/`)
             }}>SAVE</Button>
 
-          <Button onClick={toggle}>Add Tracking Info</Button>
+          {/* <Button onClick={toggle}>Add Tracking Info</Button> */}
 
           {inventoryItem.size ? <Button color="danger" className="inventoryDeleteBtn"
             onClick={event => {
@@ -114,7 +112,7 @@ export const InventoryDetail = (props) => {
 
 
         </ModalFooter>
-        <ModalBody>
+        {/* <ModalBody>
           <span id="expandTrackingBtn" onClick={toggleDetails}>{showTracking ? "Hide Tracking Details" : "Show Tracking Details"}</span>
           {showTracking ? inventoryItem.trackingDetails?.map((trackInfo) => {
             return <>
@@ -122,7 +120,7 @@ export const InventoryDetail = (props) => {
             </>
                       }
           ) : <hr />}
-        </ModalBody>
+        </ModalBody> */}
       </section>
 
 
@@ -130,9 +128,9 @@ export const InventoryDetail = (props) => {
 
 
       <Modal isOpen={modal} toggle={toggle} className={className}>
-          <ModalBody>
+          {/* <ModalBody>
             <TrackingInfoForm onClick={toggle}  shoeInfo={inventoryItem}/>
-          </ModalBody>
+          </ModalBody> */}
           <ModalFooter>
             <Button color="secondary" onClick={toggle}>Cancel</Button>{''}
           </ModalFooter>

@@ -80,7 +80,7 @@ export const TrackingList = (props) => {
               </tbody></Table>
           </div>
           <div className="totalsContainer">
-            <Button className="text-white"  size="md" block  color="info" onClick={toggle} >
+            <Button className="text-white"  size="sm" block  color="info" onClick={toggle} >
               ADD NEW
               </Button>
           </div>
