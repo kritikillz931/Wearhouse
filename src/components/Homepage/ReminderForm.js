@@ -53,7 +53,7 @@ export const ReminderForm = ({IncomingReminder}) => {
       return (
         <>
           <Form classname="reminderForm">
-            <h2 className="reminderForm__title">{IncomingReminder.id ? "EDIT" : "NEW REMINDER"}</h2>
+            
             <fieldset className="modalReminder">
               <Input size="sm" type="textarea" id="reminder__message" name="message" placeholder="reminder message" onChange={handleControlledInputChange} defaultValue={reminder.message} />
               <Input size="sm" type="date" id="reminder__date" name="date" onChange={handleControlledInputChange} defaultValue={reminder.date} />
