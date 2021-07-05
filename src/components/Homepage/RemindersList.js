@@ -48,7 +48,7 @@ export const ReminderList = () => {
           </Jumbotron>
 
           
-            <Table responsive dark>
+            <Table hover responsive dark>
               <thead>
                 <tr>
                   <th className="reminderDateCol">Date</th>

@@ -10,6 +10,7 @@ export const InventoryForm = () => {
   const [skuSearchTerms, setSkuSearchTerms] = useState("")
   const [brandSearchTerms, setBrandSearchTerms] = useState("")
   const [nameSearchTerms, setNameSearchTerms] = useState("")
+  const [skuLoading, setSkuLoading] = useState(false)
 
   const handleSkuInputChange = (event) => {
     setSkuSearchTerms(event.target.value)
@@ -25,10 +26,12 @@ export const InventoryForm = () => {
   const search = (typeOfSearch) => {
     const tos = typeOfSearch
     if (tos === "skuSearch") {
+      setSkuLoading(true)
       setBrandSearchTerms("")
       setNameSearchTerms("")
       searchSku(skuSearchTerms)
       setSkuSearchTerms("")
+      setSkuLoading(false)
     } else if (tos === "nameSearch") {
       setSkuSearchTerms("")
       searchName(brandSearchTerms, nameSearchTerms)
@@ -45,7 +48,6 @@ export const InventoryForm = () => {
   return (
     <>
       <section id="inventoryModal">
-        
         <InputGroup>
           <Input type="text" id="inventory__sku" name="sku" placeholder="SEARCH BY SKU" value={skuSearchTerms} onChange={handleSkuInputChange} />
           <InputGroupAddon addonType="append"> <Button color="info" onClick={event => {

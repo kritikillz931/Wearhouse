@@ -43,7 +43,27 @@ export const InventoryDetail = (props) => {
     } else {
       mktVal = inventoryItem.marketValue
     }
-    //PUT - update
+
+    let quantity;
+    if (!inventoryItem.quantity) {
+      quantity = 1
+    } else {
+      quantity = inventoryItem.quantity
+    }
+
+    let size;
+    if (!inventoryItem.size) {
+      size = 0
+    } else {
+      size = inventoryItem.size
+    }
+
+    let price;
+    if (!inventoryItem.price) {
+      price = 0
+    } else {
+      price = inventoryItem.price
+    }
     updateInventory(
       {
         id: inventoryItem.id,
@@ -53,8 +73,8 @@ export const InventoryDetail = (props) => {
         name: inventoryItem.name,
         sku: inventoryItem.sku,
         marketValue: mktVal,
-        size: inventoryItem.size,
-        quantity: inventoryItem.quantity,
+        size: size,
+        quantity: quantity,
         price: inventoryItem.price
       })
       .then(window.location.reload())
