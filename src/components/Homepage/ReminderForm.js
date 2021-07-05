@@ -44,7 +44,6 @@ export const ReminderForm = ({ IncomingReminder }) => {
 
   // handles 'save' button in modal to update or add new reminder in DB
   const handleSaveReminder = () => {
-    console.log(IncomingReminder)
     if (IncomingReminder.id) {
       updateReminder({
         id: reminder.id,

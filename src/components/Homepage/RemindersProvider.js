@@ -6,7 +6,6 @@ export const ReminderContext = createContext()
 // This component establishes what data can be used.
 export const RemindersProvider = (props) => {
     const [reminders, setReminders,] = useState([])
-    const [searchTerms, setSearchTerms ] = useState("")
     // get userId for currently logged in user
     const userId = localStorage.getItem("wearhouse_user")
 
@@ -51,13 +50,6 @@ export const RemindersProvider = (props) => {
           .then(getReminders)
       }
       
-
-    /*
-        You return a context provider which has the
-        `reminders` state, `getReminders` function,
-        and the `addReminders` function as keys. This
-        allows any child elements to access them.
-    */
     return (
         <ReminderContext.Provider 
         value={{
@@ -66,9 +58,7 @@ export const RemindersProvider = (props) => {
             addReminder,
             releaseReminder,
             updateReminder,
-            getReminderById,
-            searchTerms,
-            setSearchTerms
+            getReminderById
         }}>
             {props.children}
         </ReminderContext.Provider>
