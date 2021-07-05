@@ -45,7 +45,7 @@ export const InventoryForm = () => {
   return (
     <>
       <section id="inventoryModal">
-        <h2 id="inventoryHeader">Search The Market</h2>
+        
         <InputGroup>
           <Input type="text" id="inventory__sku" name="sku" placeholder="SEARCH BY SKU" value={skuSearchTerms} onChange={handleSkuInputChange} />
           <InputGroupAddon addonType="append"> <Button color="info" onClick={event => {
