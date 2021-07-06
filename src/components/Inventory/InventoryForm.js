@@ -2,7 +2,7 @@ import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
 import "./Inventory.css"
 import { InventorySearch } from "./InventorySearch"
-import { Button, Form, Input, InputGroup, InputGroupAddon } from "reactstrap"
+import { Button, Input, InputGroup, InputGroupAddon, Spinner, Alert } from "reactstrap"
 
 
 export const InventoryForm = () => {
@@ -10,7 +10,7 @@ export const InventoryForm = () => {
   const [skuSearchTerms, setSkuSearchTerms] = useState("")
   const [brandSearchTerms, setBrandSearchTerms] = useState("")
   const [nameSearchTerms, setNameSearchTerms] = useState("")
-  const [skuLoading, setSkuLoading] = useState(false)
+  const [loading, setLoading] = useState(false)
 
   const handleSkuInputChange = (event) => {
     setSkuSearchTerms(event.target.value)
@@ -22,21 +22,37 @@ export const InventoryForm = () => {
     setNameSearchTerms(event.target.value)
   }
 
+  let loadingSection;
+
+  useEffect(() => {
+    if (skuSearchResults.count && skuSearchResults !== 0) {
+      console.log("SKU SEARCH LOADEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
+      setLoading(false)
+    } 
+    if (nameSearchResults.count && nameSearchResults !== 0) {
+      console.log("NAME SEARCH LOADEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
+      setLoading(false)
+    } 
+  }, [loading])
+
+
+  
 
   const search = (typeOfSearch) => {
+    setLoading(true)
     const tos = typeOfSearch
     if (tos === "skuSearch") {
-      setSkuLoading(true)
       setBrandSearchTerms("")
       setNameSearchTerms("")
       searchSku(skuSearchTerms)
+      console.log(skuSearchResults)
       setSkuSearchTerms("")
-      setSkuLoading(false)
     } else if (tos === "nameSearch") {
       setSkuSearchTerms("")
       searchName(brandSearchTerms, nameSearchTerms)
       setBrandSearchTerms("")
       setNameSearchTerms("")
+      console.log(nameSearchResults)
     } else {
       console.log("error on inventory Form page")
     }
@@ -70,10 +86,15 @@ export const InventoryForm = () => {
         </InputGroup>
         <hr />
         <br />
+          {loading && !nameSearchResults.results && !skuSearchResults.results ? <> <Spinner type="grow" color="info" /> <Spinner type="grow" color="info" /> <Spinner type="grow" color="info" /> </> : ""}
+        {loadingSection}
 
-
-
-        <div >{skuSearchResults.results?.map(singleResult => {
+        <div>
+          {skuSearchResults?.count === 0 ? <Alert color="warning">No Results Found with that sku</Alert> : ""}
+          {nameSearchResults?.count === 0 ? <Alert color="warning">No Results Found with that brand / name</Alert> : ""}
+        </div>
+        <div >
+          {skuSearchResults.results?.map(singleResult => {
           return <InventorySearch key={singleResult.id} searchResult={singleResult} />
         })}</div>
         <div >{nameSearchResults.results?.map(singleResult => {

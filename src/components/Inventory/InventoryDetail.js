@@ -1,23 +1,14 @@
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from 'react-router-dom';
-import { Modal, Button, Input, InputGroup, InputGroupAddon, InputGroupText, ModalFooter } from "reactstrap"
+import { Button, Input, InputGroup, InputGroupAddon, InputGroupText, ModalFooter } from "reactstrap"
 import { InventoryContext } from "./InventoryProvider"
 import "./Inventory.css"
-import {TrackingContext} from "../UserTracking/TrackingProvider"
 
-export const InventoryDetail = (props) => {
+export const InventoryDetail = () => {
   const { updateInventory, getInventoryById, releaseInventory } = useContext(InventoryContext)
-  const {searchTracking, trackingResults } = useContext(TrackingContext)
   const [inventoryItem, setInventoryItem] = useState({})
-  const [modal, setModal] = useState(false);
-  const toggle = () => setModal(!modal);
-  const toggleDetails = () => setShowTracking(!showTracking)
-  const [showTracking, setShowTracking] = useState(false)
   const history = useHistory();
   const userId = parseInt(localStorage.getItem("wearhouse_user"))
-  const {
-    className
-  } = props;
   const inventoryId = parseInt(localStorage.getItem("inventoryId"))
   useEffect(() => {
     getInventoryById(inventoryId)
@@ -75,7 +66,7 @@ export const InventoryDetail = (props) => {
         marketValue: mktVal,
         size: size,
         quantity: quantity,
-        price: inventoryItem.price
+        price: price
       })
       .then(window.location.reload())
   }
@@ -116,45 +107,25 @@ export const InventoryDetail = (props) => {
             onClick={event => {
               event.preventDefault()
               handleSaveInventory()
-              toggle()
               history.push(`/Inventory/`)
             }}>SAVE</Button>
-
-          {/* <Button onClick={toggle}>Add Tracking Info</Button> */}
 
           {inventoryItem.size ? <Button color="danger" className="inventoryDeleteBtn"
             onClick={event => {
               event.preventDefault()
               handleRelease(inventoryItem.id)
-              toggle()
               history.push(`/Inventory/`)
             }}>Delete</Button> : <Button color="danger" onClick={() => refreshPage()}>Cancel</Button>}
 
 
         </ModalFooter>
-        {/* <ModalBody>
-          <span id="expandTrackingBtn" onClick={toggleDetails}>{showTracking ? "Hide Tracking Details" : "Show Tracking Details"}</span>
-          {showTracking ? inventoryItem.trackingDetails?.map((trackInfo) => {
-            return <>
-              <InventoryTracker info={trackInfo} />
-            </>
-                      }
-          ) : <hr />}
-        </ModalBody> */}
       </section>
 
 
 
 
 
-      <Modal isOpen={modal} toggle={toggle} className={className}>
-          {/* <ModalBody>
-            <TrackingInfoForm onClick={toggle}  shoeInfo={inventoryItem}/>
-          </ModalBody> */}
-          <ModalFooter>
-            <Button color="secondary" onClick={toggle}>Cancel</Button>{''}
-          </ModalFooter>
-        </Modal>
+      
     </>
   )
 }
