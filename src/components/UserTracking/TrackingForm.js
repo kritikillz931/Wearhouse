@@ -48,8 +48,8 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
     }, [trackingSingle])
 
     const trackingSearch = () => {
-        setLoading(true)
         searchTrackingSingle(trackingNumber.trim(), trackingCarrier.trim())
+        setLoading(true)
     }
 
     return (
@@ -83,8 +83,9 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
                 </ModalFooter>
             </section>
             <div>
-            {loading ? <> <Spinner children=" "  type="grow"  color="info" /> <Spinner children=" "  type="grow" color="info" /> <Spinner children=" "  type="grow" color="info" /> </> : ""}
-            {results.data.items[0].status === "notfound" ? <Alert color="warning">No Results Found</Alert> : <TrackingSearch key={results.data.items[0].id} searchResult={results.data.items[0]} shoeInfo={shoeInfo} />}
+            {loading ?  <Spinner children=" "  type="grow"  color="info" /> : ""}
+            {results?.data?.items[0].status === "notfound" && !loading ? <Alert color="warning">No Results Found</Alert> : ""}
+            {results?.data && !loading && results?.data.items[0].status !== "notfound"  ? <TrackingSearch key={results?.data?.items[0].id} searchResult={results?.data?.items[0]} shoeInfo={shoeInfo} /> : ""}
 
 
 
