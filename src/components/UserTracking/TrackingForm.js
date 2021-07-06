@@ -2,7 +2,7 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useContext, useEffect, useState } from "react"
 import { TrackingContext } from "./TrackingProvider"
-import { Button, Form, Input, ModalFooter } from "reactstrap"
+import { Button, Form, Input, ModalFooter, Spinner, Alert } from "reactstrap"
 import { TrackingSearch } from "./TrackingSearch"
 import { useHistory } from "react-router"
 
@@ -11,11 +11,11 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
     const [trackingNumber, setTrackingNumber] = useState("")
     const [trackingCarrier, setTrackingCarrier] = useState("")
     const [results, setResults] = useState([])
+    const [loading, setLoading] = useState(false)
     const history = useHistory()
 
     useEffect(() => {
         if (trackingInfo) {
-
             setTrackingNumber(trackingInfo.trackingNumber)
             setTrackingCarrier(trackingInfo.carrier)
         }
@@ -42,12 +42,13 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
 
 
     useEffect(() => {
+        console.log("trackingSingle" , trackingSingle)
         setResults(trackingSingle)
     }, [trackingSingle])
 
     const trackingSearch = () => {
+        setLoading(true)
         searchTrackingSingle(trackingNumber.trim(), trackingCarrier.trim())
-        console.log("trackingSingle" , trackingSingle)
     }
 
     return (
@@ -81,10 +82,13 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
                 </ModalFooter>
             </section>
             <div>
+            {results.data.items[0].status === "notfound" ? <Alert color="warning">No Results Found</Alert> : <TrackingSearch key={results.data.items[0].id} searchResult={results.data.items[0]} shoeInfo={shoeInfo} />}
 
-                {results?.data?.items.map(singleResult => {
+            {loading && !results.data ? <> <Spinner children=" "  type="grow"  color="info" /> <Spinner children=" "  type="grow" color="info" /> <Spinner children=" "  type="grow" color="info" /> </> : ""}
+
+                {/* {results?.data?.items.map(singleResult => {
                     return <TrackingSearch key={singleResult.id} searchResult={singleResult} shoeInfo={shoeInfo} />
-                })}
+                })} */}
 
             </div>
         </>
