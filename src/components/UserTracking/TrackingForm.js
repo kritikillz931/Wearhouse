@@ -44,6 +44,7 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
     useEffect(() => {
         console.log("trackingSingle" , trackingSingle)
         setResults(trackingSingle)
+        setLoading(false)
     }, [trackingSingle])
 
     const trackingSearch = () => {
@@ -82,13 +83,10 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
                 </ModalFooter>
             </section>
             <div>
+            {loading ? <> <Spinner children=" "  type="grow"  color="info" /> <Spinner children=" "  type="grow" color="info" /> <Spinner children=" "  type="grow" color="info" /> </> : ""}
             {results.data.items[0].status === "notfound" ? <Alert color="warning">No Results Found</Alert> : <TrackingSearch key={results.data.items[0].id} searchResult={results.data.items[0]} shoeInfo={shoeInfo} />}
 
-            {loading && !results.data ? <> <Spinner children=" "  type="grow"  color="info" /> <Spinner children=" "  type="grow" color="info" /> <Spinner children=" "  type="grow" color="info" /> </> : ""}
 
-                {/* {results?.data?.items.map(singleResult => {
-                    return <TrackingSearch key={singleResult.id} searchResult={singleResult} shoeInfo={shoeInfo} />
-                })} */}
 
             </div>
         </>
