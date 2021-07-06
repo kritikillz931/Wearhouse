@@ -6,19 +6,29 @@ import { ModalHeader, Spinner, Modal, ModalBody, Button, ModalFooter } from 'rea
 import { InventoryContext } from "../Inventory/InventoryProvider";
 
 export const TrackingTableRow = ({ tracking }) => {
-    const { searchTracking, trackingResults, releaseTrackingNumber } = useContext(TrackingContext)
+    const { getTrackingStatus, trackingSingle, releaseTrackingNumber } = useContext(TrackingContext)
     const { updateInventory, getInventoryById } = useContext(InventoryContext)
+    const [status, setStatus] = useState("")
+    const [trackingResults, setTrackingResults] = useState([])
     const [showTracking, setShowTracking] = useState("")
     const [item, setItem] = useState({})
     const [modal, setModal] = useState(false)
     const toggle = () => setModal(!modal)
-
-
+   
     useEffect(() => {
-        searchTracking(tracking.trackingNumber, tracking.carrier)
+        console.log("t dot num: ", tracking.trackingNumber, "t dot car: ", tracking.carrier)
+        getTrackingStatus(tracking.trackingNumber, tracking.carrier)
+        .then(result => {
+            setTrackingResults(result)
+            setStatus(result.data.items[0].status)
+        })
         getInventoryById(tracking.inventoryItemId)
             .then(setItem)
-    }, [])
+    }, [tracking])
+
+    useEffect(() => {
+        console.log("status: ", status)
+    }, [status])
 
 
     const deleteShipment = () => {
@@ -48,14 +58,11 @@ export const TrackingTableRow = ({ tracking }) => {
                 event.preventDefault()
                 toggle()
             }}>
-                <td><img className="prodPhoto" src={tracking.inventoryItem.silhouette} alt="shoe" /></td>
+                <td><img className="prodPhoto" src={item.silhouette} alt="shoe" /></td>
                 <td className="prodInfo"><b>{tracking.inventoryItem.brand}</b> {tracking.inventoryItem.name}</td>
                 <td className="prodInfo">{tracking.carrier}</td>
                 <td className="prodInfo">{tracking.trackingNumber}</td>
-                <td>
-                    {trackingResults.data?.items.length > 0 ? trackingResults.data?.items[0].status : <Spinner size="sm" children=" " color="secondary" />}
-
-                </td>
+                <td> {status === "" ? <Spinner  children=" "  /> : status} </td>
             </tr>
 
 
@@ -65,7 +72,7 @@ export const TrackingTableRow = ({ tracking }) => {
                 </ModalHeader>
                 <ModalBody>
                     <img src={tracking.inventoryItem.silhouette} alt="shoe" className="modalImage" />
-                    <p>Status: {trackingResults?.data?.items[0].status}</p>
+                    <p>Status: {status}</p>
 
 
 

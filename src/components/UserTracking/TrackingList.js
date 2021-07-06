@@ -7,7 +7,7 @@ import { TrackingInfoForm } from "./TrackingForm";
 import { TrackingTableRow } from "./TrackingTableRow";
 
 export const TrackingList = () => {
-  const { trackingList, getTrackingList } = useContext(TrackingContext)
+  const { trackingList, getTrackingList, getUsersTrackingDetails, detailedInfo } = useContext(TrackingContext)
   const [modal, setModal] = useState(false)
   const toggle = () => setModal(!modal)
   const [filteredTrackingList, setTrackingList] = useState([])
@@ -17,8 +17,10 @@ export const TrackingList = () => {
     getTrackingList()
   }, [])
 
+
   useEffect(() => {
     let usersTracking = (trackingList.filter(track => track.inventoryItem.userId === userId))
+    console.log(usersTracking)
     setTrackingList(usersTracking)
   }, [trackingList])
 
@@ -44,6 +46,7 @@ export const TrackingList = () => {
               <tbody>
                 {
                   filteredTrackingList.map(tracking => {
+                    console.log("detailed info: ", detailedInfo)
                     return (
                       <TrackingTableRow tracking={tracking} />
                     )

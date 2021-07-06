@@ -100,20 +100,6 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
             {results?.meta?.message === "Cannot detect courier." ?<Alert color="warning">Cannot Detect Carrier</Alert> : ""}
             {results?.meta?.message === "Success" && results?.data?.items[0].status !== "notfound" ? <TrackingSearch key={results?.data?.items[0].id} searchResult={results?.data?.items[0]} shoeInfo={shoeInfo} /> : ""}
             
-
-
-
-
-
-
-
-
-            {/* {results?.data?.items[0]?.status === "notfound" && !loading && results?.data?.items ? <Alert color="warning">No Results Found</Alert> : ""}
-            {results?.data?.meta?.type !== "Success" ? <Alert color="warning">No Results Found</Alert> : ""}
-            {results?.data && !loading && results?.data.items[0].status !== "notfound"  ? <TrackingSearch key={results?.data?.items[0].id} searchResult={results?.data?.items[0]} shoeInfo={shoeInfo} /> : ""} */}
-
-
-
             </div>
         </>
     )
