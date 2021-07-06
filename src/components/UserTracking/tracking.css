@@ -71,3 +71,8 @@ font-family:sans-serif;
     text-transform: uppercase;
     text-align: center;
 }
+
+.prodPhoto {
+    max-width: 100px;
+    height: auto;
+}

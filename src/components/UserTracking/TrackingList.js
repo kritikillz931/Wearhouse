@@ -7,6 +7,7 @@ import { Table, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, J
 import { TrackingInfoForm } from "./TrackingForm";
 import { TrackingDetail } from "./TrackingDetail";
 import { InventoryDetail } from "../Inventory/InventoryDetail";
+import { TrackingTableRow } from "./TrackingTableRow";
 
 export const TrackingList = (props) => {
   const { trackingList, releaseTracking, getTrackingList } = useContext(TrackingContext)
@@ -57,7 +58,6 @@ export const TrackingList = (props) => {
                 <tr>
                   <th>Carrier</th>
                   <th>Tracking Number</th>
-                  <th></th>
                   <th>Product</th>
                   <th>Status</th>
                 </tr>
@@ -66,19 +66,7 @@ export const TrackingList = (props) => {
                 {
                   filteredTrackingList.map(tracking => {
                     return (
-                      <tr key={tracking.id} onClick={(event) => {
-                        event.preventDefault()
-                        openEditModal(tracking.trackingNumber, tracking.carrier, tracking.inventoryItem, tracking.id)
-                      }}>
-                        <td className="prodInfo">{tracking.carrier}</td>
-                        <td className="prodInfo">{tracking.trackingNumber}</td>
-                        <td className="prodPhoto">{tracking.inventoryItem.silhouette}</td>
-                        <td className="prodInfo"><b>{tracking.inventoryItem.brand}</b> <br /> {tracking.inventoryItem.name}</td>
-                        <td>
-                          <Button color="info" size="sm" onClick={() => handleRelease(tracking.id)}>Delete</Button>
-
-                        </td>
-                      </tr>
+                      <TrackingTableRow tracking={tracking} />
                     )
                   })
                 }
