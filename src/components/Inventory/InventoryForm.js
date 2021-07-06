@@ -88,7 +88,7 @@ export const InventoryForm = () => {
         </InputGroup>
         <hr />
         <br />
-          {loading && !nameSearchResults.results && !skuSearchResults.results ? <> <Spinner children=" "  type="grow" color="info" /> <Spinner type="grow" color="info" /> <Spinner children=" "  type="grow" color="info" /> </> : ""}
+          {loading && !nameSearchResults.results && !skuSearchResults.results ? <> <Spinner children=" "  type="grow"  color="info" /> <Spinner children=" "  type="grow" color="info" /> <Spinner children=" "  type="grow" color="info" /> </> : ""}
         {loadingSection}
 
         <div>

@@ -35,10 +35,10 @@ export const TrackingTableRow = ({ tracking }) => {
                 event.preventDefault()
                 openEditModal(tracking.trackingNumber, tracking.carrier, tracking.inventoryItem, tracking.id)
             }}>
+                <td><img className="prodPhoto" src={tracking.inventoryItem.silhouette} alt="shoe" /></td>
+                <td className="prodInfo"><b>{tracking.inventoryItem.brand}</b> {tracking.inventoryItem.name}</td>
                 <td className="prodInfo">{tracking.carrier}</td>
                 <td className="prodInfo">{tracking.trackingNumber}</td>
-
-                <td className="prodInfo"><img className="prodPhoto" src={tracking.inventoryItem.silhouette} alt="shoe" /><b>{tracking.inventoryItem.brand}</b> <br /> {tracking.inventoryItem.name}</td>
                 <td>
                     {trackingResults.data?.items.length > 0 ? trackingResults.data?.items[0].status: <Spinner size="sm" children=" " color="secondary" />}
 

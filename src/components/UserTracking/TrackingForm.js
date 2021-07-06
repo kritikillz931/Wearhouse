@@ -6,16 +6,20 @@ import { Button, Form, Input, ModalFooter } from "reactstrap"
 import { TrackingSearch } from "./TrackingSearch"
 import { useHistory } from "react-router"
 
-export const TrackingInfoForm = ({ shoeInfo }) => {
-    const { searchTracking, trackingResults, releaseTracking } = useContext(TrackingContext)
+export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
+    const { searchTrackingSingle, trackingSingle, releaseTracking } = useContext(TrackingContext)
     const [trackingNumber, setTrackingNumber] = useState("")
     const [trackingCarrier, setTrackingCarrier] = useState("")
     const [results, setResults] = useState([])
     const history = useHistory()
 
-    const trackNum = localStorage.getItem("trackingNumber")
-    const trackCar = localStorage.getItem("trackingCarrier")
-    const trackId = localStorage.getItem("trackingId")
+    useEffect(() => {
+        if (trackingInfo) {
+
+            setTrackingNumber(trackingInfo.trackingNumber)
+            setTrackingCarrier(trackingInfo.carrier)
+        }
+    }, [trackingInfo])
 
     const handleTrackingInputChange = (event) => {
         setTrackingNumber(event.target.value)
@@ -38,27 +42,22 @@ export const TrackingInfoForm = ({ shoeInfo }) => {
 
 
     useEffect(() => {
-        setResults([])
-    }, [])
-
-    useEffect(() => {
-        setResults(trackingResults)
-        console.log("final results: ", trackingResults.data?.items)
-    }, [trackingResults])
+        setResults(trackingSingle)
+    }, [trackingSingle])
 
     const trackingSearch = () => {
-        searchTracking(trackingNumber, trackingCarrier)
+        searchTrackingSingle(trackingNumber.trim(), trackingCarrier.trim())
+        console.log("trackingSingle" , trackingSingle)
     }
-    console.log("shoe info made it!!", shoeInfo)
 
     return (
         <>
             <section >
                 <Form className="trackingForm">
                     <fieldset>
-                        <Input type="text" id="trackingNumberInput" name="trackingNumber" placeholder="Enter Tracking Number..." defaultValue={trackNum} onChange={handleTrackingInputChange} />
+                        <Input type="text" id="trackingNumberInput" name="trackingNumber" placeholder="Enter Tracking Number..." defaultValue={trackingNumber} onChange={handleTrackingInputChange} />
                         <br />
-                        <Input type="text" id="carrierInput" name="carrier" placeholder="Enter Carrier..." defaultValue={trackCar} onChange={handleCarrierInputChange} />
+                        <Input type="text" id="carrierInput" name="carrier" placeholder="Enter Carrier..." defaultValue={trackingCarrier} onChange={handleCarrierInputChange} />
                         <br />
                     </fieldset>
                 </Form>
@@ -72,7 +71,7 @@ export const TrackingInfoForm = ({ shoeInfo }) => {
                     {shoeInfo ? <Button color="danger" className="inventoryDeleteBtn"
                         onClick={event => {
                         event.preventDefault()
-                        handleRelease(trackId)
+                        handleRelease(trackingInfo.id)
                         history.push(`/Tracking/`)
                     }}>DELETE</Button> : <Button color="danger" onClick={() => refreshPage()}>CANCEL</Button>}
 
@@ -83,7 +82,7 @@ export const TrackingInfoForm = ({ shoeInfo }) => {
             </section>
             <div>
 
-                {results.data?.items.map(singleResult => {
+                {results?.data?.items.map(singleResult => {
                     return <TrackingSearch key={singleResult.id} searchResult={singleResult} shoeInfo={shoeInfo} />
                 })}
 

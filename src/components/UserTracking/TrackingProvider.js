@@ -6,7 +6,8 @@ export const TrackingContext = createContext()
 
 export const TrackingProvider = (props) => {
     const [trackingList, setTrackingList] = useState([])
-    const [trackingResults, setTrackingResults] = useState({})
+    const [trackingResults, setTrackingResults] = useState([])
+    const [trackingSingle, setTrackingSingle] = useState()
     let trackingData = [];
 
 const userId = localStorage.getItem("wearhouse_user")
@@ -63,10 +64,7 @@ const searchTrackingSingle = (trackingNumber, carrier) => {
     
     fetch("https://order-tracking.p.rapidapi.com/trackings/realtime", requestOptions)
       .then(response => response.json())
-      .then(response => {
-          trackingData.push(response)
-      })
-      .then(console.log(trackingData))
+      .then(setTrackingSingle)
 }
 
 const addTracking = trackingInfo => {
@@ -118,8 +116,8 @@ return (
         updateTrackingInfo,
         searchTracking,
         searchTrackingSingle,
-        trackingData
-
+        trackingData,
+        trackingSingle
     }}>
         {props.children}
     </TrackingContext.Provider>

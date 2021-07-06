@@ -29,21 +29,6 @@ export const TrackingList = (props) => {
     setTrackingList(usersTracking)
   }, [trackingList])
 
-  const handleRelease = (trackingId) => {
-    releaseTracking(trackingId)
-      .then(() => {
-        history.push("/Tracking")
-      })
-  }
-
-  const openEditModal = (trackingNumber, trackingCarrier, trackingInventory, trackingId) => {
-    localStorage.setItem("trackingNumber", trackingNumber)
-    localStorage.setItem("trackingCarrier", trackingCarrier)
-    localStorage.setItem("trackingInventory", trackingInventory)
-    localStorage.setItem("trackingId", trackingId)
-    setModal(true)
-    return;
-  }
 
   return (
     <>
@@ -56,9 +41,10 @@ export const TrackingList = (props) => {
             <Table dark>
               <thead>
                 <tr>
+                  <th>Silhouette</th>
+                  <th>Description</th>
                   <th>Carrier</th>
                   <th>Tracking Number</th>
-                  <th>Product</th>
                   <th>Status</th>
                 </tr>
               </thead>
