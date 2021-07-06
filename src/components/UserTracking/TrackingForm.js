@@ -84,7 +84,8 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
             </section>
             <div>
             {loading ?  <Spinner children=" "  type="grow"  color="info" /> : ""}
-            {results?.data?.items[0].status === "notfound" && !loading ? <Alert color="warning">No Results Found</Alert> : ""}
+            {results?.data?.items[0]?.status === "notfound" && !loading && results?.data?.items ? <Alert color="warning">No Results Found</Alert> : ""}
+            {results?.data?.meta?.type !== "Success" ? <Alert color="warning">No Results Found</Alert> : ""}
             {results?.data && !loading && results?.data.items[0].status !== "notfound"  ? <TrackingSearch key={results?.data?.items[0].id} searchResult={results?.data?.items[0]} shoeInfo={shoeInfo} /> : ""}
 
 

@@ -16,7 +16,8 @@ export const TotalMarketPrice = () => {
     }, [])
     useEffect(() => {
         let total = 0
-        inventoryList.forEach(inventory => {
+        let instock = inventoryList.filter(inventory => inventory.quantity > 0)
+        instock.forEach(inventory => {
             const product = parseInt(inventory.marketValue) * parseInt(inventory.quantity)
             total += product 
         })

@@ -18,6 +18,7 @@ export const InventoryList = (props) => {
   const {
     className
   } = props;
+  const [inventoryId, setInventoryId] = useState()
   const [modal, setModal] = useState(false);
   const toggle = () => {
     localStorage.removeItem("inventoryId")
@@ -39,8 +40,7 @@ export const InventoryList = (props) => {
 
 
   const openEditModal = (id, name) => {
-    localStorage.setItem("inventoryId", id)
-    localStorage.setItem("inventoryName", name)
+    setInventoryId(id)
     setEditModal(true)
     return;
   }
@@ -127,7 +127,7 @@ export const InventoryList = (props) => {
       <Modal id="updateDetailsModal" isOpen={editModal} className={className}>
       <ModalHeader className="ModalCloseBtn" toggle={toggleEditModal}>Update Details for {localStorage.getItem("inventoryName")}</ModalHeader>
         <ModalBody>
-          <InventoryDetail />
+          <InventoryDetail inventoryId={inventoryId}/>
         </ModalBody>
       </Modal>
 
