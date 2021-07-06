@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory } from 'react-router-dom';
 import { Button, Input, InputGroup, InputGroupAddon, InputGroupText, ModalFooter } from "reactstrap"
@@ -80,7 +82,7 @@ export const InventoryDetail = () => {
   return (
     <>
       <section id="newInvDetailsBtn">
-        <img className="shoeDetailsImage" src={inventoryItem.silhouette} alt="shoe image" />
+        <img className="shoeDetailsImage" src={inventoryItem.silhouette} alt="shoe" />
         <InputGroup >
           <InputGroupAddon addonType="prepend">
             <InputGroupText>Quantity</InputGroupText>

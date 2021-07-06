@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink, Media } from 'reactstrap';
+import { Collapse, Navbar, NavbarToggler, NavbarBrand, Nav, NavItem, NavLink } from 'reactstrap';
 import "./NavBar.css"
 import wearhouseLogo from "../Images/navbarLogo.png"
 
@@ -13,7 +13,7 @@ export const NavBar = () => {
         <NavbarToggler onClick={toggleNavbar} className="mr-2" />
         <NavbarBrand href="/" className="mr-auto">
           {/* <Media object data-src="../Images/WEARHOUSELOGO.png/64x64" alt="Wearhouse Logo" /> */}
-          <img src={wearhouseLogo} alt="Wearhouse Logo Image" />
+          <img src={wearhouseLogo} alt="Wearhouse Logo" />
         </NavbarBrand>
         <Collapse isOpen={!collapsed} navbar>
           <Nav navbar className="navBarLinks">

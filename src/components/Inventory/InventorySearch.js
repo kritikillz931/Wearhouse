@@ -1,5 +1,5 @@
 import React, { useContext, useState } from "react"
-import { Button, Card, CardSubtitle, CardText, Modal, ModalBody, ModalFooter, ModalHeader, CardBody, CardTitle } from "reactstrap"
+import { Button, Card, CardSubtitle, CardText, Modal, ModalBody, ModalHeader, CardBody, CardTitle } from "reactstrap"
 import { InventoryContext } from "./InventoryProvider"
 import { InventoryDetail } from "./InventoryDetail"
 import "./Inventory.css"

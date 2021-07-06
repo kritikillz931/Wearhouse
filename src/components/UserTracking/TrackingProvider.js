@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useState, createContext} from "react"
 
 export const TrackingContext = createContext()

@@ -1,3 +1,5 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useContext, useEffect, useState } from "react"
 import { useHistory, useParams, } from 'react-router-dom';
 import {Button, CardSubtitle, Input, Card, CardTitle, CardBody } from "reactstrap"

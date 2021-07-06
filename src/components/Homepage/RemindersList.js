@@ -1,4 +1,5 @@
-// RemindersList.js renders table of reminder for current user
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
 import { Button, Container, Jumbotron, Modal, ModalBody, ModalHeader, Table } from 'reactstrap';
@@ -87,7 +88,7 @@ export const ReminderList = () => {
       </div>
 
       <Modal isOpen={modal} toggle={toggle} >
-        <ModalHeader className="reminderForm__title" toggle={toggle} className="ModalCloseBtn" charCode="x">
+        <ModalHeader className="reminderForm__title ModalCloseBtn" toggle={toggle} charCode="x">
           {reminder.id ? "EDIT REMINDER" : "ADD NEW REMINDER"}
         </ModalHeader>
         <ModalBody>

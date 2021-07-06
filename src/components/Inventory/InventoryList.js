@@ -1,7 +1,8 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
-import { useHistory } from "react-router-dom"
-import { Table, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, Jumbotron, Form, } from 'reactstrap';
+import { Table, Button, Modal, ModalBody, ModalHeader, Container, Jumbotron, } from 'reactstrap';
 import "./Inventory.css"
 import { TotalPricePaid } from "./InventoryTotalPrice"
 import { TotalMarketPrice } from "./InventoryMarketPrice"
@@ -13,7 +14,7 @@ import { InventoryDetail } from "./InventoryDetail";
 
 
 export const InventoryList = (props) => {
-  const {  inventoryList, getInventoryList, releaseInventory, searchTerms } = useContext(InventoryContext)
+  const {  inventoryList, getInventoryList } = useContext(InventoryContext)
   const {
     className
   } = props;
@@ -25,7 +26,6 @@ export const InventoryList = (props) => {
   const [filteredInventoryList, setInventoryList] = useState([])
   const [editModal, setEditModal] = useState(false);
   const toggleEditModal = () => setEditModal(!editModal)
-  const history = useHistory()
 
   useEffect(() => {
     getInventoryList()
@@ -37,14 +37,6 @@ export const InventoryList = (props) => {
     setInventoryList(inStock)
   }, [inventoryList])
 
-
-
-  const handleRelease = (inventoryId) => {
-    releaseInventory(inventoryId)
-      .then(() => {
-        history.push("/Inventory")
-      })
-  }
 
   const openEditModal = (id, name) => {
     localStorage.setItem("inventoryId", id)
@@ -82,7 +74,7 @@ export const InventoryList = (props) => {
                     event.preventDefault()
                     openEditModal(inventory.id, inventory.name)
                   }}>
-                    <td><img  id="silhouetteImg" src={inventory.silhouette}></img></td>
+                    <td><img alt="shoe silhouette"  id="silhouetteImg" src={inventory.silhouette}></img></td>
                     <td id="inventoryBrand">{inventory.brand}</td>
                     <td id="inventoryName">{inventory.name}</td>
                     <td >${inventory.price} <br />/each</td>

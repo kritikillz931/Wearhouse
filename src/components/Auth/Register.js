@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom"
 import "./Register.css"
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
-export const Register = (props) => {
+export const Register = () => {
     const [userName, setUsername] = useState('')
     const [email, setEmail] = useState('')
     const conflictDialog = useRef()
@@ -60,7 +60,7 @@ export const Register = (props) => {
 
             <Form className="RegisterForm" >
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-                    <Label className="text-white" for="exampleEmail" className="mr-sm-2"><p className="text-white">Email</p></Label>
+                    <Label className="text-white mr-sm-2" for="exampleEmail" ><p className="text-white">Email</p></Label>
                     <Input type="email" name="email" id="exampleEmail" placeholder="YourEmail@here.com" onChange={e => setEmail(e.target.value)} />
                 </FormGroup>
                 <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
