@@ -12,6 +12,8 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
     const [trackingCarrier, setTrackingCarrier] = useState("")
     const [results, setResults] = useState([])
     const [loading, setLoading] = useState(false)
+    const [showEmptyVal, setShowEmptyVal] = useState(false)
+    const [emptyValAlert, setEmptyValAlert] = useState("")
     const history = useHistory()
 
     useEffect(() => {
@@ -48,8 +50,17 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
     }, [trackingSingle])
 
     const trackingSearch = () => {
-        searchTrackingSingle(trackingNumber.trim(), trackingCarrier.trim())
-        setLoading(true)
+        if (!trackingNumber) {
+            setEmptyValAlert("Please enter a tracking number")
+            setShowEmptyVal(true)
+        }else if (!trackingCarrier) {
+            setEmptyValAlert("Please enter a carrier id")
+            setShowEmptyVal(true)
+        } else {
+            setShowEmptyVal(false)
+            searchTrackingSingle(trackingNumber.trim(), trackingCarrier.trim())
+            setLoading(true)
+        }
     }
 
     return (
@@ -84,9 +95,22 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
             </section>
             <div>
             {loading ?  <Spinner children=" "  type="grow"  color="info" /> : ""}
-            {results?.data?.items[0]?.status === "notfound" && !loading && results?.data?.items ? <Alert color="warning">No Results Found</Alert> : ""}
+            {showEmptyVal ? <Alert color="danger">{emptyValAlert}</Alert> : ""}
+            {results?.meta?.message === "Success" && results?.data?.items[0].status === "notfound" ? <Alert color="warning">No Results Found</Alert> : ""}
+            {results?.meta?.message === "Cannot detect courier." ?<Alert color="warning">Cannot Detect Carrier</Alert> : ""}
+            {results?.meta?.message === "Success" && results?.data?.items[0].status !== "notfound" ? <TrackingSearch key={results?.data?.items[0].id} searchResult={results?.data?.items[0]} shoeInfo={shoeInfo} /> : ""}
+            
+
+
+
+
+
+
+
+
+            {/* {results?.data?.items[0]?.status === "notfound" && !loading && results?.data?.items ? <Alert color="warning">No Results Found</Alert> : ""}
             {results?.data?.meta?.type !== "Success" ? <Alert color="warning">No Results Found</Alert> : ""}
-            {results?.data && !loading && results?.data.items[0].status !== "notfound"  ? <TrackingSearch key={results?.data?.items[0].id} searchResult={results?.data?.items[0]} shoeInfo={shoeInfo} /> : ""}
+            {results?.data && !loading && results?.data.items[0].status !== "notfound"  ? <TrackingSearch key={results?.data?.items[0].id} searchResult={results?.data?.items[0]} shoeInfo={shoeInfo} /> : ""} */}
 
 
 
