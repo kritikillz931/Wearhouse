@@ -88,8 +88,8 @@ export const ReminderList = () => {
       </div>
 
       <Modal isOpen={modal} toggle={toggle} >
-        <ModalHeader className="reminderForm__title ModalCloseBtn" toggle={toggle} charCode="x">
-          {reminder.id ? "EDIT REMINDER" : "ADD NEW REMINDER"}
+        <ModalHeader className="ModalCloseBtn" toggle={toggle} charCode="x">
+        <span className="reminderForm__title">{reminder.id ? "EDIT REMINDER" : "ADD NEW REMINDER"}</span>
         </ModalHeader>
         <ModalBody>
           <ReminderForm IncomingReminder={reminder} />
