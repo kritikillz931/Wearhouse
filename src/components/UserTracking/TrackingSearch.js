@@ -1,38 +1,21 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
-import React, { useContext, useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Button, Modal, ModalBody, ModalFooter } from "reactstrap"
-import { TrackingContext } from "./TrackingProvider"
 import { TrackingDetail } from "./TrackingDetail"
 import "./tracking.css"
-import { InventoryContext } from "../Inventory/InventoryProvider"
 
 
 
-export const TrackingSearch = (props) => {
-  const { updateInventory} = useContext(InventoryContext)
-  const { addTracking } = useContext(TrackingContext)
-  
-  const [currentTracking, setCurrentTracking] = useState({})
+export const TrackingSearch = (props) => {  
   const {
     className,
-    searchResult,
-    shoeInfo
+    searchResult
   } = props;
   const [modal, setModal] = useState(false);
   const toggleDetails = () => setShowDetails(!showDetails);
   const [showDetails, setShowDetails] = useState(false)
   const toggleModal = () => setModal(!modal)
-
-
-  const moveToNextStep = () => {
-      localStorage.setItem("tracking")
-      addTracking({
-        trackingNumber: searchResult.tracking_number,
-        carrier: searchResult.carrier_code
-      })
-      toggleModal()
-  }
 
 
   return (

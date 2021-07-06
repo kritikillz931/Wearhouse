@@ -57,13 +57,13 @@ export const InventoryList = (props) => {
           <Table responsive hover dark size="sm">
             <thead>
               <tr>
-                <th class="inventoryPicCol">Silhouette</th>
-                <th class="inventoryBrandCol">Brand</th>
-                <th class="inventoryNameCol">Name</th>
-                <th class="inventoryPriceCol">Price Paid</th>
-                <th class="inventoryMarketCol">Market Value</th>
-                <th class="inventorySizeCol">Size</th>
-                <th class="inventoryQtyCol">Qty</th>
+                <th className="inventoryPicCol">Silhouette</th>
+                <th className="inventoryBrandCol">Brand</th>
+                <th className="inventoryNameCol">Name</th>
+                <th className="inventoryPriceCol">Price Paid</th>
+                <th className="inventoryMarketCol">Market Value</th>
+                <th className="inventorySizeCol">Size</th>
+                <th className="inventoryQtyCol">Qty</th>
               </tr>
             </thead>
             <tbody className="inventoryTableBody">

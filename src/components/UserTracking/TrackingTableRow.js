@@ -2,10 +2,7 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useContext, useEffect, useState } from "react"
 import { TrackingContext } from "./TrackingProvider"
-import { useHistory } from "react-router-dom"
-import { ModalHeader, Spinner, Modal, ModalBody, Card, CardTitle, Button, ModalFooter } from 'reactstrap';
-import { TrackingInfoForm } from "./TrackingForm";
-import { TrackingDetail } from "./TrackingDetail";
+import { ModalHeader, Spinner, Modal, ModalBody, Button, ModalFooter } from 'reactstrap';
 import { InventoryContext } from "../Inventory/InventoryProvider";
 
 export const TrackingTableRow = ({ tracking }) => {
@@ -20,26 +17,26 @@ export const TrackingTableRow = ({ tracking }) => {
     useEffect(() => {
         searchTracking(tracking.trackingNumber, tracking.carrier)
         getInventoryById(tracking.inventoryItemId)
-        .then(setItem)
+            .then(setItem)
     }, [])
 
 
     const deleteShipment = () => {
         releaseTrackingNumber(tracking.id)
-        .then(() => {
-            updateInventory({
-                id: item.id,
-                userId: item.userId,
-                silhouette: item.silhouette,
-                brand: item.brand,
-                name: item.name,
-                sku: item.sku,
-                marketValue: item.marketValue,
-                size: item.size,
-                quantity: item.quantity + 1,
-                price: item.price
-              })
-        })
+            .then(() => {
+                updateInventory({
+                    id: item.id,
+                    userId: item.userId,
+                    silhouette: item.silhouette,
+                    brand: item.brand,
+                    name: item.name,
+                    sku: item.sku,
+                    marketValue: item.marketValue,
+                    size: item.size,
+                    quantity: item.quantity + 1,
+                    price: item.price
+                })
+            })
     }
 
 
@@ -69,9 +66,9 @@ export const TrackingTableRow = ({ tracking }) => {
                 <ModalBody>
                     <img src={tracking.inventoryItem.silhouette} alt="shoe" className="modalImage" />
                     <p>Status: {trackingResults?.data?.items[0].status}</p>
-                    
-                    
-                    
+
+
+
                     <p id="expandTrackingBtn" onClick={() => setShowTracking(!showTracking)}>{showTracking ? "Hide Details" : "View Details"}</p>
                     {showTracking ? trackingResults?.data.items[0].origin_info.trackinfo.map(action => {
                         return <p id="shippingDetails">
@@ -80,7 +77,7 @@ export const TrackingTableRow = ({ tracking }) => {
                             <b>Details: </b>{action.Details} <br />
                         </p>
                     })
-                    : <br />}
+                        : <br />}
                 </ModalBody>
                 <ModalFooter>
                     <Button color="danger" size="md" onClick={() => deleteShipment()}>Cancel Shipment</Button>

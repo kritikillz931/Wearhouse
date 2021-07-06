@@ -2,22 +2,15 @@
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useContext, useEffect, useState } from "react"
 import { TrackingContext } from "./TrackingProvider"
-import { useHistory } from "react-router-dom"
-import { Table, Button, Modal, ModalBody, ModalHeader, ModalFooter, Container, Jumbotron, } from 'reactstrap';
+import { Table, Button, Modal, ModalBody, ModalHeader, Container, Jumbotron, } from 'reactstrap';
 import { TrackingInfoForm } from "./TrackingForm";
-import { TrackingDetail } from "./TrackingDetail";
-import { InventoryDetail } from "../Inventory/InventoryDetail";
 import { TrackingTableRow } from "./TrackingTableRow";
 
-export const TrackingList = (props) => {
-  const { trackingList, releaseTracking, getTrackingList } = useContext(TrackingContext)
-  const {
-    className
-  } = props;
+export const TrackingList = () => {
+  const { trackingList, getTrackingList } = useContext(TrackingContext)
   const [modal, setModal] = useState(false)
   const toggle = () => setModal(!modal)
   const [filteredTrackingList, setTrackingList] = useState([])
-  const history = useHistory()
   const userId = parseInt(localStorage.getItem("wearhouse_user"))
 
   useEffect(() => {

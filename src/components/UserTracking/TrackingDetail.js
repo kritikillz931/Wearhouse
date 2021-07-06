@@ -1,8 +1,7 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useContext, useEffect, useState } from "react"
-import { useHistory, useParams, } from 'react-router-dom';
-import {Button, CardSubtitle, Input, Card, CardTitle, CardBody } from "reactstrap"
+import {Button, CardSubtitle, Card, CardTitle, CardBody } from "reactstrap"
 import {TrackingContext} from "./TrackingProvider"
 import { InventoryContext } from "../Inventory/InventoryProvider"
 
@@ -10,7 +9,7 @@ import { InventoryContext } from "../Inventory/InventoryProvider"
 
 export const TrackingDetail = ({searchResult}) => {
   const { getUnshippedInventoryList, unshippedInventory, updateInventory} = useContext(InventoryContext)
-  const { addTracking, updateTrackingInfo } = useContext(TrackingContext)
+  const { addTracking } = useContext(TrackingContext)
   const [unshippedInventoryList, setUnshippedInventory] = useState([])
 
   // gets inventory items with embeded tracking details
@@ -68,7 +67,7 @@ export const TrackingDetail = ({searchResult}) => {
                 <CardSubtitle tag="h6" className="mb-2 text-muted">Name: {item.name} <br />
               Size: {item.size} <br />
               Quantity In Stock: {item.quantity}</CardSubtitle>
-              <img width="100%" src={item.silhouette} alt="Card image cap" />
+              <img width="100%" src={item.silhouette} alt="Card cap" />
               </CardBody>
         <Button  color="info" size="sm"
                 onClick={(e) => {
