@@ -1,5 +1,8 @@
 #expandTrackingBtn {
-    color: lightgray
+    color: lightgray;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.3rem;
 }
 
 #apiResults {
@@ -75,4 +78,8 @@ font-family:sans-serif;
 .prodPhoto {
     max-width: 100px;
     height: auto;
+}
+
+.modalImage {
+    max-width: 100%;
 }

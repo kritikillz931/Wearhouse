@@ -38,7 +38,7 @@ export const TrackingList = (props) => {
             <h1 className="display-5">Inventory Shipped</h1>
           </Jumbotron>
           <div className="InventoryTable" >
-            <Table dark>
+            <Table hover dark>
               <thead>
                 <tr>
                   <th>Silhouette</th>

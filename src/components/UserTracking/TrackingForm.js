@@ -64,18 +64,18 @@ export const TrackingInfoForm = ({ shoeInfo, trackingInfo }) => {
                     </fieldset>
                 </Form>
                 <ModalFooter>
-                    <Button id="trackingButton" color="info"
+                    <Button size="md" color="info"
                         onClick={event => {
                             event.preventDefault()
                             trackingSearch()
-                        }}>Search</Button>
+                        }}>SEARCH</Button>
 
-                    {shoeInfo ? <Button color="danger" className="inventoryDeleteBtn"
+                    {trackingInfo ? <Button color="danger" size="md"
                         onClick={event => {
                         event.preventDefault()
                         handleRelease(trackingInfo.id)
                         history.push(`/Tracking/`)
-                    }}>DELETE</Button> : <Button color="danger" onClick={() => refreshPage()}>CANCEL</Button>}
+                    }}>DELETE TRACKING INFO</Button> : <Button color="danger" onClick={() => refreshPage()}>CANCEL</Button>}
 
 
 

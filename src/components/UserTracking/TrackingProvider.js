@@ -84,7 +84,7 @@ const getTrackingNumberById =trackingInfoId => {
 }
 
 const releaseTrackingNumber = trackingInfoId => {
-    return fetch (`http://localhost:8088/trackingInfo/${trackingInfoId}`, {
+    return fetch (`http://localhost:8088/trackingDetails/${trackingInfoId}`, {
         method: "DELETE"
 })
     .then(getTrackingList)
