@@ -24,11 +24,11 @@ export const TrackingDetail = ({searchResult}) => {
     setUnshippedInventory(NoShippingYet)
   }, [unshippedInventory])
 
+  console.log(searchResult)
 
   // saves tracking info to the DB
   const handleSaveTracking = (item) => {
-    updateTrackingInfo({
-      id: item.trackingDetails.id,
+    addTracking({
       trackingNumber: searchResult.tracking_number,
       carrier: searchResult.carrier_code,
       inventoryItemId: item.id
@@ -65,8 +65,9 @@ export const TrackingDetail = ({searchResult}) => {
             <Card body>
               <CardBody>
                 <CardTitle tag="h3">Brand: {item.brand}</CardTitle>
-                <CardSubtitle tag="h6" className="mb-2 text-muted">Name: {item.name}
-              Size: {item.size}</CardSubtitle>
+                <CardSubtitle tag="h6" className="mb-2 text-muted">Name: {item.name} <br />
+              Size: {item.size} <br />
+              Quantity In Stock: {item.quantity}</CardSubtitle>
               <img width="100%" src={item.silhouette} alt="Card image cap" />
               </CardBody>
         <Button  color="info" size="sm"

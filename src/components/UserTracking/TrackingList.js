@@ -35,10 +35,11 @@ export const TrackingList = (props) => {
       })
   }
 
-  const openEditModal = (trackingNumber, trackingCarrier, trackingInventory) => {
+  const openEditModal = (trackingNumber, trackingCarrier, trackingInventory, trackingId) => {
     localStorage.setItem("trackingNumber", trackingNumber)
     localStorage.setItem("trackingCarrier", trackingCarrier)
     localStorage.setItem("trackingInventory", trackingInventory)
+    localStorage.setItem("trackingId", trackingId)
     setModal(true)
     return;
   }
@@ -56,8 +57,9 @@ export const TrackingList = (props) => {
                 <tr>
                   <th>Carrier</th>
                   <th>Tracking Number</th>
+                  <th></th>
                   <th>Product</th>
-                  <th>Actions</th>
+                  <th>Status</th>
                 </tr>
               </thead>
               <tbody>
@@ -66,10 +68,11 @@ export const TrackingList = (props) => {
                     return (
                       <tr key={tracking.id} onClick={(event) => {
                         event.preventDefault()
-                        openEditModal(tracking.trackingNumber, tracking.carrier, tracking.inventoryItem)
+                        openEditModal(tracking.trackingNumber, tracking.carrier, tracking.inventoryItem, tracking.id)
                       }}>
                         <td className="prodInfo">{tracking.carrier}</td>
                         <td className="prodInfo">{tracking.trackingNumber}</td>
+                        <td className="prodPhoto">{tracking.inventoryItem.silhouette}</td>
                         <td className="prodInfo"><b>{tracking.inventoryItem.brand}</b> <br /> {tracking.inventoryItem.name}</td>
                         <td>
                           <Button color="info" size="sm" onClick={() => handleRelease(tracking.id)}>Delete</Button>
@@ -89,13 +92,14 @@ export const TrackingList = (props) => {
       </Container>
       </div>
 
-        <Modal isOpen={modal} toggle={toggle} className={className}>
+        <Modal isOpen={modal} toggle={toggle}>
+        <ModalHeader className="ModalCloseBtn" id="trackingModal" toggle={toggle}>
+          <h2 id="trackingFormHeader">Search tracking info</h2>
+        </ModalHeader>
           <ModalBody>
             <TrackingInfoForm onClick={toggle}  />
           </ModalBody>
-          <ModalFooter>
-            <Button color="danger" onClick={toggle}>CANCEL</Button>{''}
-          </ModalFooter>
+         
         </Modal>
 
         

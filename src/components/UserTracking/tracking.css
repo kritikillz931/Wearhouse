@@ -50,3 +50,24 @@ font-family:sans-serif;
     font-family: sans-serif;
     text-transform: uppercase;
 }
+
+.ModalCloseBtn button {
+    color: grey;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 350;
+}
+
+.ModalCloseBtn button :hover {
+    color: darkgray;
+    background: transparent;
+    border: none;
+    font-weight: 600;
+}
+
+#trackingFormHeader {
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+}
