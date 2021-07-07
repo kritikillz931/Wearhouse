@@ -8,7 +8,7 @@ import {InventoryContext} from "./InventoryProvider"
 
 
 
-export const TotalMarketPrice = () => {
+export const InventoryEstimatedProfits= () => {
     const [price, setPrice] = useState(0)
     const {getInventoryList, inventoryList} = useContext(InventoryContext)
     useEffect(() => {
@@ -18,7 +18,7 @@ export const TotalMarketPrice = () => {
         let total = 0
         let instock = inventoryList.filter(inventory => inventory.quantity > 0)
         instock.forEach(inventory => {
-            const product = parseInt(inventory.marketValue) * parseInt(inventory.quantity)
+            const product = parseInt(inventory.marketValue) - parseInt(inventory.price)
             total += product 
         })
         setPrice(total)
@@ -27,9 +27,9 @@ export const TotalMarketPrice = () => {
     return (
         <>
         <Col>
-        Total Market Value:<br /> ${price}
+        
+        Estimated Profit: <br />${price}
         </Col>
         </>
     )
 }
-

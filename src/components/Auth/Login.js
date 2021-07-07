@@ -1,19 +1,16 @@
 import React, { useEffect, useRef, useState } from "react"
 import { useHistory } from "react-router-dom"
 import "./Login.css"
-import backgroundImg from '../Images/newbg.jpg'
 import { Button, Form, FormGroup, Label, Input } from 'reactstrap';
 
 
 
-export const Login = props => {
-    const [userName, setUsername] = useState('')
+export const Login = () => {
     const [email, setEmail] = useState('')
     const existDialog = useRef()
     const history = useHistory()
 
     useEffect(() => {
-        setUsername('')
         setEmail('')
     },[] )
 
@@ -47,12 +44,12 @@ export const Login = props => {
                             
             <Form className="LoginForm" onSubmit={handleLogin} inline>
             <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
-              <Label className="text-white" for="exampleEmail" className="mr-sm-2"><p className="text-white">Email</p></Label>
+              <Label className="text-white mr-sm-2" for="exampleEmail" ><p className="text-white">Email</p></Label>
               <Input type="email" name="email" id="exampleEmail" placeholder="YourEmail@here.com" onChange={e=> setEmail(e.target.value)} />
             </FormGroup>
             <FormGroup className="mb-2 mr-sm-2 mb-sm-0">
               <Label  for="examplePassword" className="mr-sm-2"><p className="text-white">Username</p></Label>
-              <Input type="text" name="password" id="exampleUsername" placeholder="Your Username" onChange={e=> setUsername(e.target.value)} />
+              <Input type="text" name="password" id="exampleUsername" placeholder="Your Username"  />
             </FormGroup>
             <Button type="submit" color="info">Login</Button>
           </Form>

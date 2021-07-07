@@ -1,26 +1,32 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
-import { useHistory } from "react-router-dom"
-import { Table, Button, Modal, ModalBody, ModalHeader, ModalFooter, } from 'reactstrap';
+import { Table, Button, Modal, ModalBody, ModalHeader, Container, Jumbotron, } from 'reactstrap';
 import "./Inventory.css"
 import { TotalPricePaid } from "./InventoryTotalPrice"
 import { TotalMarketPrice } from "./InventoryMarketPrice"
 import { TotalQuantityAmount } from "./InventoryQuantityAmount";
+import { InventoryEstimatedProfits } from "./InventoryEstimatedProfits"
 import { InventoryForm } from "./InventoryForm";
 import { InventoryDetail } from "./InventoryDetail";
 
 
 
 export const InventoryList = (props) => {
-  const {  inventoryList, getInventoryList, releaseInventory, searchTerms } = useContext(InventoryContext)
+  const {  inventoryList, getInventoryList } = useContext(InventoryContext)
   const {
     className
   } = props;
+  const [inventoryId, setInventoryId] = useState()
   const [modal, setModal] = useState(false);
-  const toggle = () => setModal(!modal);
+  const toggle = () => {
+    localStorage.removeItem("inventoryId")
+    setModal(!modal)
+  };
   const [filteredInventoryList, setInventoryList] = useState([])
   const [editModal, setEditModal] = useState(false);
-  const history = useHistory()
+  const toggleEditModal = () => setEditModal(!editModal)
 
   useEffect(() => {
     getInventoryList()
@@ -28,28 +34,13 @@ export const InventoryList = (props) => {
   }, [])
 
   useEffect(() => {
-    setInventoryList(inventoryList)
+    let inStock = inventoryList.filter(item => parseInt(item.quantity) > 0)
+    setInventoryList(inStock)
   }, [inventoryList])
 
-  useEffect(() => {
-    if (searchTerms !== "") {
-      const subset = inventoryList.filter(inventory => inventory.sku.toLowerCase().includes(searchTerms))
-      setInventoryList(subset)
-    } else {
-      setInventoryList(inventoryList)
-    }
-  }, [searchTerms, inventoryList])
 
-
-  const handleRelease = (inventoryId) => {
-    releaseInventory(inventoryId)
-      .then(() => {
-        history.push("/Inventory")
-      })
-  }
-
-  const openEditModal = (id) => {
-    localStorage.setItem("inventoryId", id)
+  const openEditModal = (id, name) => {
+    setInventoryId(id)
     setEditModal(true)
     return;
   }
@@ -57,58 +48,87 @@ export const InventoryList = (props) => {
 
   return (
     <>
-      <div>
-        <section className="InventoryContainer">
-          <div ><Table dark><thead><tr><th>Silhouette</th><th>Brand</th><th>Name</th><th>Size(per)</th><th>Price(per)</th><th>Market Value(per)</th><th>Quantity</th><th>Actions</th></tr></thead><tbody>
+      <div className="InventoryContainer">
+        <Container fluid="md">
+          <Jumbotron fluid className="text-white" id="inventoryHeader">
+            <h1 className="display-5">Current Inventory</h1>
+          </Jumbotron>
+        <div className="InventoryTable">
+          <Table responsive hover dark size="sm">
+            <thead>
+              <tr>
+                <th className="inventoryPicCol">Silhouette</th>
+                <th className="inventoryBrandCol">Brand</th>
+                <th className="inventoryNameCol">Name</th>
+                <th className="inventoryPriceCol">Price Paid</th>
+                <th className="inventoryMarketCol">Market Value</th>
+                <th className="inventorySizeCol">Size</th>
+                <th className="inventoryQtyCol">Qty</th>
+              </tr>
+            </thead>
+            <tbody className="inventoryTableBody">
             {
               filteredInventoryList.map(inventory => {
                 return (
-                  <tr key={inventory.id}>
-                    <td><img style={{ height: '100px', width: '100px' }} className="silhouetteImg" src={inventory.silhouette}></img></td><td className="prodInfo">{inventory.brand}</td><td className="prodInfo">{inventory.name}</td><td className="prodInfo">{inventory.size}</td><td className="prodInfo">{inventory.price}</td><td className="prodInfo">{inventory.marketValue}</td><td className="prodInfo">{inventory.quantity}</td><td><Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} onClick={(event) => {
-                      event.preventDefault()
-                      openEditModal(inventory.id)
-                    }}>edit</Button> <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '60px' }} onClick={() => handleRelease(inventory.id)}>Delete</Button></td>
+                  <tr key={inventory.id} id="inventoryTableRow" onClick={(event) => {
+                    event.preventDefault()
+                    openEditModal(inventory.id, inventory.name)
+                  }}>
+                    <td><img alt="shoe silhouette"  id="silhouetteImg" src={inventory.silhouette}></img></td>
+                    <td id="inventoryBrand">{inventory.brand}</td>
+                    <td id="inventoryName">{inventory.name}</td>
+                    <td >${inventory.price} <br />/each</td>
+                    <td >${inventory.marketValue} <br />/each</td>
+                    <td >{inventory.size}</td>
+                    <td >{inventory.quantity}</td>
+                    
                   </tr>
                 )
               })
             }
-          </tbody></Table>
-          </div>
-        </section>
-          <div className="totalsContainer">
-            <div className="text-white">
-              <div className="totalPrice">
-                <TotalPricePaid inventoryList={inventoryList} />
-              </div>
-              <div className="totalMarket">
-                <TotalMarketPrice inventoryList={inventoryList} />
-              </div>
-              <div className="totalQuantity">
-                <TotalQuantityAmount inventoryList={inventoryList} />
-              </div>
-            </div>
-            <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" onClick={toggle} >
-              Add New
-              </Button>
-          </div>
+            </tbody>
+          </Table>
+                </div>
+              <Container className="totalsContainer">
+                <Table responsive hover dark size="md">
+                  <thead>
+                    <th>
+                      <TotalPricePaid inventoryList={inventoryList} />
+                    </th>
+                    <th>
+                      <TotalMarketPrice inventoryList={inventoryList} />
+                    </th>
+                    <th>
+                      <TotalQuantityAmount inventoryList={inventoryList} />
+                    </th>
+                    <th>
+                      <InventoryEstimatedProfits inventoryList={inventoryList} />
+                    </th>
+                  </thead>
+                  
+                </Table>
+                <Button className="text-white" size="sm" color="info" onClick={toggle} >
+                ADD NEW
+                </Button>
+              </Container>
+            </Container>
+
       </div>
 
       <Modal isOpen={modal} toggle={toggle} className={className}>
+      <ModalHeader className="ModalCloseBtn" toggle={toggle}>
+      <h2 id="inventoryFormHeader">Search The Market</h2>
+        </ModalHeader>
         <ModalBody>
           <InventoryForm onClick={toggle} inventoryList={inventoryList} />
         </ModalBody>
-        <ModalFooter>
-          <Button color="info" onClick={toggle}>Cancel</Button>{''}
-        </ModalFooter>
       </Modal>
 
-      <Modal isOpen={editModal} className={className}>
+      <Modal id="updateDetailsModal" isOpen={editModal} className={className}>
+      <ModalHeader className="ModalCloseBtn"  charCode="x"  toggle={toggleEditModal}><div id="detailUpdate">UPDATE DETAILS</div>{localStorage.getItem("inventoryName")}</ModalHeader>
         <ModalBody>
-          <InventoryDetail />
+          <InventoryDetail inventoryId={inventoryId}/>
         </ModalBody>
-        <ModalFooter>
-          <Button color="info" onClick={() => setEditModal(false)}>Cancel</Button>{''}
-        </ModalFooter>
       </Modal>
 
       

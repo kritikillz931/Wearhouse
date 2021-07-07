@@ -1,0 +1,85 @@
+#expandTrackingBtn {
+    color: lightgray;
+    text-align: center;
+    font-weight: 500;
+    font-size: 1.3rem;
+}
+
+#apiResults {
+    line-height: normal;
+    font-size: 1.15rem;
+    
+    display: flex;
+    
+    text-transform: uppercase;
+}
+
+#shippingDetails {
+    font-size: 1rem;
+}
+
+.TrackingContainer {
+    min-width: 80%;
+    text-align: center;
+    position: relative;
+    top: 15px;
+    margin-bottom: 0;
+    padding: 0px;
+}
+
+.InventoryTable {
+    overflow-y:auto;
+    -webkit-overflow-scrolling: auto;
+    max-height: 500px;
+}
+
+#trackingModal {
+    text-align: center;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-transform: uppercase;
+}
+
+#trackingNumberInput {
+text-align: center;
+font-family:sans-serif;
+}
+
+#carrierInput {
+    text-align: center;
+font-family:sans-serif;
+}
+
+#trackingButton {
+    font-family: sans-serif;
+    text-transform: uppercase;
+}
+
+.ModalCloseBtn button {
+    color: grey;
+    background: transparent;
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 350;
+}
+
+.ModalCloseBtn button :hover {
+    color: darkgray;
+    background: transparent;
+    border: none;
+    font-weight: 600;
+}
+
+#trackingFormHeader {
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    text-transform: uppercase;
+    text-align: center;
+}
+
+.prodPhoto {
+    max-width: 100px;
+    height: auto;
+}
+
+.modalImage {
+    max-width: 100%;
+}

@@ -1,17 +1,17 @@
-/* 
-@import url('https://fonts.googleapis.com/css2?family=Oswald&display=swap'); */
-
-
+/* styles entire navbar component */
 .navBar {
-    text-transform: uppercase;
-    text-align:start;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
-    position: absolute;
-    top: 15%;
-    left: 10%;
-    transform: translate(-50%, -50%);
-    width: 100px;
-    max-height: 500px;
-    margin-bottom: 10px;
+    padding: 2rem 0.75rem 2rem 2rem;
+    flex-shrink: 3;
+    max-width: 100%;
+}
 
+/* styles items in nav dropdown */
+.navBarLinks {
+    text-transform: uppercase;
+    font-size: 1.15rem;
+}
+
+/* styling for links within navbar to be closer together */
+.navBarLink {
+    margin-bottom: -0.5rem;
 }

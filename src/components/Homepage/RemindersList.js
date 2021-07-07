@@ -1,25 +1,25 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useContext, useEffect, useState } from "react"
 import { ReminderContext } from "./RemindersProvider"
-import { useHistory } from "react-router-dom"
-import { Button, Modal, ModalBody, ModalFooter, Table } from 'reactstrap';
-import "./ReminderList.css"
+import { Button, Container, Jumbotron, Modal, ModalBody, ModalHeader, Table } from 'reactstrap';
+import "./Reminders.css"
 import { ReminderForm } from "../Homepage/ReminderForm"
 
-export const ReminderList = (props) => {
-  const { className } = props;
-  const { reminders, getReminders, releaseReminder } = useContext(ReminderContext)
+export const ReminderList = () => {
+  const { reminders, getReminders } = useContext(ReminderContext)
   const [filteredReminders, setFiltered] = useState([])
   const [reminder, setReminder] = useState({})
   const [currentUser, setCurrentUser] = useState({})
 
-  // modal open / close
+  // modal open / close functionality
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
-  const todaysDate = new Date().toLocaleDateString() 
-  const history = useHistory()
-  const userId = localStorage.getItem("wearhouse_user")
+  const todaysDate = new Date().toLocaleDateString() // gets today's date to display on homepage
+  const userId = localStorage.getItem("wearhouse_user") // gets userID to use in getCurrentUser function
 
+  // gets the current user from the database and sets the currentUser state to the user object
   const getCurrentUser = () => {
     fetch(`http://localhost:8088/users/${userId}`)
       .then(res => res.json())
@@ -32,69 +32,49 @@ export const ReminderList = (props) => {
     getCurrentUser()
   }, [])
 
+  // when reminders is updated or changed, this useEffect gets all reminders again and sets the filtered reminders to the updated array of reminders. 
   useEffect(() => {
-    setFiltered(reminders) //set filtered is called when reminders data is updated or changed giving filtered items a value of reminders
+    getReminders().then(setFiltered(reminders)) 
   }, [reminders])
 
-  // when delete button pressed, reminder is removed from database
-  const handleRelease = (reminderId) => {
-    releaseReminder(reminderId)
-      .then(() => {
-        history.push("/Reminders")
-      })
-  }
 
+  // renders the html for the reminders table, add new reminder button and reminder form modal.
   return (
     <>
-      <div>
-        <section className="ReminderContainer">
-          <div className="welcome">WELCOME BACK, {currentUser.userName}</div>
-          <div className="todayIs">TODAY IS {todaysDate}</div>
+      <div className="ReminderContainer">
+        <Container fluid="md" >
+          <Jumbotron fluid className="text-white" id="remindersHeader">
+            <h1 className="display-3">WELCOME BACK, {currentUser.userName}</h1>
+            <p className="display-6">TODAY IS {todaysDate}</p>
+          </Jumbotron>
 
-          <div className="reminders">
-            <Table dark>
+          
+            <Table hover responsive dark>
               <thead>
                 <tr>
-                  <th>Date</th>
-                  <th>Reminder</th>
-                  <th>actions</th>
+                  <th className="reminderDateCol">Date</th>
+                  <th className="reminderReminderCol">Reminder</th>
                 </tr>
               </thead>
               <tbody>
               {
                 filteredReminders.map(reminder => {
                   return (
-                    <tr key={reminder.id}>
+                    <tr key={reminder.id} onClick={() => {
+                      setReminder(reminder)
+                      toggle()
+                    }
+
+                    }>
                       <td>{reminder.date}</td>
                       <td>{reminder.message}</td>
-                      <td>
-                        <Button className="text-white" color="info" size="sm" style={{ height: '30px', width: '40px' }} 
-                          onClick={
-                            (event) => {
-                              event.preventDefault()
-                              setReminder(reminder)
-                              toggle()
-                            }                      
-                          }>edit
-                        </Button> 
-                      
-                        <Button 
-                          className="text-white" 
-                          color="info" size="sm" 
-                          style={{ height: '30px', width: '60px' }} 
-                          onClick={() => handleRelease(reminder.id)}>
-                            Delete
-                        </Button>
-                      </td>
                     </tr>
                   )
                 })
               }
               </tbody>
             </Table>
-          </div>
-          <div>
-            <Button className="text-white" size="sm" style={{ height: '30px', width: '125px' }} color="info" 
+            <Button className="text-white" size="sm" block  color="info" 
              onClick={
               (event) => {
                 event.preventDefault()
@@ -102,19 +82,18 @@ export const ReminderList = (props) => {
                 toggle()
               }                      
             }>
-              New Reminder
+              NEW REMINDER
             </Button>
-          </div>
-        </section>
+          </Container>
       </div>
 
-      <Modal isOpen={modal} toggle={toggle} className={className}>
+      <Modal isOpen={modal} toggle={toggle} >
+        <ModalHeader className="ModalCloseBtn" toggle={toggle} charCode="x">
+        <span className="reminderForm__title">{reminder.id ? "EDIT REMINDER" : "ADD NEW REMINDER"}</span>
+        </ModalHeader>
         <ModalBody>
           <ReminderForm IncomingReminder={reminder} />
         </ModalBody>
-        <ModalFooter>
-          <Button color="info" onClick={toggle}>Cancel</Button>{''}
-        </ModalFooter>
       </Modal>
     </>
   )

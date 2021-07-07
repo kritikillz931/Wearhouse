@@ -1,65 +1,48 @@
-import React, { useContext, useState } from "react"
-import { Button, Modal, ModalBody, ModalFooter } from "reactstrap"
-import { InventoryContext } from "./InventoryProvider"
+import React, { useState } from "react"
+import { Button, Card, CardSubtitle, CardText, Modal, ModalBody, ModalHeader, CardBody, CardTitle } from "reactstrap"
 import { InventoryDetail } from "./InventoryDetail"
 import "./Inventory.css"
 
 
 
 export const InventorySearch = (props) => {
-  const { addInventory } = useContext(InventoryContext)
   const {
-    className,
     searchResult
   } = props;
   const [modal, setModal] = useState(false);
   const toggleDetails = () => setModal(!modal);
 
 
-  const userId = parseInt(localStorage.getItem("wearhouse_user"))
-
-  const handleSaveInventory = () => {
-    //POST - add
-    addInventory({
-      userId: userId,
-      silhouette: searchResult.image.small,
-      brand: searchResult.brand,
-      name: searchResult.name,
-      marketValue: searchResult.estimatedMarketValue
-    })
-    .then(res => localStorage.setItem("inventoryId", res.id))
-    .then(toggleDetails)
-  }
-
-
-
   return (
     <>
-      <section id="apiResults" >
-        <p>
-          Name: {searchResult.name}<br />
-          Brand: {searchResult.brand}<br />
-          sku: {searchResult.sku}<br />
-          Gender: {searchResult.gender}<br />
-          Release Year: {searchResult.releaseYear}<br />
-          Colorway: {searchResult.colorway}
-        </p>
-        <img src={searchResult.image.thumbnail}></img>
-        </section>
-        <Button id="apiSave" color="info" className="btn btn-primary" onClick={event => {
+      <Card>
+        <CardBody>
+          <CardTitle tag="h5">Brand: {searchResult.brand}</CardTitle>
+          <CardSubtitle tag="h6" className="mb-2 text-muted">{searchResult.name}</CardSubtitle>
+        </CardBody>
+       {searchResult.image.thumbnail ? <img width="100%" src={searchResult.image.thumbnail} alt="shoe thumbnail"/> : "NO IMAGE AVAILABLE"}
+        <CardBody>
+          <CardText>
+            sku: {searchResult.sku}<br />
+            Gender: {searchResult.gender}<br />
+            Release Year: {searchResult.releaseYear}<br />
+            Colorway: {searchResult.colorway}
+          </CardText>
+        </CardBody>
+        <Button id="apiSave" color="info" className="btn btn-primary" onClick={(event) => {
           event.preventDefault()
-          handleSaveInventory()
-        }}>SAVE</Button>
+          toggleDetails()
+        }}>SELECT</Button>
+      </Card>
+
         
 
 
-      <Modal isOpen={modal} toggle={toggleDetails} className={className}>
+      <Modal isOpen={modal} toggle={toggleDetails}>
+        <ModalHeader  className="ModalCloseBtn"  charCode="x" toggle={toggleDetails}>UPDATE DETAILS</ModalHeader>
         <ModalBody>
-          <InventoryDetail />
+          <InventoryDetail databaseItem={searchResult}/>
         </ModalBody>
-        <ModalFooter>
-          <Button color="info" onClick={toggleDetails}>Cancel</Button>{''}
-        </ModalFooter>
       </Modal>
     </>
   )

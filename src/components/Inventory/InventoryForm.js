@@ -1,8 +1,10 @@
+/* eslint-disable react-hooks/exhaustive-deps */
+/* eslint react/no-multi-comp: 0, react/prop-types: 0 */
 import React, { useContext, useEffect, useState } from "react"
 import { InventoryContext } from "./InventoryProvider"
 import "./Inventory.css"
 import { InventorySearch } from "./InventorySearch"
-import { Button, Form, Input } from "reactstrap"
+import { Button, Input, InputGroup, InputGroupAddon, Spinner, Alert } from "reactstrap"
 
 
 export const InventoryForm = () => {
@@ -10,6 +12,7 @@ export const InventoryForm = () => {
   const [skuSearchTerms, setSkuSearchTerms] = useState("")
   const [brandSearchTerms, setBrandSearchTerms] = useState("")
   const [nameSearchTerms, setNameSearchTerms] = useState("")
+  const [loading, setLoading] = useState(false)
 
   const handleSkuInputChange = (event) => {
     setSkuSearchTerms(event.target.value)
@@ -21,19 +24,37 @@ export const InventoryForm = () => {
     setNameSearchTerms(event.target.value)
   }
 
+  let loadingSection;
+
+  useEffect(() => {
+    if (skuSearchResults.count && skuSearchResults !== 0) {
+      console.log("SKU SEARCH LOADEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
+      setLoading(false)
+    } 
+    if (nameSearchResults.count && nameSearchResults !== 0) {
+      console.log("NAME SEARCH LOADEDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD")
+      setLoading(false)
+    } 
+  }, [loading])
+
+
+  
 
   const search = (typeOfSearch) => {
+    setLoading(true)
     const tos = typeOfSearch
     if (tos === "skuSearch") {
       setBrandSearchTerms("")
       setNameSearchTerms("")
       searchSku(skuSearchTerms)
+      console.log(skuSearchResults)
       setSkuSearchTerms("")
     } else if (tos === "nameSearch") {
       setSkuSearchTerms("")
       searchName(brandSearchTerms, nameSearchTerms)
       setBrandSearchTerms("")
       setNameSearchTerms("")
+      console.log(nameSearchResults)
     } else {
       console.log("error on inventory Form page")
     }
@@ -45,30 +66,37 @@ export const InventoryForm = () => {
   return (
     <>
       <section id="inventoryModal">
-        <Form className="inventoryForm">
-          <h2 id="inventoryHeader">Search The Market</h2>
-          <fieldset>
-            <Input type="text" id="inventory__sku" name="sku" placeholder="Search By Sku..." value={skuSearchTerms} onChange={handleSkuInputChange} />
-          </fieldset>
-          <Button id="sbs" color="info"
-            onClick={event => {
-              event.preventDefault()
-              search("skuSearch")
-            }}>Search By Sku</Button>
-          <fieldset>
+        <InputGroup>
+          <Input type="text" id="inventory__sku" name="sku" placeholder="SEARCH BY SKU" value={skuSearchTerms} onChange={handleSkuInputChange} />
+          <InputGroupAddon addonType="append"> <Button color="info" onClick={event => {
+            event.preventDefault()
+            search("skuSearch")
+          }}>SEARCH BY SKU</Button> </InputGroupAddon>
+        </InputGroup>
+        <hr />
+        <p id="or">NO SKU AVAILABLE? TRY SEARCHING BY BRAND AND NAME </p>
+        <hr />
 
-            <Input type="text" id="inventory__brand" name="message" placeholder="Brand..." value={brandSearchTerms} onChange={handleBrandInputChange} />
-            <br />
-            <Input size="lg" type="text" id="inventory__name" name="message" placeholder="Name..." value={nameSearchTerms} onChange={handleNameInputChange} />
-          </fieldset>
-          <Button id="sbnb" color="info"
-            onClick={event => {
+        <InputGroup>
+          <Input type="text" id="inventory__brand" name="message" placeholder="BRAND" value={brandSearchTerms} onChange={handleBrandInputChange} />
+          <Input type="text" id="inventory__name" name="message" placeholder="NAME" value={nameSearchTerms} onChange={handleNameInputChange} />
+          <InputGroupAddon addonType="append">
+            <Button color="info" onClick={event => {
               event.preventDefault()
               search("nameSearch")
-            }}>Search By Brand & Name</Button>
+            }}>SEARCH BY NAME</Button> </InputGroupAddon>
+        </InputGroup>
+        <hr />
+        <br />
+          {loading && !nameSearchResults.results && !skuSearchResults.results ? <> <Spinner children=" "  type="grow"  color="info" /> <Spinner children=" "  type="grow" color="info" /> <Spinner children=" "  type="grow" color="info" /> </> : ""}
+        {loadingSection}
 
-        </Form>
-        <div >{skuSearchResults.results?.map(singleResult => {
+        <div>
+          {skuSearchResults?.count === 0 ? <Alert color="warning">No Results Found with that sku</Alert> : ""}
+          {nameSearchResults?.count === 0 ? <Alert color="warning">No Results Found with that brand / name</Alert> : ""}
+        </div>
+        <div >
+          {skuSearchResults.results?.map(singleResult => {
           return <InventorySearch key={singleResult.id} searchResult={singleResult} />
         })}</div>
         <div >{nameSearchResults.results?.map(singleResult => {

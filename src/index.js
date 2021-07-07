@@ -7,10 +7,10 @@ import { Wearhouse } from './Wearhouse';
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  <React.Fragment>
     <Router>
       <Wearhouse />
     </Router>
-  </React.StrictMode>,
+  </React.Fragment>,
   document.getElementById('root')
 );
