@@ -20,7 +20,7 @@ export const InventorySearch = (props) => {
           <CardTitle tag="h5">Brand: {searchResult.brand}</CardTitle>
           <CardSubtitle tag="h6" className="mb-2 text-muted">{searchResult.name}</CardSubtitle>
         </CardBody>
-        <img width="100%" src={searchResult.image.thumbnail} alt="shoe thumbnail"/>
+       {searchResult.image.thumbnail ? <img width="100%" src={searchResult.image.thumbnail} alt="shoe thumbnail"/> : "NO IMAGE AVAILABLE"}
         <CardBody>
           <CardText>
             sku: {searchResult.sku}<br />
@@ -39,7 +39,7 @@ export const InventorySearch = (props) => {
 
 
       <Modal isOpen={modal} toggle={toggleDetails}>
-        <ModalHeader toggle={toggleDetails}>Update Details</ModalHeader>
+        <ModalHeader  className="ModalCloseBtn"  charCode="x" toggle={toggleDetails}>UPDATE DETAILS</ModalHeader>
         <ModalBody>
           <InventoryDetail databaseItem={searchResult}/>
         </ModalBody>

@@ -19,6 +19,15 @@
     z-index: 1;
 }
 
+#detailUpdate {
+    
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
+#trackingDetailsFont {
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+}
+
 .InventoryTable thead {
     text-transform: uppercase;
     padding-top: 15px;

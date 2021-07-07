@@ -35,7 +35,7 @@ export const ReminderForm = ({ IncomingReminder }) => {
   const handleRelease = (reminderId) => {
     releaseReminder(reminderId)
       .then(() => {
-        history.push("/Reminders")
+        window.location.reload()
       })
   }
 
@@ -73,7 +73,7 @@ export const ReminderForm = ({ IncomingReminder }) => {
           <Input size="sm" type="date" id="reminder__date" name="date" onChange={handleControlledInputChange} defaultValue={reminder.date} />
         </FormGroup><br />
         <ModalFooter>
-          <Button color="info" className="btn btn-primary"
+          <Button size="sm" color="info" className="btn btn-primary"
             onClick={event => {
               event.preventDefault()
               handleSaveReminder()
@@ -81,9 +81,14 @@ export const ReminderForm = ({ IncomingReminder }) => {
             }}
           >SAVE</Button>
           {reminder.id ? <Button
-            color="danger" size="md"
-            onClick={() => handleRelease(reminder.id)}>
-            DELETE</Button> : <Button color="danger" size="md" onClick={() => refreshPage()}>Cancel</Button>}
+            color="danger" size="sm"
+            onClick={event => {
+              event.preventDefault()
+             handleRelease(reminder.id)
+            history.push(`/Reminders`)
+            }
+             }>
+            DELETE</Button> : <Button color="danger" size="sm" onClick={() => refreshPage()}>CANCEL</Button>}
         </ModalFooter>
 
 
@@ -91,3 +96,5 @@ export const ReminderForm = ({ IncomingReminder }) => {
     </>
   )
 }
+
+

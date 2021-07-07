@@ -68,7 +68,7 @@ export const TrackingTableRow = ({ tracking }) => {
 
             <Modal isOpen={modal} toggle={toggle}>
                 <ModalHeader className="ModalCloseBtn" toggle={toggle}>
-                    <h2>Tracking Details</h2>
+                    <h2 id="trackingDetailsFont">TRACKING DETAILS</h2>
                 </ModalHeader>
                 <ModalBody>
                     <img src={tracking.inventoryItem.silhouette} alt="shoe" className="modalImage" />
@@ -76,7 +76,7 @@ export const TrackingTableRow = ({ tracking }) => {
 
 
 
-                    <p id="expandTrackingBtn" onClick={() => setShowTracking(!showTracking)}>{showTracking ? "Hide Details" : "View Details"}</p>
+                    <p id="expandTrackingBtn" onClick={() => setShowTracking(!showTracking)}>{showTracking ? "HIDE DETAILS" : "VIEW DETAILS"}</p>
                     {showTracking ? trackingResults?.data.items[0].origin_info.trackinfo.map(action => {
                         return <p id="shippingDetails">
                             <b>Date: </b>{action.Date} <br />
@@ -87,7 +87,7 @@ export const TrackingTableRow = ({ tracking }) => {
                         : <br />}
                 </ModalBody>
                 <ModalFooter>
-                    <Button color="danger" size="md" onClick={() => deleteShipment()}>Cancel Shipment</Button>
+                    <Button color="danger" size="md" onClick={() => deleteShipment()}>CANCEL SHIPMENT</Button>
                 </ModalFooter>
             </Modal>
 

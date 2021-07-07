@@ -125,19 +125,19 @@ export const InventoryDetail = ({databaseItem, inventoryId}) => {
          </InputGroup>
          <br />
          <ModalFooter>
-           <Button color="info" className="btn btn-primary"
+           <Button size="sm" color="info" className="btn btn-primary"
              onClick={event => {
                event.preventDefault()
                handleSaveInventory()
                history.push(`/Inventory/`)
              }}>SAVE</Button>
  
-           {inventoryItem.size ? <Button color="danger" className="inventoryDeleteBtn"
+           {inventoryItem.size ? <Button size="sm" color="danger" className="inventoryDeleteBtn"
              onClick={event => {
                event.preventDefault()
                handleRelease(inventoryItem.id)
                history.push(`/Inventory/`)
-             }}>Delete</Button> : <Button color="danger" onClick={() => refreshPage()}>Cancel</Button>}
+             }}>DELETE</Button> : <Button color="danger" onClick={() => refreshPage()}>CANCEL</Button>}
  
  
          </ModalFooter>

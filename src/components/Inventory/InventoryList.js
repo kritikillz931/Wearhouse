@@ -125,7 +125,7 @@ export const InventoryList = (props) => {
       </Modal>
 
       <Modal id="updateDetailsModal" isOpen={editModal} className={className}>
-      <ModalHeader className="ModalCloseBtn" toggle={toggleEditModal}>Update Details for {localStorage.getItem("inventoryName")}</ModalHeader>
+      <ModalHeader className="ModalCloseBtn"  charCode="x"  toggle={toggleEditModal}><div id="detailUpdate">UPDATE DETAILS</div>{localStorage.getItem("inventoryName")}</ModalHeader>
         <ModalBody>
           <InventoryDetail inventoryId={inventoryId}/>
         </ModalBody>

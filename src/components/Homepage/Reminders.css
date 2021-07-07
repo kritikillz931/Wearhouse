@@ -7,7 +7,7 @@
 }
 
 #remindersHeader {
-    text-shadow: 2px 2px grey;
+    font-family:Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
     margin-bottom: 50px;
     text-transform: uppercase;
 }
